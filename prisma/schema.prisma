@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  PENDING
+  CLAIMED
+}
+
+enum Platform {
+  EMAIL
+  SMS
+  FACEBOOK
+  X
+  TELEGRAM
+  TIKTOK
+  INSTAGRAM
+  WHATSAPP
+  SIGNAL
+}
+
+model Balances {
+  id         String  @id
+  satsAmount Int
+  receiver   String
+  message    String?
+
+  status   Status   @default(PENDING)
+  platform Platform
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
