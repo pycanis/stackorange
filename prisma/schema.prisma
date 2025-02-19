@@ -28,7 +28,7 @@ enum Platform {
 }
 
 model Balances {
-  id         String  @id
+  id         String  @id @default(cuid())
   satsAmount Int
   receiver   String
   message    String?

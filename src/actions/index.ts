@@ -10,8 +10,8 @@ export const server = {
       name: z.string(),
     }),
     handler: async (input) => {
-      await prisma.transactions.create({
-        data: { id: "test", platform: Platform.EMAIL, receiver: "email@email.cz", satsAmount: 10 },
+      await prisma.balances.create({
+        data: { platform: Platform.EMAIL, receiver: "email@email.cz", satsAmount: 10 },
       });
 
       return `Hello, ${input.name}!`;
