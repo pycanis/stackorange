@@ -1,22 +1,10 @@
 ---
+import { Button } from "../components/Button";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
   <p>Btc spark</p>
 
-  <button>Get greeting</button>
+  <Button client:load />
 </Layout>
-
-<script>
-  import { actions } from "astro:actions";
-
-  const button = document.querySelector("button");
-
-  button?.addEventListener("click", async () => {
-    // Show alert pop-up with greeting from action
-    const { data, error } = await actions.getGreeting({ name: "Houston" });
-
-    if (!error) alert(data);
-  });
-</script>
