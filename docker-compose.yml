@@ -1,6 +1,16 @@
 name: stackorange
 
 services:
+  traefik:
+    image: traefik:v3.3
+    command: --providers.docker
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.yml:/etc/traefik/traefik.yml
+
   app:
     build:
       context: .
@@ -10,6 +20,10 @@ services:
       - ./db:/app/db
     ports:
       - "3000:3000"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.app.rule=Host(`localhost`)
+      - traefik.http.routers.app.entrypoints=web,websecure
     environment:
       DATABASE_URL: "file:../db/prod.db"
       LND_REST_API_ENDPOINT: "https://lnd:8080"
