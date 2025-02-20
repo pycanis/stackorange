@@ -1,0 +1,28 @@
+name: stackorange
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./db:/app/db
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "file:../db/prod.db"
+      LND_REST_API_ENDPOINT: "https://lnd:8080"
+      LND_MACAROON_PATH: "lnd/data/chain/bitcoin/mainnet/admin.macaroon"
+    # depends_on:
+    #   - lnd
+
+  lnd:
+    image: lightninglabs/lnd:v0.18.5-beta
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "10009:10009"
+      - "9735:9735"
+    volumes:
+      - ./lnd:/root/.lnd

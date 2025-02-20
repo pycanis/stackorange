@@ -1,0 +1,10 @@
+.astro
+.git
+.gitignore
+.dockerignore
+LICENSE
+dist
+node_modules
+.env
+prisma/*.db*
+*md
