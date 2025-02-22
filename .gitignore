@@ -24,3 +24,7 @@ pnpm-debug.log*
 .idea/
 
 prisma/*.db*
+
+.db
+.bitcoin
+.lnd

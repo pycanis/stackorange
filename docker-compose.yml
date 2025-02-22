@@ -17,7 +17,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     volumes:
-      - ./db:/app/db
+      - ./.db:/app/db
     ports:
       - "3000:3000"
     labels:
@@ -31,6 +31,19 @@ services:
     # depends_on:
     #   - lnd
 
+  bitcoind:
+    build:
+      context: .
+      dockerfile: bitcoin-core.Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./.bitcoin:/home/bitcoin/.bitcoin
+    ports:
+      - "8332:8332"
+      - "8333:8333"
+      - "28332:28332"
+      - "28333:28333"
+
   lnd:
     image: lightninglabs/lnd:v0.18.5-beta
     restart: unless-stopped
@@ -39,4 +52,6 @@ services:
       - "10009:10009"
       - "9735:9735"
     volumes:
-      - ./lnd:/root/.lnd
+      - ./.lnd:/root/.lnd
+    depends_on:
+      - bitcoind
