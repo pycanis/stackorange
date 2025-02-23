@@ -44,4 +44,8 @@ echo "Opening lightning channel..."
 docker exec -it $LND_NODE_1 lncli --network=regtest openchannel $LND_NODE_2_PUB_KEY 2000000 0
 echo "Lightning channel opened."
 
+echo "Confirming channel open..."
+docker exec -it $BITCOIND_CONTAINER_NAME sh -c "bitcoin-cli generatetoaddress 3 \$(bitcoin-cli getnewaddress)"
+echo "Channel open confirmed."
+
 echo "Done!"
