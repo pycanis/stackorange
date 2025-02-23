@@ -27,4 +27,5 @@ prisma/*.db*
 
 .db
 .bitcoin
-.lnd
+.lnd*
+.certs

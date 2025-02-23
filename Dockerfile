@@ -6,7 +6,12 @@ COPY package.json package-lock.json ./
 
 RUN npm ci
 
-COPY . .
+COPY src src
+COPY public public
+COPY prisma prisma
+COPY server.js server.js
+COPY tsconfig.json tsconfig.json
+COPY astro.config.mjs astro.config.mjs
 
 RUN npm run build
 
