@@ -43,6 +43,4 @@ RUN mkdir -p /home/bitcoin/.bitcoin && chown -R bitcoin:bitcoin /home/bitcoin
 
 USER bitcoin
 
-EXPOSE 8332 8333 28332 28333
-
 CMD ["bitcoind"]
