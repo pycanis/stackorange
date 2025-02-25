@@ -7,5 +7,5 @@ export const Button = () => {
     if (!error) alert(data);
   };
 
-  return <button onClick={handleClick}>Get greeting</button>;
+  return <button onClick={handleClick}>.</button>;
 };
