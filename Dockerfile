@@ -15,8 +15,6 @@ COPY astro.config.mjs astro.config.mjs
 
 RUN npm run build
 
-EXPOSE 3000
-
 ENV NODE_ENV=production
 
 # ENTRYPOINT ["tail", "-f", "/dev/null"]
