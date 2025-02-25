@@ -1,10 +1,12 @@
 FROM debian:bookworm-slim
 
+ARG UID=1000
+ARG GID=1000
 ARG TARGETPLATFORM
 ARG BITCOIN_VERSION=28.1
 ENV PATH=/opt/bitcoin-${BITCOIN_VERSION}/bin:$PATH
 
-RUN groupadd -r bitcoin && useradd -r -g bitcoin bitcoin
+RUN groupadd --gid ${GID} bitcoin && useradd --create-home --no-log-init -u ${UID} -g ${GID} bitcoin
 
 RUN apt-get update -y \
     && apt-get install -y curl gnupg \
