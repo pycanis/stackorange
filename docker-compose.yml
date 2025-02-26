@@ -32,8 +32,8 @@ services:
       DATABASE_URL: ${DATABASE_URL}
       LND_REST_API_ENDPOINT: ${LND_REST_API_ENDPOINT}
       LND_MACAROON_PATH: ${LND_MACAROON_PATH}
-    depends_on:
-      - lnd
+    # depends_on:
+    #   - lnd
 
   bitcoind:
     build:
