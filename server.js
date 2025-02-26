@@ -7,3 +7,5 @@ app.use('/', express.static('dist/client/'));
 app.use(ssrHandler);
 
 app.listen(3000);
+
+console.log("App is running..")

@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.DEPLOY_SSH_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
-            cd /home/pycan/stackorange
+            cd stackorange
             git pull origin main
             docker compose up app -d --no-deps --build
             docker system prune -af
