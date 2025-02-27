@@ -133,7 +133,7 @@ services:
       # optional: https://github.com/plausible/community-edition/wiki/configuration#optional
       # registration: https://github.com/plausible/community-edition/wiki/configuration#registration
       - TOTP_VAULT_KEY
-      - DISABLE_REGISTRATION
+      - DISABLE_REGISTRATION=true
       - ENABLE_EMAIL_VERIFICATION
       # web: https://github.com/plausible/community-edition/wiki/configuration#web
       - HTTP_PORT
