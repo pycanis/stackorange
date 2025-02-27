@@ -112,7 +112,7 @@ services:
     volumes:
       - ./.plausible/plausible-data:/var/lib/plausible
     ports:
-      - 127.0.0.1:8000:${HTTP_PORT}
+      - 127.0.0.1:8000:8000
     networks:
       - plausible
     ulimits:
@@ -139,7 +139,7 @@ services:
       - HTTP_PORT
       - HTTPS_PORT
       # databases: https://github.com/plausible/community-edition/wiki/configuration#database
-      - DATABASE_URL
+      - DATABASE_URL=${PLAUSIBLE_DATABASE_URL}
       - CLICKHOUSE_DATABASE_URL
       # Google: https://github.com/plausible/community-edition/wiki/configuration#google
       - GOOGLE_CLIENT_ID

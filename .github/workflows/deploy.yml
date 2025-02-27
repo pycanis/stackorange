@@ -22,5 +22,6 @@ jobs:
           script: |
             cd stackorange
             git pull origin main
+            git checkout main
             docker compose up app -d --no-deps --build
             docker system prune -af
