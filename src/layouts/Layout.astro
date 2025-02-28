@@ -1,5 +1,4 @@
 ---
-import { Button } from "../components/Button";
 import "../styles/global.css";
 ---
 
@@ -13,17 +12,15 @@ import "../styles/global.css";
     <title>Stack orange - the ultimate Bitcoin onboarding platform</title>
     <script is:inline defer data-domain="stackorange.com" src="https://plausible.stackorange.com/js/script.js"></script>
   </head>
-  <body class="flex flex-col h-screen">
-    <header class="px-8 h-16">
+  <body class="flex flex-col px-4 h-screen max-w-2xl mx-auto">
+    <header class="mt-2 mb-8">
       <h1 class="text-2xl">Stack orange</h1>
     </header>
 
-    <main class="px-8 flex justify-center items-center flex-1">
+    <main class="flex-1 flex justify-center">
       <slot />
     </main>
 
-    <footer class="px-8 h-16 text-center">
-      <Button client:load />
-    </footer>
+    <footer></footer>
   </body>
 </html>
