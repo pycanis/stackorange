@@ -1,11 +1,9 @@
+import { Platform } from "@prisma/client";
+import { actions } from "astro:actions";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { Textarea } from "../components/Textarea";
-
-enum Platform {
-  EMAIL = "EMAIL",
-}
 
 type FormValues = {
   platform: Platform;
@@ -24,23 +22,26 @@ export const MainForm = () => {
   const donationSatsAmount = watch("donationSatsAmount");
   const selectedPlatform = watch("platform");
 
-  const onSubmit: SubmitHandler<FormValues> = (values) => {
-    console.log({ values });
+  const onSubmit: SubmitHandler<FormValues> = async (values) => {
+    const res = await actions.send(values);
+
+    console.log(res);
   };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col h-fit bg-amber-100 p-4 max-w-lg min-w-xs rounded-xl shadow-[0_0_20px_rgba(0,0,0,0.5)] shadow-orange-500"
+      className="flex flex-col h-fit bg-amber-100 p-4 max-w-lg min-w-xs rounded-xl shadow-[0_0_30px_rgba(0,0,0,0.5)] shadow-secondary"
     >
       <label htmlFor="platform">Platform</label>
-      <div id="platform" className="mb-2">
+      <div id="platform" className="mb-2 flex gap-2 flex-wrap">
         {Object.values(Platform).map((platform) => (
           <Button
             key={platform}
             type="button"
             onClick={() => setValue("platform", platform)}
-            //  className={selectedPlatform === platform ? "primary" : "secondary"}
+            className="text-sm"
+            disabled={platform !== Platform.EMAIL}
           >
             {platform}
           </Button>
@@ -50,7 +51,6 @@ export const MainForm = () => {
       {selectedPlatform === Platform.EMAIL && (
         <>
           <label htmlFor="receiver">Email</label>
-
           <Input
             {...register("receiver", { required: true })}
             id="receiver"
@@ -64,7 +64,7 @@ export const MainForm = () => {
         Message
       </label>
       <Textarea {...register("message")} id="message" rows={3} placeholder="Enter your message..."></Textarea>
-      <p className="text-xs">We'll send your message along with the withdrawal link.</p>
+      <p className="text-sm">We'll send your message along with the withdrawal link.</p>
 
       <div className="flex gap-2 my-2">
         <label className="flex-1">
@@ -87,7 +87,7 @@ export const MainForm = () => {
             inputMode="numeric"
             pattern="[0-9]*"
           />
-          <p className="text-xs">Helps cover server costs and motivates further development!</p>
+          <p className="text-sm">Helps cover server costs and motivates further development!</p>
         </label>
       </div>
 
@@ -95,7 +95,7 @@ export const MainForm = () => {
         <p className="mb-2">Total: {receiverSatsAmount + donationSatsAmount} sats</p>
       ) : null}
 
-      <p className="mb-2 text-xs">
+      <p className="mb-2 text-sm">
         Note: You'll keep the claim to your sats in case the receiver doesn't withdraw them.
       </p>
 

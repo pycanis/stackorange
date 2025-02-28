@@ -1,8 +1,23 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Regular.woff2") format("woff2"), url("/fonts/Satoshi-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-primary: #153750;
+  --color-secondary: #3dcae2;
+  --color-orange: #f7931a;
+}
+
 body {
   color: var(--color-gray-900);
-  background: var(--color-amber-50);
+  background: var(--color-primary);
+  font-family: "Satoshi", sans-serif;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
