@@ -16,7 +16,6 @@ services:
       - ./.certs:/var/traefik/certs:rw
     networks:
       - app
-      - plausible
 
   app:
     build:
