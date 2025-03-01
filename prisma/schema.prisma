@@ -10,13 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Status {
+enum BalanceStatus {
   AWAITING_PAYMENT
   PAID
   CLAIMED
 }
 
-enum Platform {
+enum BalancePlatform {
   EMAIL
   SMS
   FACEBOOK
@@ -30,13 +30,14 @@ enum Platform {
 
 model Balances {
   id                 String  @id @default(cuid())
+  paymentRequest     String  @unique
   receiverSatsAmount Int
   donationSatsAmount Int?
   receiver           String
   message            String?
 
-  status   Status   @default(AWAITING_PAYMENT)
-  platform Platform
+  status   BalanceStatus   @default(AWAITING_PAYMENT)
+  platform BalancePlatform
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

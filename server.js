@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import express from 'express';
 import { handler as ssrHandler } from './dist/server/entry.mjs';
 

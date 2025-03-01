@@ -1,4 +1,4 @@
-import { Platform } from "@prisma/client";
+import { BalancePlatform } from "@prisma/client";
 import { actions } from "astro:actions";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Button } from "../components/Button";
@@ -6,7 +6,7 @@ import { Input } from "../components/Input";
 import { Textarea } from "../components/Textarea";
 
 type FormValues = {
-  platform: Platform;
+  platform: BalancePlatform;
   receiver: string;
   message: string;
   receiverSatsAmount: number;
@@ -15,7 +15,7 @@ type FormValues = {
 
 export const MainForm = () => {
   const { register, handleSubmit, watch, setValue } = useForm<FormValues>({
-    defaultValues: { platform: Platform.EMAIL },
+    defaultValues: { platform: BalancePlatform.EMAIL },
   });
 
   const receiverSatsAmount = watch("receiverSatsAmount");
@@ -35,20 +35,20 @@ export const MainForm = () => {
     >
       <label htmlFor="platform">Platform</label>
       <div id="platform" className="mb-2 flex gap-2 flex-wrap">
-        {Object.values(Platform).map((platform) => (
+        {Object.values(BalancePlatform).map((platform) => (
           <Button
             key={platform}
             type="button"
             onClick={() => setValue("platform", platform)}
             className="text-sm"
-            disabled={platform !== Platform.EMAIL}
+            disabled={platform !== BalancePlatform.EMAIL}
           >
             {platform}
           </Button>
         ))}
       </div>
 
-      {selectedPlatform === Platform.EMAIL && (
+      {selectedPlatform === BalancePlatform.EMAIL && (
         <>
           <label htmlFor="receiver">Email</label>
           <Input

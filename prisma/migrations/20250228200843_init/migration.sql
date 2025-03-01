@@ -1,6 +1,7 @@
 -- CreateTable
 CREATE TABLE "Balances" (
     "id" TEXT NOT NULL PRIMARY KEY,
+    "paymentRequest" TEXT NOT NULL,
     "receiverSatsAmount" INTEGER NOT NULL,
     "donationSatsAmount" INTEGER,
     "receiver" TEXT NOT NULL,
@@ -11,3 +12,6 @@ CREATE TABLE "Balances" (
     "updatedAt" DATETIME NOT NULL,
     "deletedAt" DATETIME
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Balances_paymentRequest_key" ON "Balances"("paymentRequest");
