@@ -1,0 +1,10 @@
+---
+import { Landing } from "../containers/Landing";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <div class="h-fit bg-amber-100 p-4 max-w-lg min-w-xs rounded-xl shadow-[0_0_30px_rgba(0,0,0,0.5)] shadow-secondary">
+    <Landing client:load />
+  </div>
+</Layout>

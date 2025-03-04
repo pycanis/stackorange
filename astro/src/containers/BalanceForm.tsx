@@ -1,9 +1,11 @@
 import { BalancePlatform } from "@prisma/client";
 import { actions } from "astro:actions";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import useLocalStorageState from "use-local-storage-state";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { Textarea } from "../components/Textarea";
+import { UNPAID_BALANCE_ID_KEY } from "../constants";
 
 type FormValues = {
   platform: BalancePlatform;
@@ -13,7 +15,8 @@ type FormValues = {
   donationSatsAmount: number;
 };
 
-export const MainForm = () => {
+export const BalanceForm = () => {
+  const [_, setUnpaidBalanceId] = useLocalStorageState<string>(UNPAID_BALANCE_ID_KEY);
   const { register, handleSubmit, watch, setValue } = useForm<FormValues>({
     defaultValues: { platform: BalancePlatform.EMAIL },
   });
@@ -23,16 +26,19 @@ export const MainForm = () => {
   const selectedPlatform = watch("platform");
 
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
-    const res = await actions.send(values);
+    const { data, error } = await actions.send(values);
 
-    console.log(res);
+    console.log({ data, error });
+
+    if (!data || error) {
+      return alert(error);
+    }
+
+    setUnpaidBalanceId(data.id);
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col h-fit bg-amber-100 p-4 max-w-lg min-w-xs rounded-xl shadow-[0_0_30px_rgba(0,0,0,0.5)] shadow-secondary"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
       <label htmlFor="platform">Platform</label>
       <div id="platform" className="mb-2 flex gap-2 flex-wrap">
         {Object.values(BalancePlatform).map((platform) => (

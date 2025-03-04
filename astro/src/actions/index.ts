@@ -1,10 +1,20 @@
-import { BalancePlatform } from "@prisma/client";
+import { BalancePlatform, BalanceStatus } from "@prisma/client";
 import { defineAction } from "astro:actions";
 import { z } from "astro:schema";
 import { getInvoice } from "./getInvoice";
 import { prisma } from "./prisma";
 
 export const server = {
+  unpaidBalance: defineAction({
+    input: z.object({ balanceId: z.string() }),
+    handler: async (input) => {
+      const unpaidBalance = await prisma.balances.findUnique({
+        where: { id: input.balanceId, status: BalanceStatus.AWAITING_PAYMENT },
+      });
+
+      return unpaidBalance;
+    },
+  }),
   send: defineAction({
     input: z.object({
       platform: z.nativeEnum(BalancePlatform),
