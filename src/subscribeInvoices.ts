@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { handleIncomingPayment } from "./handleIncomingPayment";
-import { lndClient } from "./lndClient";
+import { handleIncomingPayment } from "./handleIncomingPayment.js";
+import { lndClient } from "./lndClient.js";
 
 const maxRetries = 5;
 

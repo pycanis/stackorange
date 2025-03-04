@@ -1,36 +1,45 @@
 import "dotenv/config";
 
 import express from "express";
-// @ts-expect-error
-import { handler as ssrHandler } from "../astro/dist/server/entry.mjs";
+import { paymentSubscribers } from "./paymentSubscribers.js";
+import { subscribeInvoices } from "./subscribeInvoices.js";
 
-const app = express();
+(async () => {
+  const app = express();
 
-app.use("/", express.static("astro/dist/client/"));
-app.use(ssrHandler);
+  // @ts-expect-error
+  const { handler } = await import("../astro/dist/server/entry.mjs");
 
-// app.get("/payment/:paymentRequest", async (req, res) => {
-//   const paymentRequest = req.query.paymentRequest;
+  app.use("/", express.static("astro/dist/client/"));
+  app.use(handler);
 
-//   res.setHeader("Content-Type", "text/event-stream");
-//   res.setHeader("Cache-Control", "no-cache");
-//   res.setHeader("Connection", "keep-alive");
-//   res.flushHeaders();
+  subscribeInvoices();
 
-//   const ts = Date.now();
+  app.get("/payment/:paymentRequest", async (req, res) => {
+    const paymentRequest = req.params.paymentRequest;
 
-//   res.id = ts;
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
+    res.flushHeaders();
 
-//   paymentSubscribers.set(paymentRequest, [...(paymentSubscribers.get(paymentRequest) ?? []), res]);
+    const ts = Date.now();
 
-//   req.on("close", () => {
-//     paymentSubscribers.set(
-//       paymentRequest,
-//       (paymentSubscribers.get(paymentRequest) ?? []).filter((rs) => rs.id !== res.id)
-//     );
-//   });
-// });
+    // @ts-ignore
+    res.id = ts;
 
-app.listen(3000, () => {
-  console.log("App is running..");
-});
+    paymentSubscribers.set(paymentRequest, [...(paymentSubscribers.get(paymentRequest) ?? []), res]);
+
+    req.on("close", () => {
+      paymentSubscribers.set(
+        paymentRequest,
+        // @ts-ignore
+        (paymentSubscribers.get(paymentRequest) ?? []).filter((rs) => rs.id !== res.id)
+      );
+    });
+  });
+
+  app.listen(3000, () => {
+    console.log("App is running on http://localhost:3000");
+  });
+})();

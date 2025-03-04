@@ -1,4 +1,3 @@
-import { BalancePlatform } from "@prisma/client";
 import { actions } from "astro:actions";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import useLocalStorageState from "use-local-storage-state";
@@ -6,6 +5,10 @@ import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { Textarea } from "../components/Textarea";
 import { UNPAID_BALANCE_ID_KEY } from "../constants";
+
+enum BalancePlatform {
+  EMAIL = "EMAIL",
+}
 
 type FormValues = {
   platform: BalancePlatform;

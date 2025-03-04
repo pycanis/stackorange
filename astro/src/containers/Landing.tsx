@@ -1,10 +1,13 @@
-import type { Balances } from "@prisma/client";
 import { actions } from "astro:actions";
 import { useEffect, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import { PaymentRequest } from "../components/PaymentRequest";
 import { UNPAID_BALANCE_ID_KEY } from "../constants";
 import { BalanceForm } from "./BalanceForm";
+
+type Balances = {
+  paymentRequest: string;
+};
 
 type UnpaidBalance = {
   isLoading: boolean;

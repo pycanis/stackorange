@@ -1,8 +1,8 @@
 import { BalancePlatform, BalanceStatus } from "@prisma/client";
 import { defineAction } from "astro:actions";
 import { z } from "astro:schema";
-import { getInvoice } from "./getInvoice";
-import { prisma } from "./prisma";
+import { getInvoice } from "../../../src/getInvoice";
+import { prisma } from "../../../src/prisma";
 
 export const server = {
   unpaidBalance: defineAction({
