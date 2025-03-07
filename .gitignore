@@ -1,5 +1,5 @@
-dist/
-node_modules/
+dist
+node_modules
 .DS_Store
 prisma/*.db*
 .env
@@ -7,3 +7,4 @@ prisma/*.db*
 .bitcoin
 .lnd*
 .certs
+.next

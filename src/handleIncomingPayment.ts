@@ -1,6 +1,6 @@
 import { BalanceStatus } from "@prisma/client";
-import { notifyPaymentSubscribers } from "./notifyPaymentSubscribers.js";
-import { prisma } from "./prisma.js";
+import { notifyPaymentSubscribers } from "./notifyPaymentSubscribers";
+import { prisma } from "./prisma";
 
 type HandleIncomingPaymentParams = {
   state: string;

@@ -1,6 +1,6 @@
-import { actions } from "astro:actions";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import useLocalStorageState from "use-local-storage-state";
+import { createBalance } from "../actions/createBalance";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { Textarea } from "../components/Textarea";
@@ -29,15 +29,16 @@ export const BalanceForm = () => {
   const selectedPlatform = watch("platform");
 
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
-    const { data, error } = await actions.send(values);
+    const balance = await createBalance({
+      ...values,
+      donationSatsAmount: isNaN(values.donationSatsAmount) ? null : values.donationSatsAmount,
+    });
 
-    console.log({ data, error });
-
-    if (!data || error) {
-      return alert(error);
+    if (!balance) {
+      return alert("Something went wrong");
     }
 
-    setUnpaidBalanceId(data.id);
+    setUnpaidBalanceId(balance.id);
   };
 
   return (

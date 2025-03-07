@@ -1,4 +1,4 @@
-import { lndClient } from "./lndClient.js";
+import { lndClient } from "./lndClient";
 
 type Response = {
   payment_request: string;

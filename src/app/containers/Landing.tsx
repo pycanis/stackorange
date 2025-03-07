@@ -1,6 +1,8 @@
-import { actions } from "astro:actions";
+"use client";
+
 import { useEffect, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
+import { getUnpaidBalance } from "../actions/getUnpaidBalance";
 import { PaymentRequest } from "../components/PaymentRequest";
 import { UNPAID_BALANCE_ID_KEY } from "../constants";
 import { BalanceForm } from "./BalanceForm";
@@ -9,41 +11,28 @@ type Balances = {
   paymentRequest: string;
 };
 
-type UnpaidBalance = {
-  isLoading: boolean;
-  balance: Balances | null;
-};
-
 export const Landing = () => {
   const [unpaidBalanceId] = useLocalStorageState<string>(UNPAID_BALANCE_ID_KEY);
-  const [unpaidBalance, setUnpaidBalance] = useState<UnpaidBalance>({ isLoading: true, balance: null });
+  const [unpaidBalance, setUnpaidBalance] = useState<Balances | null>(null);
 
   useEffect(() => {
     if (!unpaidBalanceId) {
-      setUnpaidBalance({ balance: null, isLoading: false });
-
       return;
     }
 
-    actions.unpaidBalance({ balanceId: unpaidBalanceId }).then(({ data, error }) => {
-      if (!data || error) {
-        setUnpaidBalance({ balance: null, isLoading: false });
-
+    getUnpaidBalance({ balanceId: unpaidBalanceId }).then((balance) => {
+      if (!balance) {
         return;
       }
 
-      setUnpaidBalance({ balance: data, isLoading: false });
+      setUnpaidBalance(balance);
     });
   }, [unpaidBalanceId]);
 
-  if (unpaidBalance.isLoading) {
-    return <>loading..</>;
-  }
-
-  if (unpaidBalance.balance) {
+  if (unpaidBalance) {
     return (
       <PaymentRequest
-        paymentRequest={unpaidBalance.balance.paymentRequest}
+        paymentRequest={unpaidBalance.paymentRequest}
         onPaymentSuccess={() => {
           console.log("Payment success!");
         }}
