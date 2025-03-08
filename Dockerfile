@@ -1,3 +1,5 @@
+# TODO: multistage build
+
 FROM node:lts-alpine3.21
 
 WORKDIR /app
@@ -9,13 +11,16 @@ RUN npm ci
 COPY src src
 COPY public public
 COPY prisma prisma
-COPY server.js server.js
 COPY tsconfig.json tsconfig.json
-COPY astro.config.mjs astro.config.mjs
+COPY tsconfig.server.json tsconfig.server.json
+COPY next.config.ts next.config.ts
+COPY postcss.config.mjs postcss.config.mjs
+
+RUN npm run generate
 
 RUN npm run build
 
 ENV NODE_ENV=production
 
 # ENTRYPOINT ["tail", "-f", "/dev/null"]
-CMD ["sh", "-c", "npm run generate && npm run migrate && node server.js"]
+CMD ["sh", "-c", "npm run migrate && node dist/server.js"]

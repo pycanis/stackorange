@@ -31,9 +31,9 @@ export const PaymentRequest = ({ paymentRequest, onPaymentSuccess }: Props) => {
   useEffect(() => {
     qrcode.toCanvas(document.getElementById("canvas"), `lightning:${paymentRequest}`);
 
-    const eventSource = subscribeSSE<{ paymentRequestPaid: string }>(
+    const eventSource = subscribeSSE<{ paymentRequest: string }>(
       `/payment/${paymentRequest}`,
-      ({ paymentRequestPaid }) => {
+      ({ paymentRequest: paymentRequestPaid }) => {
         if (paymentRequestPaid === paymentRequest) {
           onPaymentSuccess();
         }

@@ -24,6 +24,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./.db:/app/db
+      - ./.lnd/data/chain/bitcoin/mainnet/admin.macaroon:/app/lnd/admin.macaroon:ro
     ports:
       - "127.0.0.1:3000:3000"
     networks:

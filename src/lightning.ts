@@ -1,6 +1,12 @@
 import { Application } from "express";
 import { paymentSubscribers } from "./paymentSubscribers";
 
+declare module "express-serve-static-core" {
+  interface Response {
+    id?: string | number;
+  }
+}
+
 export const registerLightningRoutes = (server: Application) => {
   server.get("/payment/:paymentRequest", async (req, res) => {
     const paymentRequest = req.params.paymentRequest;
@@ -12,7 +18,6 @@ export const registerLightningRoutes = (server: Application) => {
 
     const ts = Date.now();
 
-    // @ts-ignore
     res.id = ts;
 
     paymentSubscribers.set(paymentRequest, [...(paymentSubscribers.get(paymentRequest) ?? []), res]);
@@ -20,7 +25,6 @@ export const registerLightningRoutes = (server: Application) => {
     req.on("close", () => {
       paymentSubscribers.set(
         paymentRequest,
-        // @ts-ignore
         (paymentSubscribers.get(paymentRequest) ?? []).filter((rs) => rs.id !== res.id)
       );
     });
