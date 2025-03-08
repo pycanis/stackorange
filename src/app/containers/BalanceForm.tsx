@@ -74,7 +74,7 @@ export const BalanceForm = () => {
         Message
       </label>
       <Textarea {...register("message")} id="message" rows={3} placeholder="Enter your message..."></Textarea>
-      <p className="text-sm">We'll send your message along with the withdrawal link.</p>
+      <p className="text-sm">We&apos;ll send your message along with the withdrawal link.</p>
 
       <div className="flex gap-2 my-2">
         <label className="flex-1">
@@ -106,10 +106,10 @@ export const BalanceForm = () => {
       ) : null}
 
       <p className="mb-2 text-sm">
-        Note: You'll keep the claim to your sats in case the receiver doesn't withdraw them.
+        Note: You&apos;ll keep the claim to your sats in case the receiver doesn&apos;t withdraw them.
       </p>
 
-      <Button type="submit">Send orange pill!</Button>
+      <Button type="submit">Send the orange pill!</Button>
     </form>
   );
 };

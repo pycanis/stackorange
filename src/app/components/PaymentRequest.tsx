@@ -1,8 +1,9 @@
 import qrcode from "qrcode";
 import { useEffect, useState } from "react";
 import { debounce } from "../utils/debounce";
+import { Button } from "./Button";
 
-export const subscribeSSE = <T extends unknown>(url: string, messageHandler: (data: T) => void) => {
+export const subscribeSSE = <T,>(url: string, messageHandler: (data: T) => void) => {
   const eventSource = new EventSource(url);
 
   eventSource.onmessage = (event) => {
@@ -22,10 +23,11 @@ export const subscribeSSE = <T extends unknown>(url: string, messageHandler: (da
 
 type Props = {
   paymentRequest: string;
-  onPaymentSuccess: () => void;
+  onSuccess: () => void;
+  onCancel?: () => void;
 };
 
-export const PaymentRequest = ({ paymentRequest, onPaymentSuccess }: Props) => {
+export const PaymentRequest = ({ paymentRequest, onSuccess, onCancel }: Props) => {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export const PaymentRequest = ({ paymentRequest, onPaymentSuccess }: Props) => {
       `/payment/${paymentRequest}`,
       ({ paymentRequest: paymentRequestPaid }) => {
         if (paymentRequestPaid === paymentRequest) {
-          onPaymentSuccess();
+          onSuccess();
         }
       }
     );
@@ -43,7 +45,7 @@ export const PaymentRequest = ({ paymentRequest, onPaymentSuccess }: Props) => {
     return () => {
       eventSource.close();
     };
-  }, [paymentRequest, onPaymentSuccess]);
+  }, [paymentRequest, onSuccess]);
 
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(paymentRequest).then(() => {
@@ -68,7 +70,13 @@ export const PaymentRequest = ({ paymentRequest, onPaymentSuccess }: Props) => {
         </p>
       </div>
 
-      <p>If the screen doesn't automatically refresh after the payment, please do so yourself.</p>
+      <p>If the screen doesn&apos;t automatically refresh after the payment, please do so yourself.</p>
+
+      {onCancel && (
+        <Button onClick={onCancel} className="mt-2">
+          Cancel
+        </Button>
+      )}
     </>
   );
 };
