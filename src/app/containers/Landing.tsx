@@ -1,15 +1,16 @@
 "use client";
 
-import { Balances } from "@prisma/client";
+import { Balances, BalanceStatus } from "@prisma/client";
 import { useEffect, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
-import { getUnpaidBalance } from "../actions/getUnpaidBalance";
+import { getBalancesByIds } from "../actions/getBalancesByIds";
 import { PaymentRequest } from "../components/PaymentRequest";
-import { UNPAID_BALANCE_ID_KEY } from "../constants";
+import { PAID_BALANCE_IDS_KEY, UNPAID_BALANCE_ID_KEY } from "../constants";
 import { BalanceForm } from "./BalanceForm";
 import { PaymentSuccess } from "./PaymentSuccess";
 
 export const Landing = () => {
+  const [paidBalanceIds, setPaidBalanceIds] = useLocalStorageState<string[]>(PAID_BALANCE_IDS_KEY);
   const [unpaidBalanceId, setUnpaidBalanceId] = useLocalStorageState<string>(UNPAID_BALANCE_ID_KEY);
   const [unpaidBalance, setUnpaidBalance] = useState<Balances | null>(null);
   const [isPaymentSuccess, setIsPaymentSuccess] = useState(false);
@@ -19,12 +20,12 @@ export const Landing = () => {
       return;
     }
 
-    getUnpaidBalance({ balanceId: unpaidBalanceId }).then((balance) => {
-      if (!balance) {
+    getBalancesByIds({ balanceIds: [unpaidBalanceId] }).then((balances) => {
+      if (!balances[0] || balances[0].status !== BalanceStatus.AWAITING_PAYMENT) {
         return;
       }
 
-      setUnpaidBalance(balance);
+      setUnpaidBalance(balances[0]);
     });
   }, [unpaidBalanceId]);
 
@@ -33,7 +34,6 @@ export const Landing = () => {
       <PaymentSuccess
         balance={unpaidBalance}
         onCancel={() => {
-          setUnpaidBalanceId("");
           setUnpaidBalance(null);
           setIsPaymentSuccess(false);
         }}
@@ -46,6 +46,7 @@ export const Landing = () => {
       <PaymentRequest
         paymentRequest={unpaidBalance.paymentRequest}
         onSuccess={() => {
+          setPaidBalanceIds([...(paidBalanceIds || []), unpaidBalance.id]);
           setUnpaidBalanceId("");
           setIsPaymentSuccess(true);
         }}

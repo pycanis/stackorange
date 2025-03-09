@@ -14,9 +14,7 @@ const inputSchema = z.object({
 });
 
 export const createBalance = async (input: TypeOf<typeof inputSchema>) => {
-  const validInput = inputSchema.parse(input);
-
-  const { platform, donationSatsAmount, message, receiver, receiverSatsAmount } = validInput;
+  const { platform, donationSatsAmount, message, receiver, receiverSatsAmount } = inputSchema.parse(input);
 
   const { payment_request } = await getInvoice(receiverSatsAmount + (donationSatsAmount ?? 0));
 

@@ -1,5 +1,6 @@
 import { Balances } from "@prisma/client";
 import { Button } from "../components/Button";
+import { getClaimLink } from "../utils/getClaimLink";
 
 type Props = {
   balance: Balances;
@@ -13,7 +14,7 @@ export const PaymentSuccess = ({ balance, onCancel }: Props) => {
 
       <p className="mb-2">
         Receiver <span className="font-bold">{balance.receiver}</span> has been sent a{" "}
-        <a href={`/orange-pill?id=${balance.id}`} target="_blank" className="text-orange hover:underline">
+        <a href={getClaimLink(balance.id)} target="_blank" className="text-orange hover:underline">
           link to claim
         </a>{" "}
         their <span className="font-bold">{balance.receiverSatsAmount}</span> sats, along with{" "}

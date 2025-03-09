@@ -70,8 +70,6 @@ export const PaymentRequest = ({ paymentRequest, onSuccess, onCancel }: Props) =
         </p>
       </div>
 
-      <p>If the screen doesn&apos;t automatically refresh after the payment, please do so yourself.</p>
-
       {onCancel && (
         <Button onClick={onCancel} className="mt-2">
           Cancel
