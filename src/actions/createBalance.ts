@@ -2,8 +2,8 @@
 
 import { BalancePlatform } from "@prisma/client";
 import { TypeOf, z } from "zod";
-import { getInvoice } from "../../getInvoice";
-import { prisma } from "../../prisma";
+import { getInvoice } from "../getInvoice";
+import { prisma } from "../prisma";
 
 const inputSchema = z.object({
   platform: z.nativeEnum(BalancePlatform),

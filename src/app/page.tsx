@@ -1,5 +1,5 @@
-import { History } from "./containers/History";
-import { Landing } from "./containers/Landing";
+import { History } from "../containers/History";
+import { Landing } from "../containers/Landing";
 
 export default function IndexPage() {
   return (
