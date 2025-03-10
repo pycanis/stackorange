@@ -4,7 +4,7 @@ import express from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import next from "next";
-import { registerLightningRoutes } from "./lightning";
+import { router as paymentsRouter } from "./payments";
 import { subscribeInvoices } from "./subscribeInvoices";
 
 const isDev = process.env.NODE_ENV !== "production";
@@ -35,7 +35,8 @@ nextApp.prepare().then(() => {
   }
 
   subscribeInvoices();
-  registerLightningRoutes(server);
+
+  server.use("/payments", paymentsRouter);
 
   server.all("*", (req, res) => {
     return handle(req, res);
