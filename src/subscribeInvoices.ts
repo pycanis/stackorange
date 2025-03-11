@@ -1,9 +1,26 @@
+import fs from "fs";
 import { Invoice__Output } from "../protos/generated/lnrpc/Invoice";
 import { handleIncomingPayment } from "./handleIncomingPayment";
 import { lnGrpcClient } from "./lndClient";
 
+const LAST_SETTLE_INDEX_FILE = "last_settle_index.txt";
+
+// The first settle index must be 1 due to bug in lnd
+// https://github.com/lightningnetwork/lnd/issues/2469
+const loadLastSettleIndex = () => {
+  if (fs.existsSync(LAST_SETTLE_INDEX_FILE)) {
+    return parseInt(fs.readFileSync(LAST_SETTLE_INDEX_FILE, "utf-8"), 10) || 1;
+  }
+
+  return 1;
+};
+
+const saveLastSettleIndex = (index: number) => {
+  fs.writeFileSync(LAST_SETTLE_INDEX_FILE, index.toString());
+};
+
 let reconnectAttempts = 0;
-let lastSettleIndex: number | undefined = undefined;
+let lastSettleIndex = loadLastSettleIndex();
 
 const reconnect = () => {
   const delay = Math.min(5000 * 2 ** reconnectAttempts, 60000);
@@ -27,6 +44,7 @@ export const subscribeInvoices = () => {
 
     if (data.state === "SETTLED") {
       lastSettleIndex = Number(data.settleIndex);
+      saveLastSettleIndex(lastSettleIndex);
     }
 
     handleIncomingPayment(data);
