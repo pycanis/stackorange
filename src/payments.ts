@@ -1,6 +1,7 @@
 import { BalanceStatus } from "@prisma/client";
 import { Router } from "express";
-import { lndClient } from "./lndClient";
+import { Payment__Output } from "../protos/generated/lnrpc/Payment";
+import { lnGrpcClient, promisifyGrpc, routerGrpcClient } from "./lndClient";
 import { paymentSubscribers } from "./paymentSubscribers";
 import { prisma } from "./prisma";
 import { getRequiredStringParams } from "./utils/params";
@@ -27,12 +28,23 @@ router.get("/withdraw", async (req, res) => {
     return;
   }
 
-  const { data } = await lndClient.get<{ num_satoshis: string }>(`/v1/payreq/${pr}`);
+  const result = await promisifyGrpc(lnGrpcClient.DecodePayReq.bind(lnGrpcClient), {
+    payReq: pr,
+  });
 
-  if (Number(data.num_satoshis) !== balance.receiverSatsAmount) {
+  if (!result) {
     res.json({
       status: "ERROR",
-      reason: `Claim for ${data.num_satoshis} sats doesn't match the expected claim of ${balance.receiverSatsAmount} sats.`,
+      reason: `Invalid pr.`,
+    });
+
+    return;
+  }
+
+  if (Number(result.numSatoshis) !== balance.receiverSatsAmount) {
+    res.json({
+      status: "ERROR",
+      reason: `Claim for ${result.numSatoshis} sats doesn't match the expected claim of ${balance.receiverSatsAmount} sats.`,
     });
 
     return;
@@ -40,7 +52,21 @@ router.get("/withdraw", async (req, res) => {
 
   res.json({ status: "OK" });
 
-  // const {data} = await lndClient.post("/v2/router/send", { payment_request: pr, fee_limit_sat: 10 });
+  const stream = routerGrpcClient.SendPaymentV2({
+    paymentRequest: pr,
+    feeLimitSat: 10,
+    timeoutSeconds: 15,
+  });
+
+  stream.on("data", async (data: Payment__Output) => {
+    if (data.status === "SUCCEEDED") {
+      await prisma.balances.update({ where: { id: k1 }, data: { status: BalanceStatus.CLAIMED } });
+    }
+  });
+
+  stream.on("error", (err) => {
+    console.log("Error happened during payment stream: ", err);
+  });
 });
 
 router.get("/withdraw/:balanceId", async (req, res) => {

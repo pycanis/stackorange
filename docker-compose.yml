@@ -38,8 +38,10 @@ services:
       - traefik.http.routers.app.tls.certresolver=cloudflare
     environment:
       DATABASE_URL: ${DATABASE_URL}
-      LND_REST_API_ENDPOINT: ${LND_REST_API_ENDPOINT}
+      LND_REST_ENDPOINT: ${LND_REST_ENDPOINT}
+      LND_GRPC_ENDPOINT: ${LND_GRPC_ENDPOINT}
       LND_MACAROON_PATH: ${LND_MACAROON_PATH}
+      LND_TLS_PATH: ${LND_TLS_PATH}
     # depends_on:
     #   - lnd
 

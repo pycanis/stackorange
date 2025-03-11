@@ -1,71 +1,44 @@
-import { z } from "zod";
+import { Invoice__Output } from "../protos/generated/lnrpc/Invoice";
 import { handleIncomingPayment } from "./handleIncomingPayment";
-import { lndClient } from "./lndClient";
+import { lnGrpcClient } from "./lndClient";
 
-const maxRetries = 5;
+let reconnectAttempts = 0;
+let lastSettleIndex: number | undefined = undefined;
 
-const handleReconnect = (retryCount: number) => {
-  retryCount += 1;
+const reconnect = () => {
+  const delay = Math.min(5000 * 2 ** reconnectAttempts, 60000);
 
-  if (retryCount > maxRetries) {
-    console.error("Max lnd connection retries reached. Giving up..");
-
-    return;
-  }
-
-  const backoffDelay = 1000 * retryCount;
+  console.log(`Subscribing to invoices in ${delay / 1000} seconds..`);
 
   setTimeout(() => {
+    reconnectAttempts++;
+
     subscribeInvoices();
-  }, backoffDelay);
-};
-
-const subscribe = (retryCount: number) => {
-  lndClient
-    .get("/v1/invoices/subscribe", {
-      responseType: "stream",
-    })
-    .then(({ data: subscriber }) => {
-      let buffer = "";
-      retryCount = 0;
-
-      subscriber.on("data", (data: Buffer) => {
-        buffer += data.toString();
-
-        try {
-          const message = JSON.parse(buffer);
-
-          buffer = "";
-
-          const { state, payment_request } = z
-            .object({
-              state: z.string(),
-              payment_request: z.string(),
-            })
-            .parse(message.result);
-
-          handleIncomingPayment({
-            state,
-            paymentRequest: payment_request,
-          });
-        } catch {}
-      });
-
-      subscriber.on("end", () => {
-        handleReconnect(retryCount);
-      });
-
-      subscriber.on("error", () => {
-        handleReconnect(retryCount);
-      });
-    })
-    .catch(() => {
-      handleReconnect(retryCount);
-    });
+  }, delay);
 };
 
 export const subscribeInvoices = () => {
-  let retryCount = 0;
+  const stream = lnGrpcClient.SubscribeInvoices({
+    settleIndex: lastSettleIndex,
+  });
 
-  subscribe(retryCount);
+  stream.on("data", (data: Invoice__Output) => {
+    reconnectAttempts = 0;
+
+    if (data.state === "SETTLED") {
+      lastSettleIndex = Number(data.settleIndex);
+    }
+
+    handleIncomingPayment(data);
+  });
+
+  stream.on("error", (err) => {
+    console.log("Subscribe invoice error: ", err);
+
+    reconnect();
+  });
+
+  stream.on("end", () => {
+    reconnect();
+  });
 };

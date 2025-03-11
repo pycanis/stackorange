@@ -2,7 +2,7 @@
 
 import { BalancePlatform } from "@prisma/client";
 import { TypeOf, z } from "zod";
-import { getInvoice } from "../getInvoice";
+import { lnGrpcClient, promisifyGrpc } from "../lndClient";
 import { prisma } from "../prisma";
 
 const inputSchema = z.object({
@@ -16,11 +16,18 @@ const inputSchema = z.object({
 export const createBalance = async (input: TypeOf<typeof inputSchema>) => {
   const { platform, donationSatsAmount, message, receiver, receiverSatsAmount } = inputSchema.parse(input);
 
-  const { payment_request } = await getInvoice(receiverSatsAmount + (donationSatsAmount ?? 0));
+  const result = await promisifyGrpc(lnGrpcClient.AddInvoice.bind(lnGrpcClient), {
+    memo: `Stack orange invoice`,
+    value: receiverSatsAmount + (donationSatsAmount ?? 0),
+  });
+
+  if (!result) {
+    throw new Error("Error generating invoice.");
+  }
 
   const balance = await prisma.balances.create({
     data: {
-      paymentRequest: payment_request,
+      paymentRequest: result.paymentRequest,
       platform,
       donationSatsAmount,
       receiver,

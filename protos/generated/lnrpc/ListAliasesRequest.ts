@@ -1,0 +1,8 @@
+// Original file: protos/lightning.proto
+
+
+export interface ListAliasesRequest {
+}
+
+export interface ListAliasesRequest__Output {
+}

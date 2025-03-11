@@ -32,13 +32,15 @@ export const PaymentSuccess = ({ balance, onCancel }: Props) => {
       </p>
 
       {balance.donationSatsAmount && (
-        <p className="mb-2">
+        <p>
           <span className="font-bold">P.S. 2</span> Thank you for supporting the project with{" "}
           <span className="font-bold">{balance.donationSatsAmount}</span> sats!
         </p>
       )}
 
-      <Button onClick={onCancel}>Send another orange pill</Button>
+      <Button onClick={onCancel} className="mt-2">
+        Send another orange pill
+      </Button>
     </div>
   );
 };
