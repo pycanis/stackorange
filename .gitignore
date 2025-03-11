@@ -8,3 +8,4 @@ prisma/*.db*
 .lnd*
 .certs
 .next
+last_settle_index.txt
