@@ -1,7 +1,7 @@
-import qrcode from "qrcode";
 import { useEffect, useState } from "react";
 import { debounce } from "../utils/debounce";
 import { Button } from "./Button";
+import { Qrcode } from "./Qrcode";
 
 export const subscribeSSE = <T,>(url: string, messageHandler: (data: T) => void) => {
   const eventSource = new EventSource(url);
@@ -31,8 +31,6 @@ export const PaymentRequest = ({ paymentRequest, onSuccess, onCancel }: Props) =
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    qrcode.toCanvas(document.getElementById("canvas"), `lightning:${paymentRequest}`);
-
     const eventSource = subscribeSSE<{ paymentRequest: string }>(
       `/payments/${paymentRequest}`,
       ({ paymentRequest: paymentRequestPaid }) => {
@@ -60,7 +58,7 @@ export const PaymentRequest = ({ paymentRequest, onSuccess, onCancel }: Props) =
   return (
     <>
       <div className="flex flex-col mb-4 gap-4">
-        <canvas id="canvas" />
+        <Qrcode payload={`lightning:${paymentRequest}`} />
 
         <p className="break-all">
           {paymentRequest}{" "}

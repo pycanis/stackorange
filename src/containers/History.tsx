@@ -29,7 +29,7 @@ export const History = () => {
   return (
     <div className="mt-2">
       <details>
-        <summary className="text-center cursor-pointer border-b-neutral-100 border-b-1">Show history</summary>
+        <summary className="text-center cursor-pointer border-b-white border-b-1">Show history</summary>
 
         <div className="w-full">
           {paidBalances.map((balance) => (
