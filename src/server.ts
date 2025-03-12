@@ -6,6 +6,8 @@ import helmet from "helmet";
 import next from "next";
 import { router as paymentsRouter } from "./payments";
 import { subscribeInvoices } from "./subscribeInvoices";
+import { errorMiddleware } from "./utils/middlewares";
+import { routeHandler } from "./utils/routeHandler";
 
 const isDev = process.env.NODE_ENV !== "production";
 
@@ -38,9 +40,14 @@ nextApp.prepare().then(() => {
 
   server.use("/payments", paymentsRouter);
 
-  server.all("*", (req, res) => {
-    return handle(req, res);
-  });
+  server.all(
+    "*",
+    routeHandler((req, res) => {
+      return handle(req, res);
+    })
+  );
+
+  server.use(errorMiddleware);
 
   server.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
