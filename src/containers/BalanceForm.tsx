@@ -4,7 +4,8 @@ import { createBalance } from "../actions/createBalance";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { Textarea } from "../components/Textarea";
-import { UNPAID_BALANCE_ID_KEY } from "../constants";
+import { ROUTING_FEE_PERCENT, UNPAID_BALANCE_ID_KEY } from "../constants";
+import { getRoutingFee } from "../utils/getRoutingFee";
 
 enum BalancePlatform {
   EMAIL = "EMAIL",
@@ -24,9 +25,12 @@ export const BalanceForm = () => {
     defaultValues: { platform: BalancePlatform.EMAIL },
   });
 
-  const receiverSatsAmount = watch("receiverSatsAmount");
-  const donationSatsAmount = watch("donationSatsAmount");
+  const receiverSatsAmount = watch("receiverSatsAmount") || 0;
+  const donationSatsAmount = watch("donationSatsAmount") || 0;
   const selectedPlatform = watch("platform");
+
+  const routingFee = getRoutingFee(receiverSatsAmount);
+  const total = receiverSatsAmount + donationSatsAmount + routingFee;
 
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
     const balance = await createBalance({
@@ -101,9 +105,14 @@ export const BalanceForm = () => {
         </label>
       </div>
 
-      {receiverSatsAmount > 0 && donationSatsAmount > 0 ? (
-        <p className="mb-2">Total: {receiverSatsAmount + donationSatsAmount} sats</p>
-      ) : null}
+      <p className="mb-2">
+        Total: <span className="font-bold">{total}</span> sats{" "}
+        {routingFee > 0 && (
+          <span className="text-sm">
+            (including {routingFee} sat{routingFee > 1 ? "s" : ""} ({ROUTING_FEE_PERCENT}%) routing fee)
+          </span>
+        )}
+      </p>
 
       <p className="mb-2 text-sm">
         Note: You&apos;ll keep the claim to your sats in case the receiver doesn&apos;t withdraw them.

@@ -27,9 +27,9 @@ export const History = () => {
   }
 
   return (
-    <div className="mt-2 text-orange">
+    <div className="mt-2">
       <details>
-        <summary className="text-center cursor-pointer">Show history</summary>
+        <summary className="text-center cursor-pointer border-b-neutral-100 border-b-1">Show history</summary>
 
         <div className="w-full">
           {paidBalances.map((balance) => (
@@ -41,7 +41,7 @@ export const History = () => {
               <a
                 href={getClaimLink(balance.id)}
                 target="_blank"
-                className="flex-1 text-secondary hover:underline text-end"
+                className="flex-1 text-orange hover:underline text-end"
               >
                 claim link
               </a>

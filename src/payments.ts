@@ -5,6 +5,7 @@ import { Payment__Output } from "../protos/generated/lnrpc/Payment";
 import { lnGrpcClient, promisifyGrpc, routerGrpcClient } from "./lndClient";
 import { paymentSubscribers } from "./paymentSubscribers";
 import { prisma } from "./prisma";
+import { getRoutingFee } from "./utils/getRoutingFee";
 import { getRequiredStringParams } from "./utils/params";
 import { routeHandler } from "./utils/routeHandler";
 
@@ -74,7 +75,7 @@ router.get(
 
     const stream = routerGrpcClient.SendPaymentV2({
       paymentRequest: pr,
-      feeLimitSat: 10, // todo
+      feeLimitSat: getRoutingFee(balance.receiverSatsAmount),
       timeoutSeconds: 15, // todo
     });
 
