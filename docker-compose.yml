@@ -4,6 +4,7 @@ services:
   traefik:
     image: traefik:v3.3
     command: --providers.docker
+    restart: unless-stopped
     environment:
       CF_API_EMAIL: ${CF_API_EMAIL}
       CF_DNS_API_TOKEN: ${CF_DNS_API_TOKEN}
