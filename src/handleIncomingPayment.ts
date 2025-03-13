@@ -1,5 +1,6 @@
 import { BalanceStatus } from "@prisma/client";
 import { Invoice__Output } from "../protos/generated/lnrpc/Invoice";
+import { sendEmail } from "./email";
 import { notifyPaymentSubscribers } from "./notifyPaymentSubscribers";
 import { prisma } from "./prisma";
 
@@ -17,5 +18,8 @@ export const handleIncomingPayment = async ({ paymentRequest, state }: Invoice__
     });
 
     notifyPaymentSubscribers(paymentRequest);
+
+    // todo: handle multiple platforms
+    await sendEmail({ recipientEmail: balance.receiver });
   }
 };

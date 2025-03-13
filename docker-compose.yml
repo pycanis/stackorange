@@ -42,6 +42,9 @@ services:
       LND_GRPC_ENDPOINT: ${LND_GRPC_ENDPOINT}
       LND_MACAROON_PATH: ${LND_MACAROON_PATH}
       LND_TLS_PATH: ${LND_TLS_PATH}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
     # depends_on:
     #   - lnd
 
