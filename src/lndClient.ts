@@ -3,7 +3,7 @@ import * as protoLoader from "@grpc/proto-loader";
 import axios from "axios";
 import fs from "fs";
 import https from "https";
-import { ProtoGrpcType } from "../protos/generated/router";
+import { ProtoGrpcType } from "./protos/generated/router";
 
 const LND_MACAROON_PATH = process.env.LND_MACAROON_PATH as string;
 const LND_TLS_PATH = process.env.LND_TLS_PATH as string;

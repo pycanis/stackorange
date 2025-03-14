@@ -1,10 +1,10 @@
 import { BalanceStatus } from "@prisma/client";
 import { Mutex, MutexInterface, withTimeout } from "async-mutex";
 import { Router } from "express";
-import { Payment__Output } from "../protos/generated/lnrpc/Payment";
 import { lnGrpcClient, promisifyGrpc, routerGrpcClient } from "./lndClient";
 import { paymentSubscribers } from "./paymentSubscribers";
 import { prisma } from "./prisma";
+import { Payment__Output } from "./protos/generated/lnrpc/Payment";
 import { getRoutingFee } from "./utils/getRoutingFee";
 import { getRequiredStringParams } from "./utils/params";
 import { routeHandler } from "./utils/routeHandler";

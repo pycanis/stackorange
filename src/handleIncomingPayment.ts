@@ -1,8 +1,8 @@
 import { BalanceStatus } from "@prisma/client";
-import { Invoice__Output } from "../protos/generated/lnrpc/Invoice";
 import { sendEmail } from "./email";
 import { notifyPaymentSubscribers } from "./notifyPaymentSubscribers";
 import { prisma } from "./prisma";
+import { Invoice__Output } from "./protos/generated/lnrpc/Invoice";
 
 export const handleIncomingPayment = async ({ paymentRequest, state }: Invoice__Output) => {
   if (state === "SETTLED") {

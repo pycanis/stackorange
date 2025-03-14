@@ -1,7 +1,7 @@
 import fs from "fs";
-import { Invoice__Output } from "../protos/generated/lnrpc/Invoice";
 import { handleIncomingPayment } from "./handleIncomingPayment";
 import { lnGrpcClient } from "./lndClient";
+import { Invoice__Output } from "./protos/generated/lnrpc/Invoice";
 
 const LAST_SETTLE_INDEX_FILE = "last_settle_index.txt";
 
