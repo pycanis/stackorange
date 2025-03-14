@@ -80,6 +80,10 @@ router.get(
     });
 
     stream.on("data", async (data: Payment__Output) => {
+      if (data.status === "FAILED") {
+        release();
+      }
+
       if (data.status === "SUCCEEDED") {
         await prisma.balances.update({ where: { id: k1 }, data: { status: BalanceStatus.CLAIMED } });
 

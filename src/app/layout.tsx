@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Stack orange - the ultimate Bitcoin onboarding platform",
+  title: "Stack Orange - the simplest orange-pill you can give to anyone",
   description: "",
 };
 
