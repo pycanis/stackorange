@@ -16,28 +16,28 @@ enum BalanceStatus {
   CLAIMED
 }
 
-enum BalancePlatform {
+enum BalanceChannel {
   EMAIL
   SMS
-  FACEBOOK
-  X
-  TELEGRAM
-  TIKTOK
-  INSTAGRAM
-  WHATSAPP
-  SIGNAL
+  // FACEBOOK
+  // X
+  // TELEGRAM
+  // TIKTOK
+  // INSTAGRAM
+  // WHATSAPP
+  // SIGNAL
 }
 
 model Balances {
   id                 String  @id @default(cuid())
   paymentRequest     String  @unique
   receiverSatsAmount Int
-  donationSatsAmount Int?
+  platformSatsAmount Int?
   receiver           String
   message            String?
 
-  status   BalanceStatus   @default(AWAITING_PAYMENT)
-  platform BalancePlatform
+  status  BalanceStatus  @default(AWAITING_PAYMENT)
+  channel BalanceChannel
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

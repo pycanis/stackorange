@@ -36,7 +36,7 @@ export const lndRestClient = axios.create({
   },
 });
 
-const packageDefinition = protoLoader.loadSync(["protos/lightning.proto", "protos/router.proto"], {
+const packageDefinition = protoLoader.loadSync(["src/protos/lightning.proto", "src/protos/router.proto"], {
   longs: String,
   enums: String,
   defaults: true,

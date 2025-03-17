@@ -1,25 +1,25 @@
 "use server";
 
-import { BalancePlatform } from "@prisma/client";
+import { BalanceChannel } from "@prisma/client";
 import { TypeOf, z } from "zod";
 import { lnGrpcClient, promisifyGrpc } from "../lndClient";
 import { prisma } from "../prisma";
 import { getRoutingFee } from "../utils/getRoutingFee";
 
 const inputSchema = z.object({
-  platform: z.nativeEnum(BalancePlatform),
+  channel: z.nativeEnum(BalanceChannel),
   receiver: z.string(),
   message: z.string(),
   receiverSatsAmount: z.number().min(1),
-  donationSatsAmount: z.number().min(1).nullable(),
+  platformSatsAmount: z.number().min(1).nullable(),
 });
 
 export const createBalance = async (input: TypeOf<typeof inputSchema>) => {
-  const { platform, donationSatsAmount, message, receiver, receiverSatsAmount } = inputSchema.parse(input);
+  const { channel, platformSatsAmount, message, receiver, receiverSatsAmount } = inputSchema.parse(input);
 
   const result = await promisifyGrpc(lnGrpcClient.AddInvoice.bind(lnGrpcClient), {
     memo: `Stack orange invoice`,
-    value: receiverSatsAmount + (donationSatsAmount ?? 0) + getRoutingFee(receiverSatsAmount),
+    value: receiverSatsAmount + (platformSatsAmount ?? 0) + getRoutingFee(receiverSatsAmount),
   });
 
   if (!result) {
@@ -29,8 +29,8 @@ export const createBalance = async (input: TypeOf<typeof inputSchema>) => {
   const balance = await prisma.balances.create({
     data: {
       paymentRequest: result.paymentRequest,
-      platform,
-      donationSatsAmount,
+      channel,
+      platformSatsAmount,
       receiver,
       receiverSatsAmount,
       message,

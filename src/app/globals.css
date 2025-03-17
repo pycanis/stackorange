@@ -25,15 +25,16 @@
 }
 
 @theme {
-  --color-primary: #153750;
-  --color-secondary: #3dcae2;
+  --color-background: rgb(19, 22, 32);
   --color-orange: #f7931a;
-  --color-white: var(--color-neutral-100);
+  --color-white: rgb(248, 250, 252);
+  --color-white-muted: rgb(148, 163, 184);
+  --color-black: rgba(0, 0, 0, 0.4);
 }
 
 body {
   color: var(--color-white);
-  background: var(--color-primary);
+  background: var(--color-background);
   font-family: "Satoshi", sans-serif;
 }
 
@@ -44,5 +45,6 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 input[type="number"] {
+  appearance: textfield;
   -moz-appearance: textfield;
 }

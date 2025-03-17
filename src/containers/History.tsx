@@ -4,12 +4,12 @@ import { Balances } from "@prisma/client";
 import { useEffect, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import { getBalancesByIds } from "../actions/getBalancesByIds";
-import { PAID_BALANCE_IDS_KEY } from "../constants";
+import { HISTORY_BALANCE_IDS_KEY } from "../constants";
 import { getClaimLink } from "../utils/getClaimLink";
 import { truncate } from "../utils/strings";
 
 export const History = () => {
-  const [paidBalanceIds] = useLocalStorageState<string[]>(PAID_BALANCE_IDS_KEY);
+  const [paidBalanceIds] = useLocalStorageState<string[]>(HISTORY_BALANCE_IDS_KEY);
   const [paidBalances, setPaidBalances] = useState<Balances[]>([]);
 
   useEffect(() => {

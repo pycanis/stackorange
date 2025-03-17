@@ -7,8 +7,8 @@ type Props = {
 
 export const Qrcode = ({ payload }: Props) => {
   useEffect(() => {
-    qrcode.toCanvas(document.getElementById("canvas"), payload);
+    qrcode.toCanvas(document.getElementById("canvas"), payload, { width: 208 });
   });
 
-  return <canvas id="canvas" />;
+  return <canvas id="canvas" className="rounded-lg" />;
 };
