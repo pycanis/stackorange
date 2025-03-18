@@ -13,9 +13,13 @@ export const getBalancesByIds = async (input: TypeOf<typeof inputSchema>) => {
   }
 
   if (balanceIds.length === 1) {
-    const balance = await prisma.balances.findUniqueOrThrow({
+    const balance = await prisma.balances.findUnique({
       where: { id: balanceIds[0] },
     });
+
+    if (!balance) {
+      return [];
+    }
 
     return [balance];
   }

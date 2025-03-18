@@ -1,7 +1,8 @@
 import { Background } from "../components/Background";
 import { Hero } from "../components/Hero";
-import { History } from "../containers/History";
 import { SendOrangePill } from "../containers/SendOrangePill";
+
+export const dynamic = "force-static";
 
 export default function IndexPage() {
   return (
@@ -11,8 +12,6 @@ export default function IndexPage() {
       <Background />
 
       <SendOrangePill />
-
-      <History />
     </div>
   );
 }

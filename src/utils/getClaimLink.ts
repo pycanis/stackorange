@@ -1,1 +1,1 @@
-export const getClaimLink = (balanceId: string) => `/orange-pill/${balanceId}`;
+export const getClaimLink = (balanceId: string) => `/claim/${balanceId}`;

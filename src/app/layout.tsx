@@ -20,11 +20,13 @@ export default ({
         <script defer data-domain="stackorange.com" src="https://plausible.stackorange.com/js/script.js"></script>
       </head>
 
-      <body className="flex flex-col px-4 pt-12 h-screen max-w-2xl mx-auto">
+      <body className="flex flex-col px-4 pt-12 min-h-screen max-w-4xl mx-auto">
         <main className="flex-1">{children}</main>
 
         <footer className="my-4 text-center text-white-muted">
-          <p>© {new Date().getFullYear()} Stack Orange · commit</p>
+          <p>
+            © {new Date().getFullYear()} Stack Orange{/*  · commit */}
+          </p>
         </footer>
       </body>
     </html>
