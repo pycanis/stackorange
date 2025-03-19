@@ -1,0 +1,16 @@
+---
+import { Background } from "../components/Background";
+import { Hero } from "../components/Hero";
+import { CreateClaim } from "../containers/CreateClaim";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+	<div class="flex flex-col items-center">
+		<Hero />
+
+		<Background />
+
+		<CreateClaim client:load />
+	</div>
+</Layout>

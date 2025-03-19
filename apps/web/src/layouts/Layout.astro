@@ -1,0 +1,30 @@
+---
+import "../styles/global.css";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Stack Orange - they won't get it until they get some</title>
+		<meta
+			name="description"
+			content="The easiest way to orange-pill nocoiners by getting their hands dirty with their first sats. Plant the seeds of financial revolution."
+		/>
+	</head>
+
+	<body class="flex flex-col px-4 pt-12 min-h-screen max-w-4xl mx-auto">
+		<main class="flex-1">
+			<slot />
+		</main>
+
+		<footer class="my-4 text-center text-white-muted">
+			<p>
+				© {new Date().getFullYear()} Stack Orange{/*  · commit */}
+			</p>
+		</footer>
+	</body>
+</html>

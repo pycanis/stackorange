@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum ClaimStatus {
+  AWAITING_PAYMENT
+  PAID
+  CLAIMED
+}
+
+enum ClaimChannel {
+  EMAIL
+  SMS
+  // FACEBOOK
+  // X
+  // TELEGRAM
+  // TIKTOK
+  // INSTAGRAM
+  // WHATSAPP
+  // SIGNAL
+}
+
+model Claims {
+  id                 String  @id @default(cuid())
+  paymentRequest     String  @unique
+  receiverSatsAmount Int
+  platformSatsAmount Int?
+  receiver           String
+  message            String?
+
+  status  ClaimStatus  @default(AWAITING_PAYMENT)
+  channel ClaimChannel
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}

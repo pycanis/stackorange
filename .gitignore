@@ -1,11 +1,8 @@
-dist
 node_modules
 .DS_Store
-prisma/*.db*
 .env
 .db
 .bitcoin
 .lnd*
 .certs
-.next
 last_settle_index.txt

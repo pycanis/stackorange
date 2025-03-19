@@ -1,48 +1,10 @@
 {
   "name": "stackorange",
   "version": "1.0.0",
-  "scripts": {
-    "dev": "nodemon",
-    "build": "next build && tsc -p tsconfig.server.json",
-    "migrate:dev": "prisma migrate dev",
-    "migrate": "prisma migrate deploy",
-    "generate": "prisma generate"
-  },
-  "dependencies": {
-    "@grpc/grpc-js": "^1.12.6",
-    "@grpc/proto-loader": "^0.7.13",
-    "@prisma/client": "^6.4.0",
-    "async-mutex": "^0.5.0",
-    "axios": "^1.8.1",
-    "bech32": "^2.0.0",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "express-rate-limit": "^7.5.0",
-    "helmet": "^8.0.0",
-    "lucide-react": "^0.482.0",
-    "next": "^15.2.1",
-    "nodemailer": "^6.10.0",
-    "qrcode": "^1.5.4",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-hook-form": "^7.54.2",
-    "use-local-storage-state": "^19.5.0",
-    "zod": "^3.24.2"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4.0.11",
-    "@types/express": "^5.0.0",
-    "@types/nodemailer": "^6.4.17",
-    "@types/qrcode": "^1.5.5",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "eslint": "9.22.0",
-    "eslint-config-next": "15.2.1",
-    "eslint-config-prettier": "^10.1.1",
-    "nodemon": "^3.1.9",
-    "prisma": "^6.4.0",
-    "tailwindcss": "^4.0.11",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
-  }
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.6.4"
 }

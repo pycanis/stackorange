@@ -1,0 +1,107 @@
+---
+import { Bitcoin, Layers, Lightbulb, Wallet } from "lucide-react";
+import { WalletLink } from "../components/WalletLink";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+    <div>
+        <h1 class="text-center font-bold text-4xl mb-2">
+            Ready to take the <span class="text-orange">orange</span> pill?
+        </h1>
+
+        <p class="text-center text-white-muted text-xl mb-8">Once you understand Bitcoin, there's no going back.</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 items-start sm:gap-4">
+            <div>
+                <div class="bg-white-muted/10 rounded-lg border border-white-muted/50 px-2 py-4 mb-4">
+                    <div class="mb-4">
+                        <div class="flex items-center">
+                            <Bitcoin className="text-orange mr-2" />
+                            <p class="font-bold text-2xl">What is Bitcoin?</p>
+                        </div>
+
+                        <p class="text-white-muted">A brief introduction to digital gold</p>
+                    </div>
+
+                    <p class="mb-2">
+                        <span class="font-bold">Bitcoin</span> is digital money that works without third parties like banks.
+                        It lets people send money directly to each other from anywhere in the world. It's fast and cheap.
+                    </p>
+
+                    <p class="mb-2">
+                        <span class="font-bold">Satoshis (sats)</span> are the smallest unit of Bitcoin. 1 bitcoin = 100,000,000
+                        sats.
+                    </p>
+
+                    <p>
+                        The <span class="font-bold">Lightning Network</span> enables instant, low-cost Bitcoin transactions
+                        - perfect for small amounts like the sats you're about to claim!
+                    </p>
+                </div>
+
+                <div class="bg-white-muted/10 rounded-lg border border-white-muted/50 px-2 py-4 mb-4">
+                    <div class="mb-4">
+                        <div class="flex items-center">
+                            <Wallet className="text-orange mr-2" />
+                            <p class="font-bold text-2xl">Get a Lightning wallet</p>
+                        </div>
+
+                        <p class="text-white-muted">Download a wallet app</p>
+                    </div>
+
+                    <p class="mb-2">The most popular ones are the following:</p>
+
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <WalletLink
+                            description="Simple, non-custodial"
+                            link="https://phoenix.acinq.co"
+                            name="Phoenix"
+                        />
+
+                        <WalletLink
+                            description="Beginner-friendly, custodial"
+                            link="https://walletofsatoshi.com"
+                            name="Wallet of Satoshi"
+                        />
+
+                        <WalletLink description="Advanced features" link="https://zeusln.com" name="Zeus" />
+
+                        <WalletLink description="Simple recovery" link="https://muun.com" name="Muun" />
+                    </div>
+
+                    <div class="bg-background rounded-lg border border-white-muted/50 p-2 text-sm">
+                        If you're new to Bitcoin, we recommend using <span class="font-bold">Wallet of Satoshi</span> for
+                        simplicity and ease of use.
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="bg-white-muted/10 rounded-lg border border-white-muted/50 px-2 py-4 mb-4">
+                    <div class="mb-4">
+                        <div class="flex items-center">
+                            <Layers className="text-orange mr-2" />
+                            <p class="font-bold text-2xl">Claim your sats</p>
+                        </div>
+
+                        <p class="text-white-muted">Scan this QR code with your Lightning wallet</p>
+                    </div>
+
+                    <Claim client:load />
+                </div>
+
+                <div class="bg-white-muted/10 rounded-lg border border-white-muted/50 px-2 py-4 mb-4">
+                    <div class="mb-4">
+                        <div class="flex items-center">
+                            <Lightbulb className="text-orange mr-2" />
+                            <p class="font-bold text-2xl">What can you do with sats?</p>
+                        </div>
+
+                        <p class="text-white-muted">Ideas for using your bitcoin</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>
