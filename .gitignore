@@ -6,3 +6,6 @@ node_modules
 .lnd*
 .certs
 last_settle_index.txt
+.astro
+*.db*
+dist

@@ -6,7 +6,8 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   integrations: [react()],
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    resolve: { alias: { '.prisma/client/index-browser': `@prisma/client/index-browser` } }
   },
   adapter: node({
     mode: 'middleware'

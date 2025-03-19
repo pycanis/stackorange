@@ -36,11 +36,7 @@ export const History = () => {
               <p className="flex-2 text-center">{claim.receiver}</p>
               <p className="flex-1 text-center">{claim.receiverSatsAmount} sats</p>
               <p className="flex-1 text-center italic">"{truncate(claim.message || "<no message>")}"</p>
-              <a
-                href={getClaimLink(claim.id)}
-                target="_blank"
-                className="flex-1 text-orange hover:underline text-end"
-              >
+              <a href={getClaimLink(claim.id)} target="_blank" className="flex-1 text-orange hover:underline text-end">
                 claim link
               </a>
             </div>

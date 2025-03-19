@@ -1,6 +1,7 @@
 ---
 import { Bitcoin, Layers, Lightbulb, Wallet } from "lucide-react";
 import { WalletLink } from "../components/WalletLink";
+import { Claim as ClaimComponent } from "../containers/Claim";
 import Layout from "../layouts/Layout.astro";
 ---
 
@@ -88,7 +89,7 @@ import Layout from "../layouts/Layout.astro";
                         <p class="text-white-muted">Scan this QR code with your Lightning wallet</p>
                     </div>
 
-                    <Claim client:load />
+                    <ClaimComponent client:load />
                 </div>
 
                 <div class="bg-white-muted/10 rounded-lg border border-white-muted/50 px-2 py-4 mb-4">
