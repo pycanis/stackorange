@@ -2,13 +2,13 @@ import qrcode from "qrcode";
 import { useEffect } from "react";
 
 type Props = {
-  payload: string;
+	payload: string;
 };
 
 export const Qrcode = ({ payload }: Props) => {
-  useEffect(() => {
-    qrcode.toCanvas(document.getElementById("canvas"), payload, { width: 208 });
-  });
+	useEffect(() => {
+		qrcode.toCanvas(document.getElementById("canvas"), payload, { width: 208 });
+	});
 
-  return <canvas id="canvas" className="rounded-lg" />;
+	return <canvas id="canvas" className="rounded-lg" />;
 };

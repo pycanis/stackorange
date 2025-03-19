@@ -1,4 +1,4 @@
-import { TypeOf } from "zod";
-import { createClaimSchema } from "./validators";
+import type { TypeOf } from "zod";
+import type { createClaimSchema } from "./validators";
 
-export type CreateClaimRequest = TypeOf<typeof createClaimSchema>
+export type CreateClaimRequest = TypeOf<typeof createClaimSchema>;

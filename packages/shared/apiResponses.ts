@@ -1,5 +1,5 @@
-import { Claims } from "@repo/database";
+import type { Claims } from "@repo/database";
 
-export type GetClaimsByIdsResponse = Claims[]
+export type GetClaimsByIdsResponse = Claims[];
 
-export type CreateClaimResponse = Claims
+export type CreateClaimResponse = Claims;

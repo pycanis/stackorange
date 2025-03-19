@@ -1,17 +1,20 @@
-export const subscribeSSE = <T>(url: string, messageHandler: (data: T) => void) => {
-  const eventSource = new EventSource(url);
+export const subscribeSSE = <T>(
+	url: string,
+	messageHandler: (data: T) => void,
+) => {
+	const eventSource = new EventSource(url);
 
-  eventSource.onmessage = (event) => {
-    const newMessage = JSON.parse(event.data);
+	eventSource.onmessage = (event) => {
+		const newMessage = JSON.parse(event.data);
 
-    messageHandler(newMessage);
-  };
+		messageHandler(newMessage);
+	};
 
-  eventSource.onerror = (error) => {
-    console.error("SSE error:", error);
+	eventSource.onerror = (error) => {
+		console.error("SSE error:", error);
 
-    eventSource.close();
-  };
+		eventSource.close();
+	};
 
-  return eventSource;
+	return eventSource;
 };

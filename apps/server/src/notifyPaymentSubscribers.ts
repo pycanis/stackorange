@@ -1,13 +1,13 @@
 import { paymentSubscribers } from "./paymentSubscribers";
 
 export const notifyPaymentSubscribers = (paymentRequest: string) => {
-  const subscribers = paymentSubscribers.get(paymentRequest);
+	const subscribers = paymentSubscribers.get(paymentRequest);
 
-  subscribers?.forEach((res) => {
-    res.write(
-      `data: ${JSON.stringify({
-        paymentRequest,
-      })}\n\n`
-    );
-  });
+	for (const res of subscribers ?? []) {
+		res.write(
+			`data: ${JSON.stringify({
+				paymentRequest,
+			})}\n\n`,
+		);
+	}
 };
