@@ -1,7 +1,4 @@
-export const subscribeSSE = <T>(
-	url: string,
-	messageHandler: (data: T) => void,
-) => {
+export const subscribeSSE = <T>(url: string, messageHandler: (data: T) => void) => {
 	const eventSource = new EventSource(url);
 
 	eventSource.onmessage = (event) => {

@@ -1,17 +1,13 @@
 import type { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 
-type Props = DetailedHTMLProps<
-	ButtonHTMLAttributes<HTMLButtonElement>,
-	HTMLButtonElement
-> & {
+type Props = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
 	variant?: keyof typeof buttonVariants;
 };
 
 const buttonVariants = {
 	// todo: disabled
 	primary: "text-white bg-orange hover:bg-orange/90",
-	secondary:
-		"text-white bg-background hover:bg-white-muted/30 border border-white-muted/50",
+	secondary: "text-white bg-background hover:bg-white-muted/30 border border-white-muted/50",
 	group: "",
 	text: "hover:bg-white-muted/30",
 };

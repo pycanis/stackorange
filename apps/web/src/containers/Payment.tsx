@@ -47,13 +47,11 @@ export const Payment = ({ claim, onPaymentSuccess }: Props) => {
 
 	return (
 		<>
-			<p className="text-center font-bold text-2xl mb-2">
-				Complete your payment
-			</p>
+			<p className="text-center font-bold text-2xl mb-2">Complete your payment</p>
 
 			<p className="text-center text-white-muted text-lg mb-4">
-				Pay the lightning invoice to send{" "}
-				{formatNumber(claim.receiverSatsAmount)} sats to {claim.receiver}.
+				Pay the lightning invoice to send {formatNumber(claim.receiverSatsAmount)} sats to{" "}
+				{claim.receiver}.
 			</p>
 
 			<div className="bg-background rounded-lg border border-white-muted/50 p-2 mb-4 text-sm flex flex-col gap-2">
@@ -64,25 +62,19 @@ export const Payment = ({ claim, onPaymentSuccess }: Props) => {
 
 				<div className="flex justify-between">
 					<span className="text-white-muted">Receiver amount:</span>
-					<span className="font-bold">
-						{formatNumber(claim.receiverSatsAmount)} sats
-					</span>
+					<span className="font-bold">{formatNumber(claim.receiverSatsAmount)} sats</span>
 				</div>
 
 				{platformSatsAmount > 0 && (
 					<div className="flex justify-between">
 						<span className="text-white-muted">Platform support:</span>
-						<span className="font-bold">
-							{formatNumber(platformSatsAmount)} sats
-						</span>
+						<span className="font-bold">{formatNumber(platformSatsAmount)} sats</span>
 					</div>
 				)}
 
 				{routingFee > 0 && (
 					<div className="flex justify-between">
-						<span className="text-white-muted">
-							Routing fee ({ROUTING_FEE_PERCENT}%):
-						</span>
+						<span className="text-white-muted">Routing fee ({ROUTING_FEE_PERCENT}%):</span>
 						<span className="font-bold">
 							{formatNumber(routingFee)} sat{routingFee === 1 ? "" : "s"}
 						</span>
@@ -102,19 +94,13 @@ export const Payment = ({ claim, onPaymentSuccess }: Props) => {
 			<div className="mb-2 flex justify-between items-center">
 				<span className="font-bold">Lightning invoice</span>
 
-				<Button
-					variant="text"
-					onClick={handleCopyToClipboard}
-					disabled={copied}
-				>
+				<Button variant="text" onClick={handleCopyToClipboard} disabled={copied}>
 					{copied ? (
 						<Check size={18} className="mr-2 mt-0.5" />
 					) : (
 						<Copy size={18} className="mr-2 mt-0.5" />
 					)}
-					<span className="font-bold text-sm">
-						{copied ? "Copied!" : "Copy"}
-					</span>
+					<span className="font-bold text-sm">{copied ? "Copied!" : "Copy"}</span>
 				</Button>
 			</div>
 
@@ -141,9 +127,7 @@ export const Payment = ({ claim, onPaymentSuccess }: Props) => {
 				/>
 			</div>
 
-			<p className="text-center text-white-muted">
-				Waiting for payment confirmation..
-			</p>
+			<p className="text-center text-white-muted">Waiting for payment confirmation..</p>
 		</>
 	);
 };

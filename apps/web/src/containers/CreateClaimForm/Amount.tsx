@@ -91,8 +91,7 @@ export const Amount = ({ setStep, onSubmit }: Props) => {
 					/>
 
 					<p className="text-xs">
-						Helps cover server costs and motivates further development. Thank
-						you!
+						Helps cover server costs and motivates further development. Thank you!
 					</p>
 				</div>
 			</div>
@@ -102,8 +101,7 @@ export const Amount = ({ setStep, onSubmit }: Props) => {
 					<span className="font-bold">Total amount:</span>
 					{routingFee > 0 && (
 						<span className="text-xs">
-							including {formatNumber(routingFee)} sats ({ROUTING_FEE_PERCENT}%)
-							routing fee
+							including {formatNumber(routingFee)} sats ({ROUTING_FEE_PERCENT}%) routing fee
 						</span>
 					)}
 				</div>

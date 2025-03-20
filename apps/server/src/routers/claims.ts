@@ -48,24 +48,13 @@ router.get(
 router.post(
 	"/",
 	routeHandler(async (req, res) => {
-		const {
-			channel,
-			platformSatsAmount,
-			message,
-			receiver,
-			receiverSatsAmount,
-		} = createClaimSchema.parse(req.body);
+		const { channel, platformSatsAmount, message, receiver, receiverSatsAmount } =
+			createClaimSchema.parse(req.body);
 
-		const result = await promisifyGrpc(
-			lnGrpcClient.AddInvoice.bind(lnGrpcClient),
-			{
-				memo: "Stack orange invoice",
-				value:
-					receiverSatsAmount +
-					(platformSatsAmount ?? 0) +
-					getRoutingFee(receiverSatsAmount),
-			},
-		);
+		const result = await promisifyGrpc(lnGrpcClient.AddInvoice.bind(lnGrpcClient), {
+			memo: "Stack orange invoice",
+			value: receiverSatsAmount + (platformSatsAmount ?? 0) + getRoutingFee(receiverSatsAmount),
+		});
 
 		if (!result) {
 			throw new Error("Error generating invoice.");

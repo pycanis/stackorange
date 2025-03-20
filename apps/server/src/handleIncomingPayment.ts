@@ -3,10 +3,7 @@ import { sendEmail } from "./email";
 import { notifyPaymentSubscribers } from "./notifyPaymentSubscribers";
 import type { Invoice__Output } from "./protos/generated/lnrpc/Invoice";
 
-export const handleIncomingPayment = async ({
-	paymentRequest,
-	state,
-}: Invoice__Output) => {
+export const handleIncomingPayment = async ({ paymentRequest, state }: Invoice__Output) => {
 	if (state === "SETTLED") {
 		const balance = await prisma.claims.findUnique({
 			where: { paymentRequest, status: ClaimStatus.AWAITING_PAYMENT },

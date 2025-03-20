@@ -58,17 +58,19 @@ import Layout from "../layouts/Layout.astro";
                             description="Simple, non-custodial"
                             link="https://phoenix.acinq.co"
                             name="Phoenix"
+                            client:load
                         />
 
                         <WalletLink
                             description="Beginner-friendly, custodial"
                             link="https://walletofsatoshi.com"
                             name="Wallet of Satoshi"
+                            client:load
                         />
 
-                        <WalletLink description="Advanced features" link="https://zeusln.com" name="Zeus" />
+                        <WalletLink description="Advanced features" link="https://zeusln.com" name="Zeus" client:load />
 
-                        <WalletLink description="Simple recovery" link="https://muun.com" name="Muun" />
+                        <WalletLink description="Simple recovery" link="https://muun.com" name="Muun" client:load />
                     </div>
 
                     <div class="bg-background rounded-lg border border-white-muted/50 p-2 text-sm">
@@ -89,7 +91,7 @@ import Layout from "../layouts/Layout.astro";
                         <p class="text-white-muted">Scan this QR code with your Lightning wallet</p>
                     </div>
 
-                    <ClaimComponent client:load />
+                    <ClaimComponent client:only="react" />
                 </div>
 
                 <div class="bg-white-muted/10 rounded-lg border border-white-muted/50 px-2 py-4 mb-4">

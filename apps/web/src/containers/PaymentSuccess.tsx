@@ -16,9 +16,7 @@ export const PaymentSuccess = ({ claim, onCancel }: Props) => {
 				<Check color="green" size={28} strokeWidth={3} />
 			</div>
 
-			<p className="text-center font-bold text-2xl mb-2">
-				Orange pill sucessfully sent!
-			</p>
+			<p className="text-center font-bold text-2xl mb-2">Orange pill sucessfully sent!</p>
 
 			<p className="text-center text-white-muted text-lg mb-8">
 				{claim.receiver} will receive instructions on how to claim their{" "}
@@ -29,8 +27,8 @@ export const PaymentSuccess = ({ claim, onCancel }: Props) => {
 				<p className="font-bold mb-2">Claim link for unclaimed sats</p>
 
 				<p className="text-sm text-white-muted mb-2">
-					If the sats aren't claimed within the timeframe you consider
-					reasonable, you can reclaim them yourself.
+					If the sats aren't claimed within the timeframe you consider reasonable, you can reclaim
+					them yourself.
 				</p>
 
 				<a

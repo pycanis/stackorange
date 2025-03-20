@@ -24,11 +24,7 @@ const Circle = ({
 );
 
 const Line = ({ isPast }: { isPast: boolean }) => (
-	<div
-		className={"h-0.5 mr-2 w-12".concat(
-			isPast ? " bg-orange" : " bg-white-muted",
-		)}
-	/>
+	<div className={"h-0.5 mr-2 w-12".concat(isPast ? " bg-orange" : " bg-white-muted")} />
 );
 
 export const Steps = ({ currentStep, totalSteps = 3 }: Props) => {
@@ -41,11 +37,7 @@ export const Steps = ({ currentStep, totalSteps = 3 }: Props) => {
 
 				return (
 					<div key={stepNumber} className="flex items-center justify-between">
-						<Circle
-							stepNumber={stepNumber}
-							isActive={isActive}
-							isPast={isPast}
-						/>
+						<Circle stepNumber={stepNumber} isActive={isActive} isPast={isPast} />
 
 						{index < totalSteps - 1 && <Line isPast={isPast} />}
 					</div>

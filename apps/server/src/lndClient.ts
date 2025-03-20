@@ -13,18 +13,13 @@ const tlsCert = fs.readFileSync(LND_TLS_PATH);
 const sslCreds = grpc.credentials.createSsl(tlsCert);
 const macaroon = fs.readFileSync(LND_MACAROON_PATH).toString("hex");
 
-const macaroonCreds = grpc.credentials.createFromMetadataGenerator(
-	(_args, callback) => {
-		const metadata = new grpc.Metadata();
-		metadata.add("macaroon", macaroon);
-		callback(null, metadata);
-	},
-);
+const macaroonCreds = grpc.credentials.createFromMetadataGenerator((_args, callback) => {
+	const metadata = new grpc.Metadata();
+	metadata.add("macaroon", macaroon);
+	callback(null, metadata);
+});
 
-const creds = grpc.credentials.combineChannelCredentials(
-	sslCreds,
-	macaroonCreds,
-);
+const creds = grpc.credentials.combineChannelCredentials(sslCreds, macaroonCreds);
 
 // const agent = new https.Agent({
 //   rejectUnauthorized: false,
@@ -49,24 +44,13 @@ const packageDefinition = protoLoader.loadSync(
 	},
 );
 
-const loadedDefinitions = grpc.loadPackageDefinition(
-	packageDefinition,
-) as unknown as ProtoGrpcType;
+const loadedDefinitions = grpc.loadPackageDefinition(packageDefinition) as unknown as ProtoGrpcType;
 
-export const lnGrpcClient = new loadedDefinitions.lnrpc.Lightning(
-	LND_GRPC_ENDPOINT,
-	creds,
-);
-export const routerGrpcClient = new loadedDefinitions.routerrpc.Router(
-	LND_GRPC_ENDPOINT,
-	creds,
-);
+export const lnGrpcClient = new loadedDefinitions.lnrpc.Lightning(LND_GRPC_ENDPOINT, creds);
+export const routerGrpcClient = new loadedDefinitions.routerrpc.Router(LND_GRPC_ENDPOINT, creds);
 
 export const promisifyGrpc = <T, U>(
-	grpcCall: (
-		request: T,
-		cb: (error: grpc.ServiceError | null, response: U) => void,
-	) => void,
+	grpcCall: (request: T, cb: (error: grpc.ServiceError | null, response: U) => void) => void,
 	request: T,
 ): Promise<U> =>
 	new Promise((resolve, reject) =>

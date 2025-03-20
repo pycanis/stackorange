@@ -19,9 +19,7 @@ import { errorMiddleware } from "./utils/middlewares";
 		helmet({
 			contentSecurityPolicy: {
 				directives: {
-					scriptSrc: isProd
-						? ["'self'"]
-						: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
+					scriptSrc: isProd ? ["'self'"] : ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
 				},
 			},
 		}),

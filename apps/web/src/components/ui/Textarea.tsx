@@ -1,9 +1,6 @@
 import type { DetailedHTMLProps, TextareaHTMLAttributes } from "react";
 
-type Props = DetailedHTMLProps<
-	TextareaHTMLAttributes<HTMLTextAreaElement>,
-	HTMLTextAreaElement
-> & {
+type Props = DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement> & {
 	error?: string;
 };
 

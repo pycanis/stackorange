@@ -1,8 +1,4 @@
-import type {
-	CreateClaimRequest,
-	CreateClaimResponse,
-	GetClaimsByIdsResponse,
-} from "@repo/shared";
+import type { CreateClaimRequest, CreateClaimResponse, GetClaimsByIdsResponse } from "@repo/shared";
 import { apiClient } from ".";
 
 export const createClaim = async (data: CreateClaimRequest) =>

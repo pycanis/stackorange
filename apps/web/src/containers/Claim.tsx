@@ -1,12 +1,13 @@
 import { ClaimStatus, type Claims } from "@repo/shared";
 import { bech32 } from "bech32";
+import queryString from "query-string";
 import { useEffect, useState } from "react";
 import { getClaimsByIds } from "../api/claims";
 import { Qrcode } from "../components/Qrcode";
 import { formatNumber } from "../utils/numbers";
 
 export const Claim = () => {
-	const id = "1"; // todo
+	const id = queryString.parse(window.location.search).id as string | undefined;
 	const [claim, setClaim] = useState<Claims | null>(null);
 
 	const withdrawLink = `https://stackorange.com/payments/withdraw/${id}`;
@@ -15,6 +16,10 @@ export const Claim = () => {
 		.toUpperCase();
 
 	useEffect(() => {
+		if (!id) {
+			return;
+		}
+
 		getClaimsByIds([id]).then((claims) => {
 			setClaim(claims[0]);
 		});
@@ -36,9 +41,7 @@ export const Claim = () => {
 
 					<p className="text-sm">
 						You can claim{" "}
-						<span className="font-bold">
-							{formatNumber(claim.receiverSatsAmount)} sats
-						</span>{" "}
+						<span className="font-bold">{formatNumber(claim.receiverSatsAmount)} sats</span>{" "}
 						currently valued at <span>{formatNumber(123)}</span>.
 					</p>
 				</div>

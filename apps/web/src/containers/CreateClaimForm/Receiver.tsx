@@ -7,14 +7,13 @@ import { Input } from "../../components/ui/Input";
 import { Textarea } from "../../components/ui/Textarea";
 import type { FormValues } from "./Form";
 
-const channelIcons: Record<ClaimChannel, { icon: JSX.Element; text: string }> =
-	{
-		[ClaimChannel.EMAIL]: { icon: <Mail width={16} />, text: "Email" },
-		[ClaimChannel.SMS]: {
-			icon: <Smartphone width={16} />,
-			text: "SMS (coming soon)",
-		},
-	};
+const channelIcons: Record<ClaimChannel, { icon: JSX.Element; text: string }> = {
+	[ClaimChannel.EMAIL]: { icon: <Mail width={16} />, text: "Email" },
+	[ClaimChannel.SMS]: {
+		icon: <Smartphone width={16} />,
+		text: "SMS (coming soon)",
+	},
+};
 
 type Props = {
 	setStep: Dispatch<SetStateAction<number>>;
@@ -39,13 +38,11 @@ export const Receiver = ({ setStep }: Props) => {
 
 	return (
 		<>
-			<p className="text-center font-bold text-2xl mb-2">
-				Who's receiving sats?
-			</p>
+			<p className="text-center font-bold text-2xl mb-2">Who's receiving sats?</p>
 
 			<p className="text-center text-white-muted text-lg mb-4">
-				Fill out the receiver details. We'll send them your message and the
-				withdrawal link with some onboarding resources.
+				Fill out the receiver details. We'll send them your message and the withdrawal link with
+				some onboarding resources.
 			</p>
 
 			<div className="w-full bg-white-muted/50 p-1 rounded-lg mb-2 flex">
@@ -56,9 +53,7 @@ export const Receiver = ({ setStep }: Props) => {
 						onClick={() => setValue("channel", channel)}
 						className={"text-sm flex-1 flex justify-center items-center".concat(
 							" ",
-							selectedChannel === channel
-								? "bg-background font-bold"
-								: "text-white/70",
+							selectedChannel === channel ? "bg-background font-bold" : "text-white/70",
 						)}
 						variant="group"
 						disabled={channel !== ClaimChannel.EMAIL}

@@ -14,8 +14,8 @@ export const Hero = () => {
 			</h1>
 
 			<div className="mb-12 text-white-muted text-xl max-w-xl">
-				The easiest way to orange-pill nocoiners by getting their hands dirty
-				with their first sats. Plant the seeds of financial revolution.
+				The easiest way to orange-pill nocoiners by getting their hands dirty with their first sats.
+				Plant the seeds of financial revolution.
 			</div>
 		</>
 	);

@@ -28,10 +28,7 @@ export const getRequiredStringArrayParams = <T extends string>(
 			console.log(req.params, req.body, req.query);
 			const value = req.params[param] ?? req.body?.[param] ?? req.query[param];
 
-			if (
-				!Array.isArray(value) ||
-				value.some((item) => typeof item !== "string")
-			) {
+			if (!Array.isArray(value) || value.some((item) => typeof item !== "string")) {
 				throw new Error(`${param} has to be an array of strings`);
 			}
 

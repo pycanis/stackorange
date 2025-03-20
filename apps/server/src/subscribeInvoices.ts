@@ -9,9 +9,7 @@ const LAST_SETTLE_INDEX_FILE = "last_settle_index.txt";
 // https://github.com/lightningnetwork/lnd/issues/2469
 const loadLastSettleIndex = () => {
 	if (fs.existsSync(LAST_SETTLE_INDEX_FILE)) {
-		return (
-			Number.parseInt(fs.readFileSync(LAST_SETTLE_INDEX_FILE, "utf-8"), 10) || 1
-		);
+		return Number.parseInt(fs.readFileSync(LAST_SETTLE_INDEX_FILE, "utf-8"), 10) || 1;
 	}
 
 	return 1;

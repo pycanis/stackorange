@@ -1,9 +1,6 @@
 import type { DetailedHTMLProps, InputHTMLAttributes } from "react";
 
-type Props = DetailedHTMLProps<
-	InputHTMLAttributes<HTMLInputElement>,
-	HTMLInputElement
-> & {
+type Props = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
 	error?: string;
 };
 

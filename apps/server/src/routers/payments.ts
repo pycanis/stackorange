@@ -45,12 +45,9 @@ router.get(
 			return;
 		}
 
-		const result = await promisifyGrpc(
-			lnGrpcClient.DecodePayReq.bind(lnGrpcClient),
-			{
-				payReq: pr,
-			},
-		);
+		const result = await promisifyGrpc(lnGrpcClient.DecodePayReq.bind(lnGrpcClient), {
+			payReq: pr,
+		});
 
 		if (!result) {
 			res.json({
@@ -156,9 +153,7 @@ router.get(
 		req.on("close", () => {
 			paymentSubscribers.set(
 				paymentRequest,
-				(paymentSubscribers.get(paymentRequest) ?? []).filter(
-					(rs) => rs.id !== res.id,
-				),
+				(paymentSubscribers.get(paymentRequest) ?? []).filter((rs) => rs.id !== res.id),
 			);
 		});
 	}),

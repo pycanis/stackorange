@@ -1,16 +1,18 @@
 {
-  "name": "stackorange",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "scripts": {
-    "dev": "pnpm -r dev"
-  },
-  "packageManager": "pnpm@10.6.4",
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4"
-  }
+	"name": "stackorange",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"scripts": {
+		"dev": "pnpm -r dev",
+		"format": "biome format --write",
+		"lint": "biome lint --write"
+	},
+	"packageManager": "pnpm@10.6.4",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4"
+	}
 }
