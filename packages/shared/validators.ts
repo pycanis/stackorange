@@ -1,5 +1,5 @@
-import { ClaimChannel } from "@repo/database";
 import { z } from "zod";
+import { ClaimChannel } from "./prismaTypes";
 
 export const createClaimSchema = z.object({
 	channel: z.nativeEnum(ClaimChannel),

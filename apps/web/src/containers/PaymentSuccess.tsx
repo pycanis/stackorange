@@ -1,4 +1,4 @@
-import type { Claims } from "@repo/database";
+import type { Claims } from "@repo/shared";
 import { Check, ExternalLink, History, Pill } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "../components/ui/Button";

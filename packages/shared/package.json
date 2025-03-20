@@ -7,7 +7,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@repo/database": "workspace:*",
     "zod": "^3.24.2"
   },
   "devDependencies": {

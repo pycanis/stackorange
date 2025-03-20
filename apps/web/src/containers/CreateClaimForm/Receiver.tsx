@@ -1,4 +1,4 @@
-import { ClaimChannel } from "@repo/database";
+import { ClaimChannel } from "@repo/shared";
 import { ArrowRight, Mail, Smartphone } from "lucide-react";
 import type { Dispatch, JSX, SetStateAction } from "react";
 import { useFormContext } from "react-hook-form";

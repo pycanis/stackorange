@@ -1,4 +1,4 @@
-import type { Claims } from "@repo/database";
+import type { Claims } from "./prismaTypes";
 
 export type GetClaimsByIdsResponse = Claims[];
 

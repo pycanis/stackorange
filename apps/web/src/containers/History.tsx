@@ -1,5 +1,4 @@
-import type { Claims } from "@repo/database";
-import { HISTORY_CLAIM_IDS_KEY } from "@repo/shared";
+import { type Claims, HISTORY_CLAIM_IDS_KEY } from "@repo/shared";
 import { useEffect, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import { getClaimsByIds } from "../api/claims";

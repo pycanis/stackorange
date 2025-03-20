@@ -1,5 +1,8 @@
-import { ClaimStatus, type Claims } from "@repo/database";
-import { LAST_UNPAID_CLAIM_ID_KEY } from "@repo/shared";
+import {
+	ClaimStatus,
+	type Claims,
+	LAST_UNPAID_CLAIM_ID_KEY,
+} from "@repo/shared";
 import { useEffect, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import { getClaimsByIds } from "../api/claims";

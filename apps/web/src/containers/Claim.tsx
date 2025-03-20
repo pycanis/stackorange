@@ -1,4 +1,4 @@
-import { ClaimStatus, type Claims } from "@repo/database";
+import { ClaimStatus, type Claims } from "@repo/shared";
 import { bech32 } from "bech32";
 import { useEffect, useState } from "react";
 import { getClaimsByIds } from "../api/claims";

@@ -3,7 +3,7 @@ import logo from "../assets/logo.svg";
 export const Hero = () => {
 	return (
 		<>
-			<img className="mb-4" src={logo.src} alt="The orange." />
+			<img className="mb-4 w-24" src={logo.src} alt="The orange." />
 
 			<div className="px-3 py-1 text-xs font-bold text-orange bg-[rgba(255,184,77,0.2)] rounded-full uppercase mb-4">
 				They won’t get it until they get some

@@ -1,5 +1,8 @@
-import { ClaimChannel } from "@repo/database";
-import { HISTORY_CLAIM_IDS_KEY, LAST_UNPAID_CLAIM_ID_KEY } from "@repo/shared";
+import {
+	ClaimChannel,
+	HISTORY_CLAIM_IDS_KEY,
+	LAST_UNPAID_CLAIM_ID_KEY,
+} from "@repo/shared";
 import type { Dispatch, SetStateAction } from "react";
 import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import useLocalStorageState from "use-local-storage-state";

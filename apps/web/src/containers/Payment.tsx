@@ -1,5 +1,4 @@
-import type { Claims } from "@repo/database";
-import { ROUTING_FEE_PERCENT, getRoutingFee } from "@repo/shared";
+import { type Claims, ROUTING_FEE_PERCENT, getRoutingFee } from "@repo/shared";
 import { Check, Copy } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Qrcode } from "../components/Qrcode";
