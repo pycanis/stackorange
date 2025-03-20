@@ -27,8 +27,6 @@ export const Amount = ({ setStep, onSubmit }: Props) => {
 	const routingFee = getRoutingFee(receiverSatsAmount);
 	const total = receiverSatsAmount + platformSatsAmount + routingFee;
 
-	console.log(errors);
-
 	return (
 		<>
 			<p className="text-center font-bold text-2xl mb-2">How many sats?</p>

@@ -22,7 +22,7 @@ export const Payment = ({ claim, onPaymentSuccess }: Props) => {
 
 	useEffect(() => {
 		const eventSource = subscribeSSE<{ paymentRequest: string }>(
-			`/payments/${claim.paymentRequest}`,
+			`${import.meta.env.PUBLIC_API_URL}/api/payments/${claim.paymentRequest}`,
 			({ paymentRequest: paymentRequestPaid }) => {
 				if (paymentRequestPaid === claim.paymentRequest) {
 					onPaymentSuccess();

@@ -3,6 +3,6 @@ import { router as claimsRouter } from "./claims";
 import { router as paymentsRouter } from "./payments";
 
 export const registerRoutes = (app: Application) => {
-	app.use(claimsRouter);
-	app.use(paymentsRouter);
+	app.use("/api/claims", claimsRouter);
+	app.use("/api/payments", paymentsRouter);
 };

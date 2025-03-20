@@ -1,6 +1,5 @@
 import type { Claims } from "@repo/shared";
 import { Check, ExternalLink, History, Pill } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { Button } from "../components/ui/Button";
 import { getClaimLink } from "../utils/getClaimLink";
 import { formatNumber } from "../utils/numbers";
@@ -11,8 +10,6 @@ type Props = {
 };
 
 export const PaymentSuccess = ({ claim, onCancel }: Props) => {
-	const router = useRouter();
-
 	return (
 		<>
 			<div className="flex justify-center items-center w-20 h-20 bg-green-200 rounded-full mx-auto mb-4">
@@ -55,7 +52,9 @@ export const PaymentSuccess = ({ claim, onCancel }: Props) => {
 			<Button
 				className="mt-2 w-full items-center gap-2"
 				variant="secondary"
-				onClick={() => router.push("/history")}
+				onClick={() => {
+					window.location.href = "/history";
+				}}
 			>
 				<History size={18} />
 				<span>View orange pill history</span>

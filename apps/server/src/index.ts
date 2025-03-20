@@ -1,47 +1,62 @@
 import "dotenv/config";
 
+import cors from "cors";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
-// import { handler as ssrHandler } from '../../web/dist/server/entry.mjs';
 import { registerRoutes } from "./routers";
 import { subscribeInvoices } from "./subscribeInvoices";
 import { errorMiddleware } from "./utils/middlewares";
 
-const isDev = process.env.NODE_ENV !== "production";
+(async () => {
+	const isProd = process.env.NODE_ENV === "production";
 
-const app = express();
+	const app = express();
 
-app.use(
-	helmet({
-		contentSecurityPolicy: {
-			directives: {
-				scriptSrc: isDev
-					? ["'self'", "'unsafe-eval'", "'unsafe-inline'"]
-					: ["'self'"],
-			},
-		},
-	}),
-);
+	app.use(express.json());
 
-if (!isDev) {
 	app.use(
-		rateLimit({
-			windowMs: 5 * 60 * 1000,
-			limit: 100,
+		helmet({
+			contentSecurityPolicy: {
+				directives: {
+					scriptSrc: isProd
+						? ["'self'"]
+						: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
+				},
+			},
 		}),
 	);
-}
 
-subscribeInvoices();
+	if (!isProd) {
+		app.use(cors());
+	}
 
-registerRoutes(app);
+	if (isProd) {
+		app.use(
+			rateLimit({
+				windowMs: 5 * 60 * 1000,
+				limit: 100,
+			}),
+		);
+	}
 
-app.use("/", express.static("dist/client/"));
-// app.use(ssrHandler);
+	subscribeInvoices();
 
-app.use(errorMiddleware);
+	registerRoutes(app);
 
-app.listen(3000, () => {
-	console.log("Server running on http://localhost:3000");
-});
+	if (isProd) {
+		const { handler: webHandler } = await import(
+			// @ts-expect-error
+			"../dist-web/server/entry.mjs"
+		);
+
+		app.use("/", express.static("dist-web/client/"));
+		app.use(webHandler);
+	}
+
+	app.use(errorMiddleware);
+
+	app.listen(3000, () => {
+		console.log("Server running on http://localhost:3000");
+	});
+})();

@@ -11,6 +11,6 @@ export const createClaim = async (data: CreateClaimRequest) =>
 export const getClaimsByIds = async (claimIds: string[]) =>
 	(
 		await apiClient.get<GetClaimsByIdsResponse>("/api/claims", {
-			params: claimIds,
+			params: { claimIds },
 		})
 	).data;
