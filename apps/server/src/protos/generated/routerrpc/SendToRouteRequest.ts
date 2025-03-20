@@ -1,4 +1,4 @@
-// Original file: protos/router.proto
+// Original file: router.proto
 
 import type { Route as _lnrpc_Route, Route__Output as _lnrpc_Route__Output } from '../lnrpc/Route';
 

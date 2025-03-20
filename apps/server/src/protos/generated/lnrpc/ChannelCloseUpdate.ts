@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { CloseOutput as _lnrpc_CloseOutput, CloseOutput__Output as _lnrpc_CloseOutput__Output } from '../lnrpc/CloseOutput';
 

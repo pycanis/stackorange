@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { Channel as _lnrpc_Channel, Channel__Output as _lnrpc_Channel__Output } from '../lnrpc/Channel';
 

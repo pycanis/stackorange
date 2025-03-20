@@ -1,9 +1,9 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { ChannelUpdate as _lnrpc_ChannelUpdate, ChannelUpdate__Output as _lnrpc_ChannelUpdate__Output } from '../lnrpc/ChannelUpdate';
 import type { Long } from '@grpc/proto-loader';
 
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const _lnrpc_Failure_FailureCode = {
   RESERVED: 'RESERVED',

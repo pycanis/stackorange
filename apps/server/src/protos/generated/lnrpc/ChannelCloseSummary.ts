@@ -1,10 +1,10 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { Initiator as _lnrpc_Initiator, Initiator__Output as _lnrpc_Initiator__Output } from '../lnrpc/Initiator';
 import type { Resolution as _lnrpc_Resolution, Resolution__Output as _lnrpc_Resolution__Output } from '../lnrpc/Resolution';
 import type { Long } from '@grpc/proto-loader';
 
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const _lnrpc_ChannelCloseSummary_ClosureType = {
   COOPERATIVE_CLOSE: 'COOPERATIVE_CLOSE',

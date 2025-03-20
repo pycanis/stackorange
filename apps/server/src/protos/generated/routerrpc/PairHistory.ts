@@ -1,4 +1,4 @@
-// Original file: protos/router.proto
+// Original file: router.proto
 
 import type { PairData as _routerrpc_PairData, PairData__Output as _routerrpc_PairData__Output } from '../routerrpc/PairData';
 

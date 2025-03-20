@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { ChannelCloseSummary as _lnrpc_ChannelCloseSummary, ChannelCloseSummary__Output as _lnrpc_ChannelCloseSummary__Output } from '../lnrpc/ChannelCloseSummary';
 

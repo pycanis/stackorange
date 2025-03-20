@@ -1,4 +1,4 @@
-// Original file: protos/router.proto
+// Original file: router.proto
 
 import type { Failure as _lnrpc_Failure, Failure__Output as _lnrpc_Failure__Output } from '../lnrpc/Failure';
 

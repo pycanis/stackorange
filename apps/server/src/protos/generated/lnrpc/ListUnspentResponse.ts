@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { Utxo as _lnrpc_Utxo, Utxo__Output as _lnrpc_Utxo__Output } from '../lnrpc/Utxo';
 

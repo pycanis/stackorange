@@ -1,10 +1,10 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { Route as _lnrpc_Route, Route__Output as _lnrpc_Route__Output } from '../lnrpc/Route';
 import type { Failure as _lnrpc_Failure, Failure__Output as _lnrpc_Failure__Output } from '../lnrpc/Failure';
 import type { Long } from '@grpc/proto-loader';
 
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const _lnrpc_HTLCAttempt_HTLCStatus = {
   IN_FLIGHT: 'IN_FLIGHT',

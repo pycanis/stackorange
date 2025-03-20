@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const Initiator = {
   INITIATOR_UNKNOWN: 'INITIATOR_UNKNOWN',

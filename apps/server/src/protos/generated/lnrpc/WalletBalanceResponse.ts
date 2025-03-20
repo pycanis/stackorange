@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { WalletAccountBalance as _lnrpc_WalletAccountBalance, WalletAccountBalance__Output as _lnrpc_WalletAccountBalance__Output } from '../lnrpc/WalletAccountBalance';
 import type { Long } from '@grpc/proto-loader';

@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { Peer as _lnrpc_Peer, Peer__Output as _lnrpc_Peer__Output } from '../lnrpc/Peer';
 

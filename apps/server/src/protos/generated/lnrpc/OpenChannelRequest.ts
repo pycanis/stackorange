@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { FundingShim as _lnrpc_FundingShim, FundingShim__Output as _lnrpc_FundingShim__Output } from '../lnrpc/FundingShim';
 import type { CommitmentType as _lnrpc_CommitmentType, CommitmentType__Output as _lnrpc_CommitmentType__Output } from '../lnrpc/CommitmentType';

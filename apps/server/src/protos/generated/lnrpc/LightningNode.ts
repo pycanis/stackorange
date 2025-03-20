@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { NodeAddress as _lnrpc_NodeAddress, NodeAddress__Output as _lnrpc_NodeAddress__Output } from '../lnrpc/NodeAddress';
 import type { Feature as _lnrpc_Feature, Feature__Output as _lnrpc_Feature__Output } from '../lnrpc/Feature';

@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { ChannelPoint as _lnrpc_ChannelPoint, ChannelPoint__Output as _lnrpc_ChannelPoint__Output } from '../lnrpc/ChannelPoint';
 import type { KeyDescriptor as _lnrpc_KeyDescriptor, KeyDescriptor__Output as _lnrpc_KeyDescriptor__Output } from '../lnrpc/KeyDescriptor';

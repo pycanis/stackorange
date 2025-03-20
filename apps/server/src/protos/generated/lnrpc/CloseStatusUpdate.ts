@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { PendingUpdate as _lnrpc_PendingUpdate, PendingUpdate__Output as _lnrpc_PendingUpdate__Output } from '../lnrpc/PendingUpdate';
 import type { ChannelCloseUpdate as _lnrpc_ChannelCloseUpdate, ChannelCloseUpdate__Output as _lnrpc_ChannelCloseUpdate__Output } from '../lnrpc/ChannelCloseUpdate';

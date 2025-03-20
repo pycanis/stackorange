@@ -1,4 +1,4 @@
-// Original file: protos/router.proto
+// Original file: router.proto
 
 import type { HtlcInfo as _routerrpc_HtlcInfo, HtlcInfo__Output as _routerrpc_HtlcInfo__Output } from '../routerrpc/HtlcInfo';
 import type { _lnrpc_Failure_FailureCode, _lnrpc_Failure_FailureCode__Output } from '../lnrpc/Failure';

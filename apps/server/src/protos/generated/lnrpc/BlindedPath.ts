@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { BlindedHop as _lnrpc_BlindedHop, BlindedHop__Output as _lnrpc_BlindedHop__Output } from '../lnrpc/BlindedHop';
 

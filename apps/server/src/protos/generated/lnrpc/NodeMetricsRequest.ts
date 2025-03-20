@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { NodeMetricType as _lnrpc_NodeMetricType, NodeMetricType__Output as _lnrpc_NodeMetricType__Output } from '../lnrpc/NodeMetricType';
 

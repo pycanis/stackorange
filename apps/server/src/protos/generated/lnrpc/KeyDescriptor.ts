@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { KeyLocator as _lnrpc_KeyLocator, KeyLocator__Output as _lnrpc_KeyLocator__Output } from '../lnrpc/KeyLocator';
 

@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { ChannelBackups as _lnrpc_ChannelBackups, ChannelBackups__Output as _lnrpc_ChannelBackups__Output } from '../lnrpc/ChannelBackups';
 import type { MultiChanBackup as _lnrpc_MultiChanBackup, MultiChanBackup__Output as _lnrpc_MultiChanBackup__Output } from '../lnrpc/MultiChanBackup';

@@ -1,4 +1,4 @@
-// Original file: protos/router.proto
+// Original file: router.proto
 
 import type { CircuitKey as _routerrpc_CircuitKey, CircuitKey__Output as _routerrpc_CircuitKey__Output } from '../routerrpc/CircuitKey';
 import type { Long } from '@grpc/proto-loader';

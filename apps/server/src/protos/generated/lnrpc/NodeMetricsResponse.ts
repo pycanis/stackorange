@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { FloatMetric as _lnrpc_FloatMetric, FloatMetric__Output as _lnrpc_FloatMetric__Output } from '../lnrpc/FloatMetric';
 

@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { StreamAuth as _lnrpc_StreamAuth, StreamAuth__Output as _lnrpc_StreamAuth__Output } from '../lnrpc/StreamAuth';
 import type { RPCMessage as _lnrpc_RPCMessage, RPCMessage__Output as _lnrpc_RPCMessage__Output } from '../lnrpc/RPCMessage';

@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { Invoice as _lnrpc_Invoice, Invoice__Output as _lnrpc_Invoice__Output } from '../lnrpc/Invoice';
 import type { Long } from '@grpc/proto-loader';

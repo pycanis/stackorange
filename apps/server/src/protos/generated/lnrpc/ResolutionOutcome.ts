@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const ResolutionOutcome = {
   OUTCOME_UNKNOWN: 'OUTCOME_UNKNOWN',

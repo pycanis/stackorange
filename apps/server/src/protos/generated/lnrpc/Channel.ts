@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { HTLC as _lnrpc_HTLC, HTLC__Output as _lnrpc_HTLC__Output } from '../lnrpc/HTLC';
 import type { CommitmentType as _lnrpc_CommitmentType, CommitmentType__Output as _lnrpc_CommitmentType__Output } from '../lnrpc/CommitmentType';

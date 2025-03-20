@@ -1,10 +1,10 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { HTLCAttempt as _lnrpc_HTLCAttempt, HTLCAttempt__Output as _lnrpc_HTLCAttempt__Output } from '../lnrpc/HTLCAttempt';
 import type { PaymentFailureReason as _lnrpc_PaymentFailureReason, PaymentFailureReason__Output as _lnrpc_PaymentFailureReason__Output } from '../lnrpc/PaymentFailureReason';
 import type { Long } from '@grpc/proto-loader';
 
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const _lnrpc_Payment_PaymentStatus = {
   UNKNOWN: 'UNKNOWN',

@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { Hop as _lnrpc_Hop, Hop__Output as _lnrpc_Hop__Output } from '../lnrpc/Hop';
 import type { Long } from '@grpc/proto-loader';

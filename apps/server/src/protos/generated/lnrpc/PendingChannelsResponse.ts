@@ -1,11 +1,11 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { Initiator as _lnrpc_Initiator, Initiator__Output as _lnrpc_Initiator__Output } from '../lnrpc/Initiator';
 import type { CommitmentType as _lnrpc_CommitmentType, CommitmentType__Output as _lnrpc_CommitmentType__Output } from '../lnrpc/CommitmentType';
 import type { PendingHTLC as _lnrpc_PendingHTLC, PendingHTLC__Output as _lnrpc_PendingHTLC__Output } from '../lnrpc/PendingHTLC';
 import type { Long } from '@grpc/proto-loader';
 
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const _lnrpc_PendingChannelsResponse_ForceClosedChannel_AnchorState = {
   LIMBO: 'LIMBO',

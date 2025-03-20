@@ -1,10 +1,10 @@
-// Original file: protos/router.proto
+// Original file: router.proto
 
 import type { AprioriParameters as _routerrpc_AprioriParameters, AprioriParameters__Output as _routerrpc_AprioriParameters__Output } from '../routerrpc/AprioriParameters';
 import type { BimodalParameters as _routerrpc_BimodalParameters, BimodalParameters__Output as _routerrpc_BimodalParameters__Output } from '../routerrpc/BimodalParameters';
 import type { Long } from '@grpc/proto-loader';
 
-// Original file: protos/router.proto
+// Original file: router.proto
 
 export const _routerrpc_MissionControlConfig_ProbabilityModel = {
   APRIORI: 'APRIORI',

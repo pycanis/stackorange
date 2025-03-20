@@ -1,4 +1,4 @@
-// Original file: protos/router.proto
+// Original file: router.proto
 
 import type { CircuitKey as _routerrpc_CircuitKey, CircuitKey__Output as _routerrpc_CircuitKey__Output } from '../routerrpc/CircuitKey';
 import type { ResolveHoldForwardAction as _routerrpc_ResolveHoldForwardAction, ResolveHoldForwardAction__Output as _routerrpc_ResolveHoldForwardAction__Output } from '../routerrpc/ResolveHoldForwardAction';

@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { MiddlewareRegistration as _lnrpc_MiddlewareRegistration, MiddlewareRegistration__Output as _lnrpc_MiddlewareRegistration__Output } from '../lnrpc/MiddlewareRegistration';
 import type { InterceptFeedback as _lnrpc_InterceptFeedback, InterceptFeedback__Output as _lnrpc_InterceptFeedback__Output } from '../lnrpc/InterceptFeedback';

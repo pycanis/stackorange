@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { PendingUpdate as _lnrpc_PendingUpdate, PendingUpdate__Output as _lnrpc_PendingUpdate__Output } from '../lnrpc/PendingUpdate';
 import type { ChannelOpenUpdate as _lnrpc_ChannelOpenUpdate, ChannelOpenUpdate__Output as _lnrpc_ChannelOpenUpdate__Output } from '../lnrpc/ChannelOpenUpdate';

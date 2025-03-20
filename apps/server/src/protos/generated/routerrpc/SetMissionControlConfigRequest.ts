@@ -1,4 +1,4 @@
-// Original file: protos/router.proto
+// Original file: router.proto
 
 import type { MissionControlConfig as _routerrpc_MissionControlConfig, MissionControlConfig__Output as _routerrpc_MissionControlConfig__Output } from '../routerrpc/MissionControlConfig';
 

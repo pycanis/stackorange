@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const OutputScriptType = {
   SCRIPT_TYPE_PUBKEY_HASH: 'SCRIPT_TYPE_PUBKEY_HASH',

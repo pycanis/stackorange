@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { FeeLimit as _lnrpc_FeeLimit, FeeLimit__Output as _lnrpc_FeeLimit__Output } from '../lnrpc/FeeLimit';
 import type { EdgeLocator as _lnrpc_EdgeLocator, EdgeLocator__Output as _lnrpc_EdgeLocator__Output } from '../lnrpc/EdgeLocator';

@@ -1,4 +1,4 @@
-// Original file: protos/router.proto
+// Original file: router.proto
 
 import type { HtlcInfo as _routerrpc_HtlcInfo, HtlcInfo__Output as _routerrpc_HtlcInfo__Output } from '../routerrpc/HtlcInfo';
 

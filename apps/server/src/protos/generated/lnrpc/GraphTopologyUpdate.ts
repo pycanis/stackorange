@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { NodeUpdate as _lnrpc_NodeUpdate, NodeUpdate__Output as _lnrpc_NodeUpdate__Output } from '../lnrpc/NodeUpdate';
 import type { ChannelEdgeUpdate as _lnrpc_ChannelEdgeUpdate, ChannelEdgeUpdate__Output as _lnrpc_ChannelEdgeUpdate__Output } from '../lnrpc/ChannelEdgeUpdate';

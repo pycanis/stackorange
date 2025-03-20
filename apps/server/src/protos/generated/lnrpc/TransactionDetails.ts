@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { Transaction as _lnrpc_Transaction, Transaction__Output as _lnrpc_Transaction__Output } from '../lnrpc/Transaction';
 import type { Long } from '@grpc/proto-loader';

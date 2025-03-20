@@ -1,10 +1,10 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { Feature as _lnrpc_Feature, Feature__Output as _lnrpc_Feature__Output } from '../lnrpc/Feature';
 import type { TimestampedError as _lnrpc_TimestampedError, TimestampedError__Output as _lnrpc_TimestampedError__Output } from '../lnrpc/TimestampedError';
 import type { Long } from '@grpc/proto-loader';
 
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const _lnrpc_Peer_SyncType = {
   UNKNOWN_SYNC: 'UNKNOWN_SYNC',

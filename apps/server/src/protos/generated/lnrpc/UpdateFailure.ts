@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const UpdateFailure = {
   UPDATE_FAILURE_UNKNOWN: 'UPDATE_FAILURE_UNKNOWN',

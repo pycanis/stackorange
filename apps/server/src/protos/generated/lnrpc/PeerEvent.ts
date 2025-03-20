@@ -1,7 +1,7 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const _lnrpc_PeerEvent_EventType = {
   PEER_ONLINE: 'PEER_ONLINE',

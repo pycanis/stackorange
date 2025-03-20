@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { InvoiceHTLCState as _lnrpc_InvoiceHTLCState, InvoiceHTLCState__Output as _lnrpc_InvoiceHTLCState__Output } from '../lnrpc/InvoiceHTLCState';
 import type { AMP as _lnrpc_AMP, AMP__Output as _lnrpc_AMP__Output } from '../lnrpc/AMP';

@@ -1,4 +1,4 @@
-// Original file: protos/router.proto
+// Original file: router.proto
 
 import type { PairHistory as _routerrpc_PairHistory, PairHistory__Output as _routerrpc_PairHistory__Output } from '../routerrpc/PairHistory';
 

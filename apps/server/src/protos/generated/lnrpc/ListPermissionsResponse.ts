@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { MacaroonPermissionList as _lnrpc_MacaroonPermissionList, MacaroonPermissionList__Output as _lnrpc_MacaroonPermissionList__Output } from '../lnrpc/MacaroonPermissionList';
 

@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const CoinSelectionStrategy = {
   STRATEGY_USE_GLOBAL_CONFIG: 'STRATEGY_USE_GLOBAL_CONFIG',

@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { HopHint as _lnrpc_HopHint, HopHint__Output as _lnrpc_HopHint__Output } from '../lnrpc/HopHint';
 

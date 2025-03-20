@@ -1,11 +1,11 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { Channel as _lnrpc_Channel, Channel__Output as _lnrpc_Channel__Output } from '../lnrpc/Channel';
 import type { ChannelCloseSummary as _lnrpc_ChannelCloseSummary, ChannelCloseSummary__Output as _lnrpc_ChannelCloseSummary__Output } from '../lnrpc/ChannelCloseSummary';
 import type { ChannelPoint as _lnrpc_ChannelPoint, ChannelPoint__Output as _lnrpc_ChannelPoint__Output } from '../lnrpc/ChannelPoint';
 import type { PendingUpdate as _lnrpc_PendingUpdate, PendingUpdate__Output as _lnrpc_PendingUpdate__Output } from '../lnrpc/PendingUpdate';
 
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const _lnrpc_ChannelEventUpdate_UpdateType = {
   OPEN_CHANNEL: 'OPEN_CHANNEL',

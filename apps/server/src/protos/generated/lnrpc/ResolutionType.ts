@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const ResolutionType = {
   TYPE_UNKNOWN: 'TYPE_UNKNOWN',

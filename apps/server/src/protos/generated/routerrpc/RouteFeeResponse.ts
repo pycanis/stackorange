@@ -1,4 +1,4 @@
-// Original file: protos/router.proto
+// Original file: router.proto
 
 import type { PaymentFailureReason as _lnrpc_PaymentFailureReason, PaymentFailureReason__Output as _lnrpc_PaymentFailureReason__Output } from '../lnrpc/PaymentFailureReason';
 import type { Long } from '@grpc/proto-loader';

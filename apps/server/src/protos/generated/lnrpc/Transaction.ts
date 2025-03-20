@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { OutputDetail as _lnrpc_OutputDetail, OutputDetail__Output as _lnrpc_OutputDetail__Output } from '../lnrpc/OutputDetail';
 import type { PreviousOutPoint as _lnrpc_PreviousOutPoint, PreviousOutPoint__Output as _lnrpc_PreviousOutPoint__Output } from '../lnrpc/PreviousOutPoint';

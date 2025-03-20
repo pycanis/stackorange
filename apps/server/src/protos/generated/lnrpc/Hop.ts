@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { MPPRecord as _lnrpc_MPPRecord, MPPRecord__Output as _lnrpc_MPPRecord__Output } from '../lnrpc/MPPRecord';
 import type { AMPRecord as _lnrpc_AMPRecord, AMPRecord__Output as _lnrpc_AMPRecord__Output } from '../lnrpc/AMPRecord';

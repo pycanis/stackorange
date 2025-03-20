@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { Amount as _lnrpc_Amount, Amount__Output as _lnrpc_Amount__Output } from '../lnrpc/Amount';
 import type { Long } from '@grpc/proto-loader';

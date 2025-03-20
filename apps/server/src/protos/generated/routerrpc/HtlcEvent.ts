@@ -1,4 +1,4 @@
-// Original file: protos/router.proto
+// Original file: router.proto
 
 import type { ForwardEvent as _routerrpc_ForwardEvent, ForwardEvent__Output as _routerrpc_ForwardEvent__Output } from '../routerrpc/ForwardEvent';
 import type { ForwardFailEvent as _routerrpc_ForwardFailEvent, ForwardFailEvent__Output as _routerrpc_ForwardFailEvent__Output } from '../routerrpc/ForwardFailEvent';
@@ -8,7 +8,7 @@ import type { SubscribedEvent as _routerrpc_SubscribedEvent, SubscribedEvent__Ou
 import type { FinalHtlcEvent as _routerrpc_FinalHtlcEvent, FinalHtlcEvent__Output as _routerrpc_FinalHtlcEvent__Output } from '../routerrpc/FinalHtlcEvent';
 import type { Long } from '@grpc/proto-loader';
 
-// Original file: protos/router.proto
+// Original file: router.proto
 
 export const _routerrpc_HtlcEvent_EventType = {
   UNKNOWN: 'UNKNOWN',

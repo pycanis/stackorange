@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { ChannelFeeReport as _lnrpc_ChannelFeeReport, ChannelFeeReport__Output as _lnrpc_ChannelFeeReport__Output } from '../lnrpc/ChannelFeeReport';
 import type { Long } from '@grpc/proto-loader';

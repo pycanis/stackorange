@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { FundingShim as _lnrpc_FundingShim, FundingShim__Output as _lnrpc_FundingShim__Output } from '../lnrpc/FundingShim';
 import type { FundingShimCancel as _lnrpc_FundingShimCancel, FundingShimCancel__Output as _lnrpc_FundingShimCancel__Output } from '../lnrpc/FundingShimCancel';

@@ -1,4 +1,4 @@
-// Original file: protos/router.proto
+// Original file: router.proto
 
 
 export interface SetMissionControlConfigResponse {

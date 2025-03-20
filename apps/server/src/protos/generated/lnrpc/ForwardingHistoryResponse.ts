@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { ForwardingEvent as _lnrpc_ForwardingEvent, ForwardingEvent__Output as _lnrpc_ForwardingEvent__Output } from '../lnrpc/ForwardingEvent';
 

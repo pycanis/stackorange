@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { BatchOpenChannel as _lnrpc_BatchOpenChannel, BatchOpenChannel__Output as _lnrpc_BatchOpenChannel__Output } from '../lnrpc/BatchOpenChannel';
 import type { CoinSelectionStrategy as _lnrpc_CoinSelectionStrategy, CoinSelectionStrategy__Output as _lnrpc_CoinSelectionStrategy__Output } from '../lnrpc/CoinSelectionStrategy';

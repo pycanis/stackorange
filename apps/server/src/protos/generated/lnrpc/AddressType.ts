@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const AddressType = {
   WITNESS_PUBKEY_HASH: 'WITNESS_PUBKEY_HASH',

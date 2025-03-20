@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const PaymentFailureReason = {
   FAILURE_REASON_NONE: 'FAILURE_REASON_NONE',

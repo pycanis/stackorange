@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { RouteHint as _lnrpc_RouteHint, RouteHint__Output as _lnrpc_RouteHint__Output } from '../lnrpc/RouteHint';
 import type { InvoiceHTLC as _lnrpc_InvoiceHTLC, InvoiceHTLC__Output as _lnrpc_InvoiceHTLC__Output } from '../lnrpc/InvoiceHTLC';
@@ -7,7 +7,7 @@ import type { AMPInvoiceState as _lnrpc_AMPInvoiceState, AMPInvoiceState__Output
 import type { BlindedPathConfig as _lnrpc_BlindedPathConfig, BlindedPathConfig__Output as _lnrpc_BlindedPathConfig__Output } from '../lnrpc/BlindedPathConfig';
 import type { Long } from '@grpc/proto-loader';
 
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const _lnrpc_Invoice_InvoiceState = {
   OPEN: 'OPEN',

@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { LightningNode as _lnrpc_LightningNode, LightningNode__Output as _lnrpc_LightningNode__Output } from '../lnrpc/LightningNode';
 import type { ChannelEdge as _lnrpc_ChannelEdge, ChannelEdge__Output as _lnrpc_ChannelEdge__Output } from '../lnrpc/ChannelEdge';

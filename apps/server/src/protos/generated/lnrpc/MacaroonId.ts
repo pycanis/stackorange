@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { Op as _lnrpc_Op, Op__Output as _lnrpc_Op__Output } from '../lnrpc/Op';
 

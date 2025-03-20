@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { ResolutionType as _lnrpc_ResolutionType, ResolutionType__Output as _lnrpc_ResolutionType__Output } from '../lnrpc/ResolutionType';
 import type { ResolutionOutcome as _lnrpc_ResolutionOutcome, ResolutionOutcome__Output as _lnrpc_ResolutionOutcome__Output } from '../lnrpc/ResolutionOutcome';

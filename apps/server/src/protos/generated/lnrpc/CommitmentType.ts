@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 export const CommitmentType = {
   UNKNOWN_COMMITMENT_TYPE: 'UNKNOWN_COMMITMENT_TYPE',

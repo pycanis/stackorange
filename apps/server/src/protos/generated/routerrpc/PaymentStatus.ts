@@ -1,4 +1,4 @@
-// Original file: protos/router.proto
+// Original file: router.proto
 
 import type { PaymentState as _routerrpc_PaymentState, PaymentState__Output as _routerrpc_PaymentState__Output } from '../routerrpc/PaymentState';
 import type { HTLCAttempt as _lnrpc_HTLCAttempt, HTLCAttempt__Output as _lnrpc_HTLCAttempt__Output } from '../lnrpc/HTLCAttempt';

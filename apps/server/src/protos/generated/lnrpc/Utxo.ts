@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { AddressType as _lnrpc_AddressType, AddressType__Output as _lnrpc_AddressType__Output } from '../lnrpc/AddressType';
 import type { OutPoint as _lnrpc_OutPoint, OutPoint__Output as _lnrpc_OutPoint__Output } from '../lnrpc/OutPoint';

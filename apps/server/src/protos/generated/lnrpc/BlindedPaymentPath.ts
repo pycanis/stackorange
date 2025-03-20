@@ -1,4 +1,4 @@
-// Original file: protos/lightning.proto
+// Original file: lightning.proto
 
 import type { BlindedPath as _lnrpc_BlindedPath, BlindedPath__Output as _lnrpc_BlindedPath__Output } from '../lnrpc/BlindedPath';
 import type { FeatureBit as _lnrpc_FeatureBit, FeatureBit__Output as _lnrpc_FeatureBit__Output } from '../lnrpc/FeatureBit';
