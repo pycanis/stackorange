@@ -4,7 +4,7 @@ import cors from "cors";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
-import { registerRoutes } from "./routers";
+import { registerRoutes } from "./routers/index";
 import { subscribeInvoices } from "./subscribeInvoices";
 import { errorMiddleware } from "./utils/middlewares";
 

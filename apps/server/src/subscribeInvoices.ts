@@ -50,7 +50,7 @@ export const subscribeInvoices = () => {
 		handleIncomingPayment(data);
 	});
 
-	stream.on("error", (err) => {
+	stream.on("error", (err: unknown) => {
 		console.log("Subscribe invoice error: ", err);
 
 		reconnect();

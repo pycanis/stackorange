@@ -10,3 +10,4 @@ last_settle_index.txt
 *.db*
 dist
 dist-web
+packages/database/generated/*

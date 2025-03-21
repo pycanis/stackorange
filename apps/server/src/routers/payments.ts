@@ -8,12 +8,6 @@ import type { Payment__Output } from "../protos/generated/lnrpc/Payment";
 import { getRequiredStringParams } from "../utils/params";
 import { routeHandler } from "../utils/routeHandler";
 
-declare module "express-serve-static-core" {
-	interface Response {
-		id?: string | number;
-	}
-}
-
 const mutexes = new Map<string, MutexInterface>();
 
 const router = Router();

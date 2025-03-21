@@ -2,7 +2,7 @@
 	"name": "server",
 	"version": "1.0.0",
 	"scripts": {
-		"dev": "tsx watch src/index.ts",
+		"dev": "tsx watch --conditions=development src/index.ts",
 		"build": "tsc"
 	},
 	"dependencies": {
@@ -25,5 +25,6 @@
 		"tsx": "^4.19.3",
 		"typescript": "^5.8.2"
 	},
+	"files": ["dist"],
 	"packageManager": "pnpm@10.6.4"
 }
