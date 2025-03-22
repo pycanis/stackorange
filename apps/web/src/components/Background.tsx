@@ -1,5 +1,5 @@
 export const Background = () => {
 	return (
-		<div className="fixed w-2xl h-96 -z-10 top-[300px] bg-orange/40 rounded-full blur-3xl opacity-30" />
+		<div className="-z-10 fixed top-[300px] h-96 w-2xl rounded-full bg-orange/40 opacity-30 blur-3xl" />
 	);
 };

@@ -38,20 +38,20 @@ export const Receiver = ({ setStep }: Props) => {
 
 	return (
 		<>
-			<p className="text-center font-bold text-2xl mb-2">Who's receiving sats?</p>
+			<p className="mb-2 text-center font-bold text-2xl">Who's receiving sats?</p>
 
-			<p className="text-center text-white-muted text-lg mb-4">
+			<p className="mb-4 text-center text-lg text-white-muted">
 				Fill out the receiver details. We'll send them your message and the withdrawal link with
 				some onboarding resources.
 			</p>
 
-			<div className="w-full bg-white-muted/50 p-1 rounded-lg mb-2 flex">
+			<div className="mb-2 flex w-full rounded-lg bg-white-muted/50 p-1">
 				{Object.values(ClaimChannel).map((channel) => (
 					<Button
 						key={channel}
 						type="button"
 						onClick={() => setValue("channel", channel)}
-						className={"text-sm flex-1 flex justify-center items-center".concat(
+						className={"flex flex-1 items-center justify-center text-sm".concat(
 							" ",
 							selectedChannel === channel ? "bg-background font-bold" : "text-white/70",
 						)}
@@ -100,7 +100,7 @@ export const Receiver = ({ setStep }: Props) => {
 
 			<Button type="button" className="group items-center" onClick={onNext}>
 				<span>Continue</span>
-				<span className="ml-2 group-hover:translate-x-1 transition-transform">
+				<span className="ml-2 transition-transform group-hover:translate-x-1">
 					<ArrowRight size={18} className="mt-1" />
 				</span>
 			</Button>

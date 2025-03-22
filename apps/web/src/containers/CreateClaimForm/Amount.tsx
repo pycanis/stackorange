@@ -29,9 +29,9 @@ export const Amount = ({ setStep, onSubmit }: Props) => {
 
 	return (
 		<>
-			<p className="text-center font-bold text-2xl mb-2">How many sats?</p>
+			<p className="mb-2 text-center font-bold text-2xl">How many sats?</p>
 
-			<p className="text-center text-white-muted text-lg mb-4">
+			<p className="mb-4 text-center text-lg text-white-muted">
 				Choose the amount of satoshis to send.
 			</p>
 
@@ -48,7 +48,7 @@ export const Amount = ({ setStep, onSubmit }: Props) => {
 				))}
 			</div>
 
-			<div className="flex gap-2 mb-4">
+			<div className="mb-4 flex gap-2">
 				<div className="flex-1">
 					<label htmlFor="receiverSatsAmount" className="font-bold">
 						Receiver amount
@@ -96,7 +96,7 @@ export const Amount = ({ setStep, onSubmit }: Props) => {
 				</div>
 			</div>
 
-			<div className="bg-background rounded-lg border border-white-muted/50 px-2 py-4 mb-4 flex justify-between items-center text-lg">
+			<div className="mb-4 flex items-center justify-between rounded-lg border border-white-muted/50 bg-background px-2 py-4 text-lg">
 				<div className="flex flex-col">
 					<span className="font-bold">Total amount:</span>
 					{routingFee > 0 && (
@@ -114,7 +114,7 @@ export const Amount = ({ setStep, onSubmit }: Props) => {
 					variant="secondary"
 					onClick={() => setStep((step) => step - 1)}
 				>
-					<span className="mr-2 group-hover:-translate-x-1 transition-transform">
+					<span className="group-hover:-translate-x-1 mr-2 transition-transform">
 						<ArrowLeft size={18} className="mt-1" />
 					</span>
 					<span>Back</span>
@@ -126,7 +126,7 @@ export const Amount = ({ setStep, onSubmit }: Props) => {
 					onClick={() => handleSubmit(onSubmit)()}
 				>
 					<span>Continue</span>
-					<span className="ml-2 group-hover:translate-x-1 transition-transform">
+					<span className="ml-2 transition-transform group-hover:translate-x-1">
 						<ArrowRight size={18} className="mt-1" />
 					</span>
 				</Button>

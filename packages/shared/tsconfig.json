@@ -15,5 +15,5 @@
 		"skipLibCheck": true,
 		"declaration": true,
 		"noUncheckedIndexedAccess": true
-	},
+	}
 }

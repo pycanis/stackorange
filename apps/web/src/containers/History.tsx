@@ -26,7 +26,7 @@ export const History = () => {
 	return (
 		<div className="mt-2">
 			<details>
-				<summary className="text-center cursor-pointer border-b-white border-b-1">
+				<summary className="cursor-pointer border-b-1 border-b-white text-center">
 					Show history
 				</summary>
 
@@ -43,7 +43,7 @@ export const History = () => {
 								href={getClaimLink(claim.id)}
 								target="_blank"
 								rel="noreferrer"
-								className="flex-1 text-orange hover:underline text-end"
+								className="flex-1 text-end text-orange hover:underline"
 							>
 								claim link
 							</a>

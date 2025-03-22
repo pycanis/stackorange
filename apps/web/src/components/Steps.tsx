@@ -11,7 +11,7 @@ const Circle = ({
 	isPast,
 }: { stepNumber: number; isActive: boolean; isPast: boolean }) => (
 	<div
-		className={"rounded-full mr-2 w-10 h-10 flex items-center justify-center font-bold border-2".concat(
+		className={"mr-2 flex h-10 w-10 items-center justify-center rounded-full border-2 font-bold".concat(
 			isActive
 				? " border-orange bg-orange"
 				: isPast
@@ -24,7 +24,7 @@ const Circle = ({
 );
 
 const Line = ({ isPast }: { isPast: boolean }) => (
-	<div className={"h-0.5 mr-2 w-12".concat(isPast ? " bg-orange" : " bg-white-muted")} />
+	<div className={"mr-2 h-0.5 w-12".concat(isPast ? " bg-orange" : " bg-white-muted")} />
 );
 
 export const Steps = ({ currentStep, totalSteps = 3 }: Props) => {

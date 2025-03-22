@@ -12,21 +12,21 @@ type Props = {
 export const PaymentSuccess = ({ claim, onCancel }: Props) => {
 	return (
 		<>
-			<div className="flex justify-center items-center w-20 h-20 bg-green-200 rounded-full mx-auto mb-4">
+			<div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-green-200">
 				<Check color="green" size={28} strokeWidth={3} />
 			</div>
 
-			<p className="text-center font-bold text-2xl mb-2">Orange pill sucessfully sent!</p>
+			<p className="mb-2 text-center font-bold text-2xl">Orange pill sucessfully sent!</p>
 
-			<p className="text-center text-white-muted text-lg mb-8">
+			<p className="mb-8 text-center text-lg text-white-muted">
 				{claim.receiver} will receive instructions on how to claim their{" "}
 				{formatNumber(claim.receiverSatsAmount)} sats.
 			</p>
 
-			<div className="bg-background rounded-lg border border-white-muted/50 p-2 mb-8">
-				<p className="font-bold mb-2">Claim link for unclaimed sats</p>
+			<div className="mb-8 rounded-lg border border-white-muted/50 bg-background p-2">
+				<p className="mb-2 font-bold">Claim link for unclaimed sats</p>
 
-				<p className="text-sm text-white-muted mb-2">
+				<p className="mb-2 text-sm text-white-muted">
 					If the sats aren't claimed within the timeframe you consider reasonable, you can reclaim
 					them yourself.
 				</p>
@@ -35,7 +35,7 @@ export const PaymentSuccess = ({ claim, onCancel }: Props) => {
 					href={getClaimLink(claim.id)}
 					target="_blank"
 					rel="noreferrer"
-					className="text-orange hover:underline flex items-center gap-2"
+					className="flex items-center gap-2 text-orange hover:underline"
 				>
 					<span>Reclaim sats</span>
 					<ExternalLink size={16} />

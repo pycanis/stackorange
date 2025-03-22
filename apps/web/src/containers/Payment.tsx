@@ -47,14 +47,14 @@ export const Payment = ({ claim, onPaymentSuccess }: Props) => {
 
 	return (
 		<>
-			<p className="text-center font-bold text-2xl mb-2">Complete your payment</p>
+			<p className="mb-2 text-center font-bold text-2xl">Complete your payment</p>
 
-			<p className="text-center text-white-muted text-lg mb-4">
+			<p className="mb-4 text-center text-lg text-white-muted">
 				Pay the lightning invoice to send {formatNumber(claim.receiverSatsAmount)} sats to{" "}
 				{claim.receiver}.
 			</p>
 
-			<div className="bg-background rounded-lg border border-white-muted/50 p-2 mb-4 text-sm flex flex-col gap-2">
+			<div className="mb-4 flex flex-col gap-2 rounded-lg border border-white-muted/50 bg-background p-2 text-sm">
 				<div className="flex justify-between">
 					<span className="text-white-muted">Receiver:</span>
 					<span className="font-bold">{claim.receiver}</span>
@@ -91,38 +91,38 @@ export const Payment = ({ claim, onPaymentSuccess }: Props) => {
 				</div>
 			</div>
 
-			<div className="mb-2 flex justify-between items-center">
+			<div className="mb-2 flex items-center justify-between">
 				<span className="font-bold">Lightning invoice</span>
 
 				<Button variant="text" onClick={handleCopyToClipboard} disabled={copied}>
 					{copied ? (
-						<Check size={18} className="mr-2 mt-0.5" />
+						<Check size={18} className="mt-0.5 mr-2" />
 					) : (
-						<Copy size={18} className="mr-2 mt-0.5" />
+						<Copy size={18} className="mt-0.5 mr-2" />
 					)}
 					<span className="font-bold text-sm">{copied ? "Copied!" : "Copy"}</span>
 				</Button>
 			</div>
 
-			<div className="flex justify-center mb-4">
+			<div className="mb-4 flex justify-center">
 				<Qrcode payload={`lightning:${claim.paymentRequest}`} />
 			</div>
 
-			<div className="bg-background rounded-lg border border-white-muted/50 p-2 mb-8 text-sm text-white-muted break-words">
+			<div className="mb-8 break-words rounded-lg border border-white-muted/50 bg-background p-2 text-sm text-white-muted">
 				{claim.paymentRequest}
 			</div>
 
-			<div className="grid grid-cols-3 gap-2 mb-4">
+			<div className="mb-4 grid grid-cols-3 gap-2">
 				<div
-					className="h-2 bg-white rounded-full animate-pulse"
+					className="h-2 animate-pulse rounded-full bg-white"
 					style={{ animationDelay: "0ms" }}
 				/>
 				<div
-					className="h-2 bg-white rounded-full animate-pulse"
+					className="h-2 animate-pulse rounded-full bg-white"
 					style={{ animationDelay: "200ms" }}
 				/>
 				<div
-					className="h-2 bg-white rounded-full animate-pulse"
+					className="h-2 animate-pulse rounded-full bg-white"
 					style={{ animationDelay: "400ms" }}
 				/>
 			</div>

@@ -14,7 +14,7 @@ export const WalletLink = ({ description, link, name }: Props) => {
 			onClick={() => window.open(link, "_blank")}
 		>
 			<span className="font-bold">{name}</span>
-			<span className="text-white-muted text-sm">{description}</span>
+			<span className="text-sm text-white-muted">{description}</span>
 		</Button>
 	);
 };

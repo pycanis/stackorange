@@ -15,7 +15,7 @@ const buttonVariants = {
 export const Button = ({ className, variant = "primary", ...rest }: Props) => {
 	return (
 		<button
-			className={"flex justify-center rounded-lg px-3 py-1.5 hover:not-disabled:cursor-pointer transition-all duration-100 focus-visible:outline-2 focus-visible:outline-offset-2".concat(
+			className={"flex justify-center rounded-lg px-3 py-1.5 transition-all duration-100 hover:not-disabled:cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2".concat(
 				" ",
 				buttonVariants[variant],
 				" ",
