@@ -17,6 +17,7 @@
 		"axios": "^1.8.3",
 		"bech32": "^2.0.0",
 		"lucide-react": "^0.482.0",
+		"motion": "^12.5.0",
 		"qrcode": "^1.5.4",
 		"query-string": "^9.1.1",
 		"react": "^19.0.0",

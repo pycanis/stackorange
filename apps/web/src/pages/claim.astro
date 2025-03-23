@@ -2,6 +2,7 @@
 import { Bitcoin, Layers, Lightbulb, Wallet } from "lucide-react";
 import { WalletLink } from "../components/WalletLink";
 import { Claim as ClaimComponent } from "../containers/Claim";
+import { ClaimCard } from "../containers/ClaimCard";
 import Layout from "../layouts/Layout.astro";
 ---
 
@@ -15,7 +16,7 @@ import Layout from "../layouts/Layout.astro";
 
         <div class="grid grid-cols-1 sm:grid-cols-2 items-start sm:gap-4">
             <div>
-                <div class="bg-white-muted/10 rounded-lg border border-white-muted/50 px-2 py-4 mb-4">
+                <ClaimCard client:load delay={0.2}>
                     <div class="mb-4">
                         <div class="flex items-center">
                             <Bitcoin className="text-orange mr-2" />
@@ -39,9 +40,9 @@ import Layout from "../layouts/Layout.astro";
                         The <span class="font-bold">Lightning Network</span> enables instant, low-cost Bitcoin transactions
                         - perfect for small amounts like the sats you're about to claim!
                     </p>
-                </div>
+                </ClaimCard>
 
-                <div class="bg-white-muted/10 rounded-lg border border-white-muted/50 px-2 py-4 mb-4">
+                <ClaimCard client:load delay={0.4}>
                     <div class="mb-4">
                         <div class="flex items-center">
                             <Wallet className="text-orange mr-2" />
@@ -77,11 +78,11 @@ import Layout from "../layouts/Layout.astro";
                         If you're new to Bitcoin, we recommend using <span class="font-bold">Wallet of Satoshi</span> for
                         simplicity and ease of use.
                     </div>
-                </div>
+                </ClaimCard>
             </div>
 
             <div>
-                <div class="bg-white-muted/10 rounded-lg border border-white-muted/50 px-2 py-4 mb-4">
+                <ClaimCard client:load delay={0.6}>
                     <div class="mb-4">
                         <div class="flex items-center">
                             <Layers className="text-orange mr-2" />
@@ -92,9 +93,9 @@ import Layout from "../layouts/Layout.astro";
                     </div>
 
                     <ClaimComponent client:only="react" />
-                </div>
+                </ClaimCard>
 
-                <div class="bg-white-muted/10 rounded-lg border border-white-muted/50 px-2 py-4 mb-4">
+                <ClaimCard client:load delay={0.8}>
                     <div class="mb-4">
                         <div class="flex items-center">
                             <Lightbulb className="text-orange mr-2" />
@@ -103,7 +104,7 @@ import Layout from "../layouts/Layout.astro";
 
                         <p class="text-white-muted">Ideas for using your bitcoin</p>
                     </div>
-                </div>
+                </ClaimCard>
             </div>
         </div>
     </div>

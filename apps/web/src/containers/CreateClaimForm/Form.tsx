@@ -1,4 +1,5 @@
 import { ClaimChannel, HISTORY_CLAIM_IDS_KEY, LAST_UNPAID_CLAIM_ID_KEY } from "@repo/shared";
+import { motion } from "motion/react";
 import type { Dispatch, SetStateAction } from "react";
 import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import useLocalStorageState from "use-local-storage-state";
@@ -47,10 +48,26 @@ export const Form = ({ currentStep, setStep }: Props) => {
 
 	return (
 		<FormProvider {...methods}>
-			<form className="flex flex-col">
-				{currentStep === 1 && <Receiver setStep={setStep} />}
+			<form>
+				{currentStep === 1 && (
+					<motion.div
+						initial={{ x: -100, opacity: 0 }}
+						animate={{ x: 0, opacity: 1 }}
+						transition={{ duration: 0.5 }}
+					>
+						<Receiver setStep={setStep} />
+					</motion.div>
+				)}
 
-				{currentStep === 2 && <Amount setStep={setStep} onSubmit={onSubmit} />}
+				{currentStep === 2 && (
+					<motion.div
+						initial={{ x: 100, opacity: 0 }}
+						animate={{ x: 0, opacity: 1 }}
+						transition={{ duration: 0.5 }}
+					>
+						<Amount setStep={setStep} onSubmit={onSubmit} />
+					</motion.div>
+				)}
 			</form>
 		</FormProvider>
 	);
