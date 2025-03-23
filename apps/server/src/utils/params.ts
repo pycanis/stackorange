@@ -25,7 +25,6 @@ export const getRequiredStringArrayParams = <T extends string>(
 ): Record<T, string[]> =>
 	params.reduce(
 		(acc, param) => {
-			console.log(req.params, req.body, req.query);
 			const value = req.params[param] ?? req.body?.[param] ?? req.query[param];
 
 			if (!Array.isArray(value) || value.some((item) => typeof item !== "string")) {

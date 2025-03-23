@@ -1,6 +1,12 @@
-import { type Claims, ROUTING_FEE_PERCENT, getRoutingFee } from "@repo/shared";
+import {
+	type Claims,
+	LAST_UNPAID_CLAIM_ID_KEY,
+	ROUTING_FEE_PERCENT,
+	getRoutingFee,
+} from "@repo/shared";
 import { Check, Copy } from "lucide-react";
 import { useEffect, useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
 import { Qrcode } from "../components/Qrcode";
 import { Button } from "../components/ui/Button";
 import { debounce } from "../utils/debounce";
@@ -9,10 +15,12 @@ import { subscribeSSE } from "../utils/sse";
 
 type Props = {
 	claim: Claims;
-	onPaymentSuccess: () => void;
+	onSuccess: () => void;
+	onCancel: () => void;
 };
 
-export const Payment = ({ claim, onPaymentSuccess }: Props) => {
+export const Payment = ({ claim, onSuccess, onCancel }: Props) => {
+	const [_, setLastUnpaidClaimId] = useLocalStorageState(LAST_UNPAID_CLAIM_ID_KEY);
 	const [copied, setCopied] = useState(false);
 
 	const routingFee = getRoutingFee(claim.receiverSatsAmount);
@@ -25,7 +33,7 @@ export const Payment = ({ claim, onPaymentSuccess }: Props) => {
 			`${import.meta.env.PUBLIC_API_URL}/api/payments/${claim.paymentRequest}`,
 			({ paymentRequest: paymentRequestPaid }) => {
 				if (paymentRequestPaid === claim.paymentRequest) {
-					onPaymentSuccess();
+					onSuccess();
 				}
 			},
 		);
@@ -33,7 +41,7 @@ export const Payment = ({ claim, onPaymentSuccess }: Props) => {
 		return () => {
 			eventSource.close();
 		};
-	}, [claim.paymentRequest, onPaymentSuccess]);
+	}, [claim.paymentRequest, onSuccess]);
 
 	const handleCopyToClipboard = () => {
 		navigator.clipboard.writeText(claim.paymentRequest).then(() => {
@@ -127,7 +135,11 @@ export const Payment = ({ claim, onPaymentSuccess }: Props) => {
 				/>
 			</div>
 
-			<p className="text-center text-white-muted">Waiting for payment confirmation..</p>
+			<p className="mb-4 text-center text-white-muted">Waiting for payment confirmation..</p>
+
+			<Button className="w-full" variant="danger" onClick={onCancel}>
+				Cancel claim
+			</Button>
 		</>
 	);
 };

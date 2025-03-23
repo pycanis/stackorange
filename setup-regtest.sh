@@ -32,6 +32,9 @@ echo "Waiting for Bitcoin transaction to confirm..."
 docker exec -it $BITCOIND_CONTAINER_NAME sh -c "bitcoin-cli generatetoaddress 1 \$(bitcoin-cli getnewaddress)"
 echo "Transaction confirmed."
 
+# Takes lnd some time to open rpc interface
+sleep 5
+
 echo "Looking up the $LND_NODE_2 pub key"
 LND_NODE_2_PUB_KEY=$(docker exec -it $LND_NODE_2 lncli --network=regtest getinfo | jq -r '.identity_pubkey')
 echo "$LND_NODE_2 pub key: $LND_NODE_2_PUB_KEY"
@@ -41,7 +44,7 @@ docker exec -it $LND_NODE_1 lncli --network=regtest connect $LND_NODE_2_PUB_KEY@
 echo "Lightning nodes connected."
 
 echo "Opening lightning channel..."
-docker exec -it $LND_NODE_1 lncli --network=regtest openchannel $LND_NODE_2_PUB_KEY 2000000 0
+docker exec -it $LND_NODE_1 lncli --network=regtest openchannel $LND_NODE_2_PUB_KEY 1200000 800000
 echo "Lightning channel opened."
 
 echo "Confirming channel open..."

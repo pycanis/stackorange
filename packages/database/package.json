@@ -2,8 +2,12 @@
 	"name": "@repo/database",
 	"version": "1.0.0",
 	"description": "",
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
 	"exports": {
 		".": {
+			"types": "./src/index.ts",
 			"import": "./src/index.ts",
 			"development": "./src/index.ts",
 			"default": "./dist/index.js"
@@ -15,9 +19,9 @@
 		"migrate": "prisma migrate deploy",
 		"build": "tsc"
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
+	"dependencies": {
+		"@prisma/client": "6.5.0"
+	},
 	"devDependencies": {
 		"@types/node": "^22.13.10",
 		"prisma": "^6.5.0",

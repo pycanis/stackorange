@@ -32,6 +32,11 @@ export const CreateClaim = () => {
 		setStep(4);
 	};
 
+	const handlePaymentCancel = () => {
+		setUnpaidClaimId("");
+		setStep(1);
+	};
+
 	return (
 		<>
 			{step < 4 && <Steps currentStep={step} />}
@@ -40,7 +45,11 @@ export const CreateClaim = () => {
 				{(step === 1 || step === 2) && <Form currentStep={step} setStep={setStep} />}
 
 				{step === 3 && unpaidClaim && (
-					<Payment claim={unpaidClaim} onPaymentSuccess={handlePaymentSuccess} />
+					<Payment
+						claim={unpaidClaim}
+						onSuccess={handlePaymentSuccess}
+						onCancel={handlePaymentCancel}
+					/>
 				)}
 
 				{step === 4 && unpaidClaim && (

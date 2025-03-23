@@ -23,7 +23,7 @@
 			"recommended": true,
 			"nursery": {
 				"useSortedClasses": {
-					"level": "error",
+					"level": "info",
 					"fix": "safe",
 					"options": {}
 				}
