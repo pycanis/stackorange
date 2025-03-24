@@ -46,8 +46,8 @@ services:
       SMTP_HOST: ${SMTP_HOST}
       SMTP_USER: ${SMTP_USER}
       SMTP_PASSWORD: ${SMTP_PASSWORD}
-    # depends_on:
-    #   - lnd
+    depends_on:
+      - lnd
 
   bitcoind:
     build:
