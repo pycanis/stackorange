@@ -1,5 +1,5 @@
 ---
-import { Bitcoin, Layers, Lightbulb, Wallet } from "lucide-react";
+import { Bitcoin, Lightbulb, Wallet } from "lucide-react";
 import { WalletLink } from "../components/WalletLink";
 import { Claim as ClaimComponent } from "../containers/Claim";
 import { ClaimCard } from "../containers/ClaimCard";
@@ -83,15 +83,6 @@ import Layout from "../layouts/Layout.astro";
 
             <div>
                 <ClaimCard client:load delay={0.6}>
-                    <div class="mb-4">
-                        <div class="flex items-center">
-                            <Layers className="text-orange mr-2" />
-                            <p class="font-bold text-2xl">Claim your sats</p>
-                        </div>
-
-                        <p class="text-white-muted">Scan this QR code with your Lightning wallet</p>
-                    </div>
-
                     <ClaimComponent client:only="react" />
                 </ClaimCard>
 

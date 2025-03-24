@@ -1,8 +1,9 @@
 import type { Claims } from "@repo/shared";
-import { Check, ExternalLink, History, Pill } from "lucide-react";
+import { ExternalLink, History, Pill } from "lucide-react";
 import { Button } from "../components/ui/Button";
 import { getClaimLink } from "../utils/getClaimLink";
 import { formatNumber } from "../utils/numbers";
+import { SuccessIcon } from "./SuccessIcon";
 
 type Props = {
 	claim: Claims;
@@ -12,9 +13,7 @@ type Props = {
 export const PaymentSuccess = ({ claim, onCancel }: Props) => {
 	return (
 		<>
-			<div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-green-200">
-				<Check color="green" size={28} strokeWidth={3} />
-			</div>
+			<SuccessIcon />
 
 			<p className="mb-2 text-center font-bold text-2xl">Orange pill sucessfully sent!</p>
 
