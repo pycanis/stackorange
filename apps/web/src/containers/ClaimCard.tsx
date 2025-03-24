@@ -14,7 +14,7 @@ export const ClaimCard = ({ children, delay }: Props) => {
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ delay, duration: 0.5 }}
 		>
-			<div className="bg-white-muted/10 rounded-lg border border-white-muted/50 px-2 py-4 mb-4">
+			<div className="mb-4 rounded-lg border border-white-muted/50 bg-white-muted/10 px-2 py-4">
 				{children}
 			</div>
 		</motion.div>

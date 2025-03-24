@@ -4,6 +4,7 @@ CREATE TABLE "Claims" (
     "paymentRequest" TEXT NOT NULL,
     "receiverSatsAmount" INTEGER NOT NULL,
     "platformSatsAmount" INTEGER,
+    "sender" TEXT,
     "receiver" TEXT NOT NULL,
     "message" TEXT,
     "status" TEXT NOT NULL DEFAULT 'AWAITING_PAYMENT',

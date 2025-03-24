@@ -64,14 +64,31 @@ export const Receiver = ({ setStep }: Props) => {
 				))}
 			</div>
 
+			<div className="mb-2">
+				<label htmlFor="sender" className="font-bold">
+					Sender's name
+				</label>
+
+				<Input
+					{...register("sender", {
+						maxLength: { value: 50, message: "Max 50 characters" },
+					})}
+					id="sender"
+					placeholder="Who are you?"
+					className="mt-1"
+					error={errors.sender?.message}
+				/>
+			</div>
+
 			{selectedChannel === ClaimChannel.EMAIL && (
 				<div className="mb-2">
 					<label htmlFor="receiver" className="font-bold">
-						Email
+						Receiver's email
 					</label>
 
 					<Input
 						{...register("receiver", {
+							required: { value: true, message: "Email is required" },
 							pattern: {
 								value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
 								message: "Enter valid email",
@@ -88,7 +105,7 @@ export const Receiver = ({ setStep }: Props) => {
 
 			<div className="mb-4">
 				<label htmlFor="message" className="font-bold">
-					Message
+					Message for receiver
 				</label>
 
 				<Textarea

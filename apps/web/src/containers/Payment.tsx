@@ -1,12 +1,6 @@
-import {
-	type Claims,
-	LAST_UNPAID_CLAIM_ID_KEY,
-	ROUTING_FEE_PERCENT,
-	getRoutingFee,
-} from "@repo/shared";
+import { type Claims, ROUTING_FEE_PERCENT, getRoutingFee } from "@repo/shared";
 import { Check, Copy } from "lucide-react";
 import { useEffect, useState } from "react";
-import useLocalStorageState from "use-local-storage-state";
 import { PaymentWait } from "../components/PaymentWait";
 import { Qrcode } from "../components/Qrcode";
 import { Button } from "../components/ui/Button";
@@ -21,7 +15,6 @@ type Props = {
 };
 
 export const Payment = ({ claim, onSuccess, onCancel }: Props) => {
-	const [_, setLastUnpaidClaimId] = useLocalStorageState(LAST_UNPAID_CLAIM_ID_KEY);
 	const [copied, setCopied] = useState(false);
 
 	const routingFee = getRoutingFee(claim.receiverSatsAmount);
@@ -64,6 +57,13 @@ export const Payment = ({ claim, onSuccess, onCancel }: Props) => {
 			</p>
 
 			<div className="mb-4 flex flex-col gap-2 rounded-lg border border-white-muted/50 bg-background p-2 text-sm">
+				{claim.sender && (
+					<div className="flex justify-between">
+						<span className="text-white-muted">Sender:</span>
+						<span className="font-bold">{claim.sender}</span>
+					</div>
+				)}
+
 				<div className="flex justify-between">
 					<span className="text-white-muted">Receiver:</span>
 					<span className="font-bold">{claim.receiver}</span>

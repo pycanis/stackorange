@@ -48,7 +48,7 @@ router.get(
 router.post(
 	"/",
 	routeHandler(async (req, res) => {
-		const { channel, platformSatsAmount, message, receiver, receiverSatsAmount } =
+		const { channel, platformSatsAmount, message, sender, receiver, receiverSatsAmount } =
 			createClaimSchema.parse(req.body);
 
 		const result = await promisifyGrpc(lnGrpcClient.AddInvoice.bind(lnGrpcClient), {
@@ -65,6 +65,7 @@ router.post(
 				paymentRequest: result.paymentRequest,
 				channel,
 				platformSatsAmount,
+				sender,
 				receiver,
 				receiverSatsAmount,
 				message,

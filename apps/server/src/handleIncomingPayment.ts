@@ -5,11 +5,11 @@ import type { Invoice__Output } from "./protos/generated/lnrpc/Invoice";
 
 export const handleIncomingPayment = async ({ paymentRequest, state }: Invoice__Output) => {
 	if (state === "SETTLED") {
-		const balance = await prisma.claims.findUnique({
+		const claim = await prisma.claims.findUnique({
 			where: { paymentRequest, status: ClaimStatus.AWAITING_PAYMENT },
 		});
 
-		if (!balance) return;
+		if (!claim) return;
 
 		await prisma.claims.update({
 			where: { paymentRequest },
@@ -19,6 +19,6 @@ export const handleIncomingPayment = async ({ paymentRequest, state }: Invoice__
 		notifyPaymentSubscribers(paymentRequest);
 
 		// todo: handle multiple platforms
-		await sendEmail({ recipientEmail: balance.receiver });
+		await sendEmail(claim);
 	}
 };

@@ -21,6 +21,10 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
+			"correctness": {
+				"noUnusedVariables": "error",
+				"noUnusedImports": "error"
+			},
 			"nursery": {
 				"useSortedClasses": {
 					"level": "info",
@@ -30,6 +34,18 @@
 			}
 		}
 	},
+	"overrides": [
+		{
+			"include": ["*.astro"],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"noUnusedImports": "off"
+					}
+				}
+			}
+		}
+	],
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double"

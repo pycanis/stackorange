@@ -5,7 +5,7 @@ type Props = {
 export const PaymentWait = ({ text }: Props) => {
 	return (
 		<>
-			<div className="mb-2 w-full grid grid-cols-3 gap-2">
+			<div className="mb-2 grid w-full grid-cols-3 gap-2">
 				<div
 					className="h-2 animate-pulse rounded-full bg-white"
 					style={{ animationDelay: "0ms" }}

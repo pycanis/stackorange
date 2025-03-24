@@ -34,6 +34,7 @@ model Claims {
   paymentRequest     String  @unique
   receiverSatsAmount Int
   platformSatsAmount Int?
+  sender             String?
   receiver           String
   message            String?
 

@@ -19,6 +19,7 @@ export type Claims = {
 	paymentRequest: string;
 	receiverSatsAmount: number;
 	platformSatsAmount: number | null;
+	sender: string | null;
 	receiver: string;
 	message: string | null;
 	status: ClaimStatus;

@@ -9,6 +9,7 @@ import { Receiver } from "./Receiver";
 
 export type FormValues = {
 	channel: ClaimChannel;
+	sender: string;
 	receiver: string;
 	message: string;
 	receiverSatsAmount: number;
