@@ -46,7 +46,7 @@ export const CreateClaim = () => {
 		>
 			{step < 4 && <Steps currentStep={step} />}
 
-			<div className="max-w-lg rounded-lg border border-[rgba(255,255,255,0.1)] bg-black p-6 shadow-2xl overflow-hidden">
+			<div className="max-w-lg overflow-hidden rounded-lg border border-[rgba(255,255,255,0.1)] bg-black p-6 shadow-2xl">
 				{(step === 1 || step === 2) && <Form currentStep={step} setStep={setStep} />}
 
 				{step === 3 && unpaidClaim && (

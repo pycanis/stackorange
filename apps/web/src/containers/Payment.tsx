@@ -7,6 +7,7 @@ import {
 import { Check, Copy } from "lucide-react";
 import { useEffect, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
+import { PaymentWait } from "../components/PaymentWait";
 import { Qrcode } from "../components/Qrcode";
 import { Button } from "../components/ui/Button";
 import { debounce } from "../utils/debounce";
@@ -29,10 +30,10 @@ export const Payment = ({ claim, onSuccess, onCancel }: Props) => {
 	const total = claim.receiverSatsAmount + platformSatsAmount + routingFee;
 
 	useEffect(() => {
-		const eventSource = subscribeSSE<{ paymentRequest: string }>(
+		const eventSource = subscribeSSE<{ paymentId: string }>(
 			`${import.meta.env.PUBLIC_API_URL}/api/payments/${claim.paymentRequest}`,
-			({ paymentRequest: paymentRequestPaid }) => {
-				if (paymentRequestPaid === claim.paymentRequest) {
+			({ paymentId }) => {
+				if (paymentId === claim.paymentRequest) {
 					onSuccess();
 				}
 			},
@@ -120,24 +121,9 @@ export const Payment = ({ claim, onSuccess, onCancel }: Props) => {
 				{claim.paymentRequest}
 			</div>
 
-			<div className="mb-4 grid grid-cols-3 gap-2">
-				<div
-					className="h-2 animate-pulse rounded-full bg-white"
-					style={{ animationDelay: "0ms" }}
-				/>
-				<div
-					className="h-2 animate-pulse rounded-full bg-white"
-					style={{ animationDelay: "200ms" }}
-				/>
-				<div
-					className="h-2 animate-pulse rounded-full bg-white"
-					style={{ animationDelay: "400ms" }}
-				/>
-			</div>
+			<PaymentWait text="Waiting for payment confirmation.." />
 
-			<p className="mb-4 text-center text-white-muted">Waiting for payment confirmation..</p>
-
-			<Button className="w-full" variant="danger" onClick={onCancel}>
+			<Button className="mt-4 w-full" variant="danger" onClick={onCancel}>
 				Cancel claim
 			</Button>
 		</>

@@ -1,12 +1,12 @@
 import { paymentSubscribers } from "./paymentSubscribers";
 
-export const notifyPaymentSubscribers = (paymentRequest: string) => {
-	const subscribers = paymentSubscribers.get(paymentRequest);
+export const notifyPaymentSubscribers = (paymentId: string) => {
+	const subscribers = paymentSubscribers.get(paymentId);
 
 	for (const res of subscribers ?? []) {
 		res.write(
 			`data: ${JSON.stringify({
-				paymentRequest,
+				paymentId,
 			})}\n\n`,
 		);
 	}

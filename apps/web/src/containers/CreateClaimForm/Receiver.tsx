@@ -98,7 +98,7 @@ export const Receiver = ({ setStep }: Props) => {
 				/>
 			</div>
 
-			<Button type="button" className="w-full group items-center" onClick={onNext}>
+			<Button type="button" className="group w-full items-center" onClick={onNext}>
 				<span>Continue</span>
 				<span className="ml-2 transition-transform group-hover:translate-x-1">
 					<ArrowRight size={18} className="mt-1" />

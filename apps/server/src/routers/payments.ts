@@ -3,6 +3,7 @@ import { getRoutingFee } from "@repo/shared";
 import { Mutex, type MutexInterface, withTimeout } from "async-mutex";
 import { Router } from "express";
 import { lnGrpcClient, promisifyGrpc, routerGrpcClient } from "../lndClient";
+import { notifyPaymentSubscribers } from "../notifyPaymentSubscribers";
 import { paymentSubscribers } from "../paymentSubscribers";
 import type { Payment__Output } from "../protos/generated/lnrpc/Payment";
 import { getRequiredStringParams } from "../utils/params";
@@ -84,6 +85,8 @@ router.get(
 					data: { status: ClaimStatus.CLAIMED },
 				});
 
+				notifyPaymentSubscribers(k1);
+
 				release();
 			}
 		});
@@ -126,9 +129,9 @@ router.get(
 );
 
 router.get(
-	"/:paymentRequest",
+	"/:paymentId",
 	routeHandler(async (req, res) => {
-		const { paymentRequest } = getRequiredStringParams(req, ["paymentRequest"]);
+		const { paymentId } = getRequiredStringParams(req, ["paymentId"]);
 
 		res.setHeader("Content-Type", "text/event-stream");
 		res.setHeader("Cache-Control", "no-cache");
@@ -139,15 +142,12 @@ router.get(
 
 		res.id = ts;
 
-		paymentSubscribers.set(paymentRequest, [
-			...(paymentSubscribers.get(paymentRequest) ?? []),
-			res,
-		]);
+		paymentSubscribers.set(paymentId, [...(paymentSubscribers.get(paymentId) ?? []), res]);
 
 		req.on("close", () => {
 			paymentSubscribers.set(
-				paymentRequest,
-				(paymentSubscribers.get(paymentRequest) ?? []).filter((rs) => rs.id !== res.id),
+				paymentId,
+				(paymentSubscribers.get(paymentId) ?? []).filter((rs) => rs.id !== res.id),
 			);
 		});
 	}),

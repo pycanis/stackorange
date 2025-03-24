@@ -144,6 +144,9 @@ importers:
 
   packages/shared:
     dependencies:
+      axios:
+        specifier: ^1.8.3
+        version: 1.8.3
       zod:
         specifier: ^3.24.2
         version: 3.24.2
