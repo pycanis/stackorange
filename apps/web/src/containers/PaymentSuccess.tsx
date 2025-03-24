@@ -1,6 +1,7 @@
 import type { Claims } from "@repo/shared";
-import { ExternalLink, History, Pill } from "lucide-react";
+import { History, Pill } from "lucide-react";
 import { Button } from "../components/ui/Button";
+import { Link } from "../components/ui/Link";
 import { getClaimLink } from "../utils/getClaimLink";
 import { formatNumber } from "../utils/numbers";
 import { SuccessIcon } from "./SuccessIcon";
@@ -30,15 +31,9 @@ export const PaymentSuccess = ({ claim, onCancel }: Props) => {
 					them yourself.
 				</p>
 
-				<a
-					href={getClaimLink(claim.id)}
-					target="_blank"
-					rel="noreferrer"
-					className="flex items-center gap-2 text-orange hover:underline"
-				>
-					<span>Reclaim sats</span>
-					<ExternalLink size={16} />
-				</a>
+				<Link href={getClaimLink(claim.id)} target="_blank" rel="noreferrer" isExternal>
+					Reclaim sats
+				</Link>
 			</div>
 
 			<Button className="mt-2 w-full items-center gap-2" onClick={onCancel}>

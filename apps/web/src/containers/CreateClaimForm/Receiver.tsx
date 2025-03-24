@@ -71,7 +71,12 @@ export const Receiver = ({ setStep }: Props) => {
 					</label>
 
 					<Input
-						{...register("receiver", { required: "Enter valid email" })} // todo: proper email validation
+						{...register("receiver", {
+							pattern: {
+								value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+								message: "Enter valid email",
+							},
+						})}
 						id="receiver"
 						type="email"
 						placeholder="name@proton.me"

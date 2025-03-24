@@ -1,6 +1,18 @@
 ---
-import { Bitcoin, Lightbulb, Wallet } from "lucide-react";
+import {
+	Bitcoin,
+	BookOpen,
+	Coffee,
+	Gift,
+	Globe,
+	Lightbulb,
+	Shield,
+	ShoppingCart,
+	TrendingUp,
+	Wallet,
+} from "lucide-react";
 import { WalletLink } from "../components/WalletLink";
+import { Link } from "../components/ui/Link";
 import { Claim as ClaimComponent } from "../containers/Claim";
 import { ClaimCard } from "../containers/ClaimCard";
 import Layout from "../layouts/Layout.astro";
@@ -20,26 +32,55 @@ import Layout from "../layouts/Layout.astro";
                     <div class="mb-4">
                         <div class="flex items-center">
                             <Bitcoin className="text-orange mr-2" />
-                            <p class="font-bold text-2xl">What is Bitcoin?</p>
+                            <p class="font-bold text-2xl">Why Bitcoin matters?</p>
                         </div>
 
-                        <p class="text-white-muted">A brief introduction to digital gold</p>
+                        <p class="text-white-muted">Understanding the value of what you've received</p>
                     </div>
 
                     <p class="mb-2">
-                        <span class="font-bold">Bitcoin</span> is digital money that works without third parties like banks.
-                        It lets people send money directly to each other from anywhere in the world. It's fast and cheap.
+                        <span class="font-bold">Bitcoin</span> is more than just digital money. Here's why you might want to keep and <span class="italic">stack</span> some:
                     </p>
 
-                    <p class="mb-2">
-                        <span class="font-bold">Satoshis (sats)</span> are the smallest unit of Bitcoin. 1 bitcoin = 100,000,000
-                        sats.
-                    </p>
+                    <div class="mb-2 flex items-center gap-2">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-200">
+                            <Shield className="text-blue-500" size={28} strokeWidth={3} />
+                        </div>
 
-                    <p>
-                        The <span class="font-bold">Lightning Network</span> enables instant, low-cost Bitcoin transactions
-                        - perfect for small amounts like the sats you're about to claim!
-                    </p>
+                        <div class="flex-1">
+                            <p class="font-bold text-lg">Financial protection</p>
+
+                            <p class="text-white-muted">Unlike traditional money that loses value through inflation, Bitcoin has a fixed supply of 21 million coins, making it resistant to devaluation.</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-2 flex items-center gap-2">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-200">
+                            <Globe className="text-green-600" size={28} strokeWidth={3} />
+                        </div>
+
+                        <div class="flex-1">
+                            <p class="font-bold text-lg">Global access</p>
+
+                            <p class="text-white-muted">Bitcoin works the same everywhere, allows you to send money across borders without permission from banks or governments.</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-2 flex items-center gap-2">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-orange-200">
+                            <TrendingUp className="text-orange" size={28} strokeWidth={3} />
+                        </div>
+
+                        <div class="flex-1">
+                            <p class="font-bold text-lg">Long-term growth</p>
+
+                            <p class="text-white-muted">Since its creation in 2009, Bitcoin has been the best performing asset of the decade, outperforming stocks, gold, and real estate.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-background rounded-lg border border-white-muted/50 p-2 text-sm">
+                        <span class="italic">Stacking sats</span> means collecting small amounts of bitcoin over time, which can grow into significant value with Bitcoin's limited supply.
+                    </div>
                 </ClaimCard>
 
                 <ClaimCard client:load delay={0.4}>
@@ -95,6 +136,62 @@ import Layout from "../layouts/Layout.astro";
 
                         <p class="text-white-muted">Ideas for using your bitcoin</p>
                     </div>
+
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <div class="bg-background rounded-lg border border-white-muted/50 p-2">
+                            <p class="flex items-center gap-2">
+                                <Coffee className="text-orange" />
+                                <span class="font-bold">Buy coffee</span>
+                            </p>
+                            
+                            <span class="text-sm text-white-muted">Many cafes accept Bitcoin Lightning payments.</span>
+                        </div>
+
+                        <div class="bg-background rounded-lg border border-white-muted/50 p-2">
+                            <p class="flex items-center gap-2">
+                                <Gift className="text-orange" />
+                                <span class="font-bold">Send to friends</span>
+                            </p>
+                            
+                            <span class="text-sm text-white-muted">Share Bitcoin with friends and family.</span>
+                        </div>
+
+                        <div class="bg-background rounded-lg border border-white-muted/50 p-2">
+                            <p class="flex items-center gap-2">
+                                <ShoppingCart className="text-orange" />
+                                <span class="font-bold">Shop online</span>
+                            </p>
+                            
+                            <span class="text-sm text-white-muted">Many stores now accept bitcoin.</span>
+                        </div>
+
+                        <div class="bg-background rounded-lg border border-white-muted/50 p-2">
+                            <p class="flex items-center gap-2">
+                                <BookOpen className="text-orange" />
+                                <span class="font-bold">Save & learn</span>
+                            </p>
+                            
+                            <span class="text-sm text-white-muted">Hold your sats as a long-term asset.</span>
+                        </div>
+                    </div>
+
+                    <p class="mb-2 font-bold text-lg">Learning resources</p>
+
+                    <Link href="https://www.lopp.net/bitcoin-information.html" target="_blank" rel="noreferrer" isExternal>
+                        Jameson Lopp's Resources
+                    </Link>
+
+                    <Link href="https://www.youtube.com/@Bitcoin_University" target="_blank" rel="noreferrer" isExternal>
+                        Bitcoin University
+                    </Link>
+
+                    <Link href="https://learnmeabitcoin.com" target="_blank" rel="noreferrer" isExternal>
+                        learn me a bitcoin
+                    </Link>
+
+                    <Link href="https://twentyone.world" target="_blank" rel="noreferrer" isExternal>
+                        Twentyone.world
+                    </Link>
                 </ClaimCard>
             </div>
         </div>
