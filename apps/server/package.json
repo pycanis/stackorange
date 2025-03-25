@@ -17,7 +17,9 @@
 		"express-rate-limit": "^7.5.0",
 		"helmet": "^8.0.0",
 		"nodemailer": "^6.10.0",
-		"prisma": "^6.5.0"
+		"prisma": "^6.5.0",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
 	},
 	"devDependencies": {
 		"@types/cors": "^2.8.17",
@@ -26,6 +28,8 @@
 		"tsx": "^4.19.3",
 		"typescript": "^5.8.2"
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"packageManager": "pnpm@10.6.4"
 }
