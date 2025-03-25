@@ -36,7 +36,7 @@ const creds = grpc.credentials.combineChannelCredentials(sslCreds, macaroonCreds
 //   },
 // });
 
-const protoRoutePrefix = isProd ? "" : "src/";
+const protoRoutePrefix = isProd ? "dist/" : "src/";
 
 const packageDefinition = protoLoader.loadSync(
 	[`${protoRoutePrefix}protos/lightning.proto`, `${protoRoutePrefix}protos/router.proto`],
