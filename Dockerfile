@@ -26,8 +26,7 @@ COPY --from=builder /app/apps/web/dist ./dist-web
 COPY --from=builder /app/packages/database/prisma ./prisma
 COPY --from=builder /prod/server ./
 
-# ENTRYPOINT ["tail", "-f", "/dev/null"]
-
 ENV NODE_ENV=production
 
+# ENTRYPOINT ["tail", "-f", "/dev/null"]
 CMD ["sh", "-c", "npx prisma migrate deploy && node dist/index.js"]

@@ -4,6 +4,8 @@ import * as grpc from "@grpc/grpc-js";
 import * as protoLoader from "@grpc/proto-loader";
 import type { ProtoGrpcType } from "./protos/generated/router";
 
+const isProd = process.env.NODE_ENV === "production";
+
 const LND_MACAROON_PATH = process.env.LND_MACAROON_PATH as string;
 const LND_TLS_PATH = process.env.LND_TLS_PATH as string;
 // const LND_REST_ENDPOINT = process.env.LND_REST_ENDPOINT as string;
@@ -34,8 +36,10 @@ const creds = grpc.credentials.combineChannelCredentials(sslCreds, macaroonCreds
 //   },
 // });
 
+const protoRoutePrefix = isProd ? "" : "src/";
+
 const packageDefinition = protoLoader.loadSync(
-	["src/protos/lightning.proto", "src/protos/router.proto"],
+	[`${protoRoutePrefix}protos/lightning.proto`, `${protoRoutePrefix}protos/router.proto`],
 	{
 		longs: String,
 		enums: String,
