@@ -41,7 +41,7 @@ export const Claim = () => {
 		}
 
 		const eventSource = subscribeSSE<{ paymentId: string }>(
-			`${import.meta.env.PUBLIC_API_URL}/api/payments/${claim.id}`,
+			`${import.meta.env.PUBLIC_API_URL || ""}/api/payments/${claim.id}`,
 			({ paymentId }) => {
 				if (paymentId === claim.id) {
 					setClaim((prev) => (prev ? { ...prev, status: ClaimStatus.CLAIMED } : null));
