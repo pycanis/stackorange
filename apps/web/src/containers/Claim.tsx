@@ -16,7 +16,7 @@ export const Claim = () => {
 	const [claim, setClaim] = useState<Claims | null>(null);
 	const [usdExchangeRate, setUsdExchangeRate] = useState<number | null>(null);
 
-	const withdrawLink = `https://stackorange.com/payments/withdraw/${id}`;
+	const withdrawLink = `https://stackorange.com/api/payments/withdraw/${id}`;
 	const withdrawLinkLnurl = bech32
 		.encode("lnurl", bech32.toWords(Buffer.from(withdrawLink, "utf8")), 1023)
 		.toUpperCase();
