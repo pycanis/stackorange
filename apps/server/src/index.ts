@@ -15,14 +15,14 @@ import { errorMiddleware } from "./utils/middlewares";
 
 	app.use(express.json());
 
-	app.set("trust-proxy", 2); // todo: should be stricter
+	app.set("trust proxy", 2); // todo: should be stricter?
 
 	app.use(
 		helmet({
 			contentSecurityPolicy: {
 				directives: {
 					scriptSrc: isProd
-						? ["'self'", "'unsafe-inline'"]
+						? ["'self'", "'unsafe-inline'"] // astro needs 'unsafe-inline', look into https://github.com/KindSpells/astro-shield
 						: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
 				},
 			},
