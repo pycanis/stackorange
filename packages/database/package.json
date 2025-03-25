@@ -27,6 +27,5 @@
 		"prisma": "^6.5.0",
 		"typescript": "^5.8.2"
 	},
-	"files": ["prisma"],
 	"packageManager": "pnpm@10.6.4"
 }
