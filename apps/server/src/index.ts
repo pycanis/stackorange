@@ -15,11 +15,15 @@ import { errorMiddleware } from "./utils/middlewares";
 
 	app.use(express.json());
 
+	app.set("trust-proxy", 2); // todo: should be stricter
+
 	app.use(
 		helmet({
 			contentSecurityPolicy: {
 				directives: {
-					scriptSrc: isProd ? ["'self'"] : ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
+					scriptSrc: isProd
+						? ["'self'", "'unsafe-inline'"]
+						: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
 				},
 			},
 		}),
