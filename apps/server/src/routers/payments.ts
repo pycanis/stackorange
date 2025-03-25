@@ -119,7 +119,7 @@ router.get(
 
 		res.json({
 			tag: "withdrawRequest",
-			callback: "https://stackorange.com/payments/withdraw",
+			callback: "https://stackorange.com/api/payments/withdraw",
 			k1: claim.id,
 			defaultDescription: "Orange pill from stackorange.com",
 			minWithdrawable: receiverMilliSats,

@@ -3,7 +3,7 @@ import { handleIncomingPayment } from "./handleIncomingPayment";
 import { lnGrpcClient } from "./lndClient";
 import type { Invoice__Output } from "./protos/generated/lnrpc/Invoice";
 
-const LAST_SETTLE_INDEX_FILE = "last_settle_index.txt";
+const LAST_SETTLE_INDEX_FILE = "db/last_settle_index.txt";
 
 // The first settle index must be 1 due to bug in lnd
 // https://github.com/lightningnetwork/lnd/issues/2469
