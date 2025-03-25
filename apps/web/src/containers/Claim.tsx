@@ -29,16 +29,16 @@ export const Claim = () => {
 		getClaimsByIds([id]).then((claims) => {
 			setClaim(claims[0]);
 		});
-
-		getBitcoinExchangeRate().then((rate) => {
-			setUsdExchangeRate(rate);
-		});
 	}, [id]);
 
 	useEffect(() => {
 		if (!claim || claim.status !== ClaimStatus.PAID) {
 			return;
 		}
+
+		getBitcoinExchangeRate().then((rate) => {
+			setUsdExchangeRate(rate);
+		});
 
 		const eventSource = subscribeSSE<{ paymentId: string }>(
 			`${import.meta.env.PUBLIC_API_URL || ""}/api/payments/${claim.id}`,

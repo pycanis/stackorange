@@ -22,8 +22,9 @@ import { errorMiddleware } from "./utils/middlewares";
 			contentSecurityPolicy: {
 				directives: {
 					scriptSrc: isProd
-						? ["'self'", "'unsafe-inline'"] // astro needs 'unsafe-inline', look into https://github.com/KindSpells/astro-shield
+						? ["'self'", "'unsafe-inline'"] // astro needs 'unsafe-inline'
 						: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
+					connectSrc: ["'self'", "https://api.coingecko.com"],
 				},
 			},
 		}),
