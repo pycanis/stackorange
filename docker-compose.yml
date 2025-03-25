@@ -24,7 +24,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     volumes:
-      - ./.db:/app/db
+      - ./.db:/app/db:rw
       - ./.lnd/data/chain/bitcoin/mainnet/admin.macaroon:/app/lnd/admin.macaroon:ro
       - ./.lnd/tls.cert:/app/lnd/tls.cert:ro
     ports:
