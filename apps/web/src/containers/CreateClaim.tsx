@@ -10,7 +10,7 @@ import { PaymentSuccess } from "./PaymentSuccess";
 
 export const CreateClaim = () => {
 	const [unpaidClaimId, setUnpaidClaimId] = useLocalStorageState<string>(LAST_UNPAID_CLAIM_ID_KEY);
-	const [unpaidClaim, setUnpaidClaim] = useState<Claims | null>(null);
+	const [claim, setClaim] = useState<Claims | null>(null);
 	const [step, setStep] = useState(1);
 
 	useEffect(() => {
@@ -19,11 +19,20 @@ export const CreateClaim = () => {
 		}
 
 		getClaimsByIds([unpaidClaimId]).then((claims) => {
-			if (!claims[0] || claims[0].status !== ClaimStatus.AWAITING_PAYMENT) {
+			const claim = claims[0];
+
+			if (!claim) {
 				return;
 			}
 
-			setUnpaidClaim(claims[0]);
+			if (claim.status !== ClaimStatus.AWAITING_PAYMENT) {
+				setClaim(claim);
+				setStep(4);
+
+				return;
+			}
+
+			setClaim(claim);
 			setStep(3);
 		});
 	}, [unpaidClaimId]);
@@ -49,27 +58,27 @@ export const CreateClaim = () => {
 			<div className="max-w-lg overflow-hidden rounded-lg border border-[rgba(255,255,255,0.1)] bg-black p-6 shadow-2xl">
 				{(step === 1 || step === 2) && <Form currentStep={step} setStep={setStep} />}
 
-				{step === 3 && unpaidClaim && (
+				{step === 3 && claim && (
 					<motion.div
 						initial={{ x: 100, opacity: 0 }}
 						animate={{ x: 0, opacity: 1 }}
 						transition={{ duration: 0.5 }}
 					>
 						<Payment
-							claim={unpaidClaim}
+							claim={claim}
 							onSuccess={handlePaymentSuccess}
 							onCancel={handlePaymentCancel}
 						/>
 					</motion.div>
 				)}
 
-				{step === 4 && unpaidClaim && (
+				{step === 4 && claim && (
 					<motion.div
 						initial={{ opacity: 0, scale: 0.5 }}
 						animate={{ opacity: 1, scale: 1 }}
 						transition={{ duration: 0.5 }}
 					>
-						<PaymentSuccess claim={unpaidClaim} onCancel={() => setStep(1)} />
+						<PaymentSuccess claim={claim} onCancel={handlePaymentCancel} />
 					</motion.div>
 				)}
 			</div>

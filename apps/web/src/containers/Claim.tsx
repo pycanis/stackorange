@@ -1,4 +1,4 @@
-import { ClaimStatus, type Claims, getBitcoinExchangeRate } from "@repo/shared";
+import { ClaimStatus, type Claims } from "@repo/shared";
 import { bech32 } from "bech32";
 import { Layers } from "lucide-react";
 import queryString from "query-string";
@@ -6,15 +6,17 @@ import { useEffect, useState } from "react";
 import { getClaimsByIds } from "../api/claims";
 import { PaymentWait } from "../components/PaymentWait";
 import { Qrcode } from "../components/Qrcode";
+import { getBitcoinFiatValue } from "../utils/getBitcoinFiatValue";
 import { formatCurrency, formatNumber } from "../utils/numbers";
 import { subscribeSSE } from "../utils/sse";
+import { useBitcoinExchangeRate } from "../utils/useBitcoinExchangeRate";
 import { SuccessIcon } from "./SuccessIcon";
 import { WaitIcon } from "./WaitIcon";
 
 export const Claim = () => {
 	const id = queryString.parse(window.location.search).id as string | undefined;
 	const [claim, setClaim] = useState<Claims | null>(null);
-	const [usdExchangeRate, setUsdExchangeRate] = useState<number | null>(null);
+	const { usdExchangeRate, fetchExchangeRate } = useBitcoinExchangeRate();
 
 	const withdrawLink = `https://stackorange.com/api/payments/withdraw/${id}`;
 	const withdrawLinkLnurl = bech32
@@ -36,9 +38,7 @@ export const Claim = () => {
 			return;
 		}
 
-		getBitcoinExchangeRate().then((rate) => {
-			setUsdExchangeRate(rate);
-		});
+		fetchExchangeRate();
 
 		const eventSource = subscribeSSE<{ paymentId: string }>(
 			`${import.meta.env.PUBLIC_API_URL || ""}/api/payments/${claim.id}`,
@@ -52,7 +52,7 @@ export const Claim = () => {
 		return () => {
 			eventSource.close();
 		};
-	}, [claim]);
+	}, [claim, fetchExchangeRate]);
 
 	if (!claim) {
 		return null;
@@ -81,7 +81,7 @@ export const Claim = () => {
 								<>
 									Currently valued at{" "}
 									<span className="font-bold">
-										{formatCurrency((claim.receiverSatsAmount / 1_000_000_000) * usdExchangeRate)}
+										{formatCurrency(getBitcoinFiatValue(claim.receiverSatsAmount, usdExchangeRate))}
 									</span>
 									.
 								</>

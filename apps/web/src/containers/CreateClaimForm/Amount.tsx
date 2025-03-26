@@ -1,10 +1,12 @@
 import { ROUTING_FEE_PERCENT, getRoutingFee } from "@repo/shared";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import type { Dispatch, SetStateAction } from "react";
+import { type Dispatch, type SetStateAction, useEffect } from "react";
 import { type SubmitHandler, useFormContext } from "react-hook-form";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
-import { formatNumber } from "../../utils/numbers";
+import { getBitcoinFiatValue } from "../../utils/getBitcoinFiatValue";
+import { formatCurrency, formatNumber } from "../../utils/numbers";
+import { useBitcoinExchangeRate } from "../../utils/useBitcoinExchangeRate";
 import type { FormValues } from "./Form";
 
 type Props = {
@@ -20,6 +22,12 @@ export const Amount = ({ setStep, onSubmit }: Props) => {
 		handleSubmit,
 		formState: { errors },
 	} = useFormContext<FormValues>();
+
+	const { usdExchangeRate, fetchExchangeRate } = useBitcoinExchangeRate();
+
+	useEffect(() => {
+		fetchExchangeRate();
+	}, [fetchExchangeRate]);
 
 	const receiverSatsAmount = watch("receiverSatsAmount") || 0;
 	const platformSatsAmount = watch("platformSatsAmount") || 0;
@@ -99,13 +107,23 @@ export const Amount = ({ setStep, onSubmit }: Props) => {
 			<div className="mb-4 flex items-center justify-between rounded-lg border border-white-muted/50 bg-background px-2 py-4 text-lg">
 				<div className="flex flex-col">
 					<span className="font-bold">Total amount:</span>
+
 					{routingFee > 0 && (
 						<span className="text-xs">
 							including {formatNumber(routingFee)} sats ({ROUTING_FEE_PERCENT}%) routing fee
 						</span>
 					)}
 				</div>
-				<span className="font-bold">{formatNumber(total)} sats</span>
+
+				<div className="flex flex-col">
+					<span className="font-bold">{formatNumber(total)} sats</span>
+
+					{usdExchangeRate && total > 0 && (
+						<span className="text-xs">
+							≈ {formatCurrency(getBitcoinFiatValue(total, usdExchangeRate))}
+						</span>
+					)}
+				</div>
 			</div>
 
 			<div className="flex gap-2">
