@@ -22,9 +22,9 @@ import { errorMiddleware } from "./utils/middlewares";
 			contentSecurityPolicy: {
 				directives: {
 					scriptSrc: isProd
-						? ["'self'", "'unsafe-inline'", "https://plausible.stackorange.com"] // astro needs 'unsafe-inline'
+						? ["'self'", "'unsafe-inline'"] // astro needs 'unsafe-inline'
 						: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
-					connectSrc: ["'self'", "https://api.coingecko.com"],
+					connectSrc: ["'self'", "https://api.coingecko.com", "https://plausible.stackorange.com"],
 				},
 			},
 		}),
