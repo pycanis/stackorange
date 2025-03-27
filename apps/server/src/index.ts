@@ -10,6 +10,7 @@ import { errorMiddleware } from "./utils/middlewares";
 
 (async () => {
 	const isProd = process.env.NODE_ENV === "production";
+	const plausibleUrl = "https://plausible.stackorange.com";
 
 	const app = express();
 
@@ -22,9 +23,9 @@ import { errorMiddleware } from "./utils/middlewares";
 			contentSecurityPolicy: {
 				directives: {
 					scriptSrc: isProd
-						? ["'self'", "'unsafe-inline'"] // astro needs 'unsafe-inline'
+						? ["'self'", "'unsafe-inline'", plausibleUrl] // astro needs 'unsafe-inline'
 						: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
-					connectSrc: ["'self'", "https://api.coingecko.com", "https://plausible.stackorange.com"],
+					connectSrc: ["'self'", "https://api.coingecko.com", plausibleUrl],
 				},
 			},
 		}),
