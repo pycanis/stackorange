@@ -4,8 +4,8 @@ import { Layers } from "lucide-react";
 import queryString from "query-string";
 import { useEffect, useState } from "react";
 import { getClaimsByIds } from "../api/claims";
+import { PaymentInfo } from "../components/PaymentInfo";
 import { PaymentWait } from "../components/PaymentWait";
-import { Qrcode } from "../components/Qrcode";
 import { getBitcoinFiatValue } from "../utils/getBitcoinFiatValue";
 import { formatCurrency, formatNumber } from "../utils/numbers";
 import { subscribeSSE } from "../utils/sse";
@@ -71,25 +71,23 @@ export const Claim = () => {
 						<p className="text-white-muted">Scan this QR code with your Lightning wallet</p>
 					</div>
 
-					<div className="flex flex-col items-center">
-						<Qrcode payload={`lightning:${withdrawLinkLnurl}`} />
+					<PaymentInfo header="Withdraw request" payload={withdrawLinkLnurl} />
 
-						<p className="my-4 text-sm">
-							You can claim{" "}
-							<span className="font-bold">{formatNumber(claim.receiverSatsAmount)} sats</span>.{" "}
-							{usdExchangeRate && (
-								<>
-									Currently valued at{" "}
-									<span className="font-bold">
-										{formatCurrency(getBitcoinFiatValue(claim.receiverSatsAmount, usdExchangeRate))}
-									</span>
-									.
-								</>
-							)}
-						</p>
+					<p className="my-4 text-center text-sm">
+						You can claim{" "}
+						<span className="font-bold">{formatNumber(claim.receiverSatsAmount)} sats</span>.{" "}
+						{usdExchangeRate && (
+							<>
+								Currently valued at{" "}
+								<span className="font-bold">
+									{formatCurrency(getBitcoinFiatValue(claim.receiverSatsAmount, usdExchangeRate))}
+								</span>
+								.
+							</>
+						)}
+					</p>
 
-						<PaymentWait text="Waiting to be claimed.." />
-					</div>
+					<PaymentWait text="Waiting to be claimed.." />
 				</>
 			)}
 

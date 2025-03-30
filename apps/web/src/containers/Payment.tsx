@@ -1,10 +1,8 @@
 import { type Claims, ROUTING_FEE_PERCENT, getRoutingFee } from "@repo/shared";
-import { Check, Copy } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { PaymentInfo } from "../components/PaymentInfo";
 import { PaymentWait } from "../components/PaymentWait";
-import { Qrcode } from "../components/Qrcode";
 import { Button } from "../components/ui/Button";
-import { debounce } from "../utils/debounce";
 import { formatNumber } from "../utils/numbers";
 import { subscribeSSE } from "../utils/sse";
 
@@ -15,8 +13,6 @@ type Props = {
 };
 
 export const Payment = ({ claim, onSuccess, onCancel }: Props) => {
-	const [copied, setCopied] = useState(false);
-
 	const routingFee = getRoutingFee(claim.receiverSatsAmount);
 	const platformSatsAmount = claim.platformSatsAmount || 0;
 
@@ -36,16 +32,6 @@ export const Payment = ({ claim, onSuccess, onCancel }: Props) => {
 			eventSource.close();
 		};
 	}, [claim.paymentRequest, onSuccess]);
-
-	const handleCopyToClipboard = () => {
-		navigator.clipboard.writeText(claim.paymentRequest).then(() => {
-			setCopied(true);
-
-			debounce(() => {
-				setCopied(false);
-			}, 3000);
-		});
-	};
 
 	return (
 		<>
@@ -100,25 +86,8 @@ export const Payment = ({ claim, onSuccess, onCancel }: Props) => {
 				</div>
 			</div>
 
-			<div className="mb-2 flex items-center justify-between">
-				<span className="font-bold">Lightning invoice</span>
-
-				<Button variant="text" onClick={handleCopyToClipboard} disabled={copied}>
-					{copied ? (
-						<Check size={18} className="mt-0.5 mr-2" />
-					) : (
-						<Copy size={18} className="mt-0.5 mr-2" />
-					)}
-					<span className="font-bold text-sm">{copied ? "Copied!" : "Copy"}</span>
-				</Button>
-			</div>
-
-			<div className="mb-4 flex justify-center">
-				<Qrcode payload={`lightning:${claim.paymentRequest}`} />
-			</div>
-
-			<div className="mb-8 break-words rounded-lg border border-white-muted/50 bg-background p-2 text-sm text-white-muted">
-				{claim.paymentRequest}
+			<div className="mb-4">
+				<PaymentInfo header="Lightning invoice" payload={claim.paymentRequest} />
 			</div>
 
 			<PaymentWait text="Waiting for payment confirmation.." />
