@@ -1,49 +1,59 @@
-import { ClaimStatus, type Claims, LAST_UNPAID_CLAIM_ID_KEY } from "@repo/shared";
+import { ClaimStatus, LAST_ACTIVE_CLAIM_ID_KEY } from "@repo/shared";
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import { getClaimsByIds } from "../api/claims";
 import { Steps } from "../components/Steps";
+import { QUERY_KEYS } from "../utils/queryKeys";
 import { Form } from "./CreateClaimForm/Form";
 import { Payment } from "./Payment";
 import { PaymentSuccess } from "./PaymentSuccess";
 
+const queryClient = new QueryClient();
+
 export const CreateClaim = () => {
-	const [unpaidClaimId, setUnpaidClaimId] = useLocalStorageState<string>(LAST_UNPAID_CLAIM_ID_KEY);
-	const [claim, setClaim] = useState<Claims | null>(null);
+	return (
+		<QueryClientProvider client={queryClient}>
+			<CreateClaimComponent />
+		</QueryClientProvider>
+	);
+};
+
+export const CreateClaimComponent = () => {
+	const [activeClaimId, setActiveClaimId] = useLocalStorageState<string>(LAST_ACTIVE_CLAIM_ID_KEY);
+
+	const { data: claims = [] } = useQuery({
+		queryKey: [QUERY_KEYS.GET_CLAIMS, [activeClaimId]],
+		queryFn: () => getClaimsByIds([activeClaimId as string]),
+		enabled: !!activeClaimId,
+		refetchOnWindowFocus: true,
+	});
+
 	const [step, setStep] = useState(1);
 
+	const claim = useMemo(() => claims[0], [claims]);
+
 	useEffect(() => {
-		if (!unpaidClaimId) {
+		if (!claim) {
 			return;
 		}
 
-		getClaimsByIds([unpaidClaimId]).then((claims) => {
-			const claim = claims[0];
+		if (claim.status !== ClaimStatus.AWAITING_PAYMENT) {
+			setStep(4);
 
-			if (!claim) {
-				return;
-			}
+			return;
+		}
 
-			if (claim.status !== ClaimStatus.AWAITING_PAYMENT) {
-				setClaim(claim);
-				setStep(4);
-
-				return;
-			}
-
-			setClaim(claim);
-			setStep(3);
-		});
-	}, [unpaidClaimId]);
+		setStep(3);
+	}, [claim]);
 
 	const handlePaymentSuccess = () => {
-		setUnpaidClaimId("");
 		setStep(4);
 	};
 
 	const handlePaymentCancel = () => {
-		setUnpaidClaimId("");
+		setActiveClaimId("");
 		setStep(1);
 	};
 

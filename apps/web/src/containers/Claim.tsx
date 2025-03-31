@@ -1,37 +1,48 @@
-import { ClaimStatus, type Claims } from "@repo/shared";
+import { ClaimStatus } from "@repo/shared";
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { bech32 } from "bech32";
 import { Layers } from "lucide-react";
 import queryString from "query-string";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { getClaimsByIds } from "../api/claims";
 import { PaymentInfo } from "../components/PaymentInfo";
 import { PaymentWait } from "../components/PaymentWait";
 import { getBitcoinFiatValue } from "../utils/getBitcoinFiatValue";
 import { formatCurrency, formatNumber } from "../utils/numbers";
+import { QUERY_KEYS } from "../utils/queryKeys";
 import { subscribeSSE } from "../utils/sse";
 import { useBitcoinExchangeRate } from "../utils/useBitcoinExchangeRate";
 import { SuccessIcon } from "./SuccessIcon";
 import { WaitIcon } from "./WaitIcon";
 
+const queryClient = new QueryClient();
+
 export const Claim = () => {
+	return (
+		<QueryClientProvider client={queryClient}>
+			<ClaimComponent />
+		</QueryClientProvider>
+	);
+};
+
+export const ClaimComponent = () => {
 	const id = queryString.parse(window.location.search).id as string | undefined;
-	const [claim, setClaim] = useState<Claims | null>(null);
 	const { usdExchangeRate, fetchExchangeRate } = useBitcoinExchangeRate();
 
+	const { data: claims = [], refetch } = useQuery({
+		queryKey: [QUERY_KEYS.GET_CLAIMS, [id]],
+		queryFn: () => getClaimsByIds([id as string]),
+		enabled: !!id,
+		refetchOnWindowFocus: true,
+	});
+
+	const claim = useMemo(() => claims[0], [claims]);
+
 	const withdrawLink = `https://stackorange.com/api/payments/withdraw/${id}`;
+
 	const withdrawLinkLnurl = bech32
 		.encode("lnurl", bech32.toWords(Buffer.from(withdrawLink, "utf8")), 1023)
 		.toUpperCase();
-
-	useEffect(() => {
-		if (!id) {
-			return;
-		}
-
-		getClaimsByIds([id]).then((claims) => {
-			setClaim(claims[0]);
-		});
-	}, [id]);
 
 	useEffect(() => {
 		if (!claim || claim.status !== ClaimStatus.PAID) {
@@ -44,7 +55,7 @@ export const Claim = () => {
 			`${import.meta.env.PUBLIC_API_URL || ""}/api/payments/${claim.id}`,
 			({ paymentId }) => {
 				if (paymentId === claim.id) {
-					setClaim((prev) => (prev ? { ...prev, status: ClaimStatus.CLAIMED } : null));
+					refetch();
 				}
 			},
 		);
@@ -52,7 +63,7 @@ export const Claim = () => {
 		return () => {
 			eventSource.close();
 		};
-	}, [claim, fetchExchangeRate]);
+	}, [claim, fetchExchangeRate, refetch]);
 
 	if (!claim) {
 		return null;

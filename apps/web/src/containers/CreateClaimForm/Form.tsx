@@ -1,4 +1,4 @@
-import { ClaimChannel, HISTORY_CLAIM_IDS_KEY, LAST_UNPAID_CLAIM_ID_KEY } from "@repo/shared";
+import { ClaimChannel, HISTORY_CLAIM_IDS_KEY, LAST_ACTIVE_CLAIM_ID_KEY } from "@repo/shared";
 import { motion } from "motion/react";
 import type { Dispatch, SetStateAction } from "react";
 import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
@@ -23,7 +23,7 @@ type Props = {
 
 export const Form = ({ currentStep, setStep }: Props) => {
 	const [__, setPastClaimIds] = useLocalStorageState<string[]>(HISTORY_CLAIM_IDS_KEY);
-	const [_, setUnpaidClaimId] = useLocalStorageState<string>(LAST_UNPAID_CLAIM_ID_KEY);
+	const [_, setActiveClaimId] = useLocalStorageState<string>(LAST_ACTIVE_CLAIM_ID_KEY);
 
 	const methods = useForm<FormValues>({
 		defaultValues: { channel: ClaimChannel.EMAIL },
@@ -43,7 +43,7 @@ export const Form = ({ currentStep, setStep }: Props) => {
 		}
 
 		setStep((step) => step + 1);
-		setUnpaidClaimId(claim.id);
+		setActiveClaimId(claim.id);
 		setPastClaimIds((pastClaimIds) => [...(pastClaimIds || []), claim.id]);
 	};
 
