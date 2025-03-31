@@ -10,5 +10,9 @@ export const Qrcode = ({ payload }: Props) => {
 		qrcode.toCanvas(document.getElementById("canvas"), payload, { width: 208 });
 	});
 
-	return <canvas id="canvas" className="rounded-lg" />;
+	return (
+		<a href={payload}>
+			<canvas id="canvas" className="rounded-lg" />
+		</a>
+	);
 };

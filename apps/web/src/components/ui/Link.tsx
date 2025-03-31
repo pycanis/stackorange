@@ -5,8 +5,14 @@ type Props = DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HT
 	isExternal?: boolean;
 };
 
-export const Link = ({ children, isExternal = false, ...rest }: Props) => (
-	<a className="flex items-center gap-2 text-orange hover:underline" {...rest}>
+export const Link = ({ children, className, isExternal = false, ...rest }: Props) => (
+	<a
+		className={"inline-flex items-center gap-2 text-orange hover:underline".concat(
+			" ",
+			className || "",
+		)}
+		{...rest}
+	>
 		{children}
 
 		{isExternal && <ExternalLink size={16} />}
