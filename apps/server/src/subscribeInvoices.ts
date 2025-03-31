@@ -42,12 +42,14 @@ export const subscribeInvoices = () => {
 	stream.on("data", (data: Invoice__Output) => {
 		reconnectAttempts = 0;
 
-		if (data.state === "SETTLED") {
-			lastSettleIndex = Number(data.settleIndex);
-			saveLastSettleIndex(lastSettleIndex);
-		}
+		const settleIndex = Number(data.settleIndex);
 
-		handleIncomingPayment(data);
+		if (settleIndex && settleIndex > lastSettleIndex) {
+			lastSettleIndex = settleIndex;
+			saveLastSettleIndex(lastSettleIndex);
+
+			handleIncomingPayment(data.paymentRequest);
+		}
 	});
 
 	stream.on("error", (err: unknown) => {
