@@ -31,7 +31,7 @@ export const PaymentSuccess = ({ claim, onCancel }: Props) => {
 					them yourself.
 				</p>
 
-				<Link href={getClaimLink(claim.id)} target="_blank" rel="noreferrer" isExternal>
+				<Link href={getClaimLink(claim.id)} target="_blank" rel="noreferrer" showExternalIcon>
 					Reclaim sats
 				</Link>
 			</div>

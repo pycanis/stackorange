@@ -27,6 +27,9 @@ importers:
       '@repo/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@trpc/server':
+        specifier: ^11.0.1
+        version: 11.0.1(typescript@5.8.2)
       async-mutex:
         specifier: ^0.5.0
         version: 0.5.0
@@ -91,6 +94,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.71.1
         version: 5.71.1(react@19.0.0)
+      '@trpc/client':
+        specifier: ^11.0.1
+        version: 11.0.1(@trpc/server@11.0.1(typescript@5.8.2))(typescript@5.8.2)
       astro:
         specifier: ^5.5.3
         version: 5.5.3(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.36.0)(tsx@4.19.3)(typescript@5.8.2)
@@ -912,6 +918,17 @@ packages:
     resolution: {integrity: sha512-6BTkaSIGT58MroI4kIGXNdx/NhirXPU+75AJObLq+WBa39WmoxhzSk0YX+hqWJ/bvqZJFxslbEU4qIHaRZq+8Q==}
     peerDependencies:
       react: ^18 || ^19
+
+  '@trpc/client@11.0.1':
+    resolution: {integrity: sha512-HvOrvWAXbGBwt4om+NfuxrK4f+ik2aaNIXq7WLrJbEp7U+YXfh5++1a5p4JDaikrvSaObJ389DhYAGWz90xSGw==}
+    peerDependencies:
+      '@trpc/server': 11.0.1
+      typescript: '>=5.7.2'
+
+  '@trpc/server@11.0.1':
+    resolution: {integrity: sha512-DZS3+bONLno4oJjHBMrS3xRPtoZsnmBImDH/Mmo1QhaFt3Xp/S0Riu7WU/oofsLTVj2m1UO5LlgLJFumvlSNoQ==}
+    peerDependencies:
+      typescript: '>=5.7.2'
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -3613,6 +3630,15 @@ snapshots:
     dependencies:
       '@tanstack/query-core': 5.71.1
       react: 19.0.0
+
+  '@trpc/client@11.0.1(@trpc/server@11.0.1(typescript@5.8.2))(typescript@5.8.2)':
+    dependencies:
+      '@trpc/server': 11.0.1(typescript@5.8.2)
+      typescript: 5.8.2
+
+  '@trpc/server@11.0.1(typescript@5.8.2)':
+    dependencies:
+      typescript: 5.8.2
 
   '@types/babel__core@7.20.5':
     dependencies:
