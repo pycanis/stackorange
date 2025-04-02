@@ -1,58 +1,58 @@
-import { ClaimStatus, type Claims } from "@repo/shared";
+import { QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { useSubscription } from "@trpc/tanstack-react-query";
 import { bech32 } from "bech32";
 import { Layers } from "lucide-react";
 import queryString from "query-string";
-import { useEffect, useState } from "react";
-import { getClaimsByIds } from "../api/claims";
+import { useMemo } from "react";
+import { PaymentInfo } from "../components/PaymentInfo";
 import { PaymentWait } from "../components/PaymentWait";
-import { Qrcode } from "../components/Qrcode";
+import { useBitcoinExchangeRate } from "../hooks/useBitcoinExchangeRate";
+import { queryClient, trpc } from "../trpc";
 import { getBitcoinFiatValue } from "../utils/getBitcoinFiatValue";
 import { formatCurrency, formatNumber } from "../utils/numbers";
-import { subscribeSSE } from "../utils/sse";
-import { useBitcoinExchangeRate } from "../utils/useBitcoinExchangeRate";
 import { SuccessIcon } from "./SuccessIcon";
 import { WaitIcon } from "./WaitIcon";
 
 export const Claim = () => {
+	return (
+		<QueryClientProvider client={queryClient}>
+			<ClaimComponent />
+		</QueryClientProvider>
+	);
+};
+
+export const ClaimComponent = () => {
 	const id = queryString.parse(window.location.search).id as string | undefined;
-	const [claim, setClaim] = useState<Claims | null>(null);
 	const { usdExchangeRate, fetchExchangeRate } = useBitcoinExchangeRate();
 
-	const withdrawLink = `https://stackorange.com/api/payments/withdraw/${id}`;
+	const { data: claims = [], refetch } = useQuery(
+		trpc.claims.getClaimsByIds.queryOptions([id as string], {
+			enabled: !!id,
+			refetchOnWindowFocus: true,
+		}),
+	);
+
+	const claim = useMemo(() => claims[0], [claims]);
+
+	useSubscription(
+		trpc.payments.paymentUpdate.subscriptionOptions(claim?.paymentRequest, {
+			enabled: claim && claim.status !== "CLAIMED",
+			onStarted: () => {
+				fetchExchangeRate();
+			},
+			onData: (paymentRequest: string) => {
+				if (paymentRequest === claim.paymentRequest) {
+					refetch();
+				}
+			},
+		}),
+	);
+
+	const withdrawLink = `https://stackorange.com/api/withdraw/${id}`;
+
 	const withdrawLinkLnurl = bech32
 		.encode("lnurl", bech32.toWords(Buffer.from(withdrawLink, "utf8")), 1023)
 		.toUpperCase();
-
-	useEffect(() => {
-		if (!id) {
-			return;
-		}
-
-		getClaimsByIds([id]).then((claims) => {
-			setClaim(claims[0]);
-		});
-	}, [id]);
-
-	useEffect(() => {
-		if (!claim || claim.status !== ClaimStatus.PAID) {
-			return;
-		}
-
-		fetchExchangeRate();
-
-		const eventSource = subscribeSSE<{ paymentId: string }>(
-			`${import.meta.env.PUBLIC_API_URL || ""}/api/payments/${claim.id}`,
-			({ paymentId }) => {
-				if (paymentId === claim.id) {
-					setClaim((prev) => (prev ? { ...prev, status: ClaimStatus.CLAIMED } : null));
-				}
-			},
-		);
-
-		return () => {
-			eventSource.close();
-		};
-	}, [claim, fetchExchangeRate]);
 
 	if (!claim) {
 		return null;
@@ -60,7 +60,7 @@ export const Claim = () => {
 
 	return (
 		<>
-			{claim.status === ClaimStatus.PAID && (
+			{claim.status === "PAID" && (
 				<>
 					<div className="mb-4">
 						<div className="flex items-center">
@@ -71,29 +71,27 @@ export const Claim = () => {
 						<p className="text-white-muted">Scan this QR code with your Lightning wallet</p>
 					</div>
 
-					<div className="flex flex-col items-center">
-						<Qrcode payload={`lightning:${withdrawLinkLnurl}`} />
+					<PaymentInfo header="Withdraw request" payload={withdrawLinkLnurl} />
 
-						<p className="my-4 text-sm">
-							You can claim{" "}
-							<span className="font-bold">{formatNumber(claim.receiverSatsAmount)} sats</span>.{" "}
-							{usdExchangeRate && (
-								<>
-									Currently valued at{" "}
-									<span className="font-bold">
-										{formatCurrency(getBitcoinFiatValue(claim.receiverSatsAmount, usdExchangeRate))}
-									</span>
-									.
-								</>
-							)}
-						</p>
+					<p className="my-4 text-center text-sm">
+						You can claim{" "}
+						<span className="font-bold">{formatNumber(claim.receiverSatsAmount)} sats</span>.{" "}
+						{usdExchangeRate && (
+							<>
+								Currently valued at{" "}
+								<span className="font-bold">
+									{formatCurrency(getBitcoinFiatValue(claim.receiverSatsAmount, usdExchangeRate))}
+								</span>
+								.
+							</>
+						)}
+					</p>
 
-						<PaymentWait text="Waiting to be claimed.." />
-					</div>
+					<PaymentWait text="Waiting to be claimed.." />
 				</>
 			)}
 
-			{claim.status === ClaimStatus.CLAIMED && (
+			{claim.status === "CLAIMED" && (
 				<div>
 					<SuccessIcon />
 
@@ -105,7 +103,7 @@ export const Claim = () => {
 				</div>
 			)}
 
-			{claim.status === ClaimStatus.AWAITING_PAYMENT && (
+			{claim.status === "AWAITING_PAYMENT" && (
 				<div>
 					<WaitIcon />
 

@@ -1,15 +1,16 @@
-import { ClaimChannel } from "@repo/shared";
 import { ArrowRight, Mail, Smartphone } from "lucide-react";
 import type { Dispatch, JSX, SetStateAction } from "react";
 import { useFormContext } from "react-hook-form";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
 import { Textarea } from "../../components/ui/Textarea";
+import { CLAIM_CHANNELS } from "../../constants";
+import type { ClaimChannel } from "../../types";
 import type { FormValues } from "./Form";
 
 const channelIcons: Record<ClaimChannel, { icon: JSX.Element; text: string }> = {
-	[ClaimChannel.EMAIL]: { icon: <Mail width={16} />, text: "Email" },
-	[ClaimChannel.SMS]: {
+	EMAIL: { icon: <Mail width={16} />, text: "Email" },
+	SMS: {
 		icon: <Smartphone width={16} />,
 		text: "SMS (coming soon)",
 	},
@@ -46,7 +47,7 @@ export const Receiver = ({ setStep }: Props) => {
 			</p>
 
 			<div className="mb-2 flex w-full rounded-lg bg-white-muted/50 p-1">
-				{Object.values(ClaimChannel).map((channel) => (
+				{Object.values(CLAIM_CHANNELS).map((channel) => (
 					<Button
 						key={channel}
 						type="button"
@@ -56,7 +57,7 @@ export const Receiver = ({ setStep }: Props) => {
 							selectedChannel === channel ? "bg-background font-bold" : "text-white/70",
 						)}
 						variant="group"
-						disabled={channel !== ClaimChannel.EMAIL}
+						disabled={channel !== "EMAIL"}
 					>
 						<span className="mr-2">{channelIcons[channel].icon}</span>
 						<span>{channelIcons[channel].text}</span>
@@ -80,7 +81,7 @@ export const Receiver = ({ setStep }: Props) => {
 				/>
 			</div>
 
-			{selectedChannel === ClaimChannel.EMAIL && (
+			{selectedChannel === "EMAIL" && (
 				<div className="mb-2">
 					<label htmlFor="receiver" className="font-bold">
 						Receiver's email

@@ -4,9 +4,9 @@ import { type Dispatch, type SetStateAction, useEffect } from "react";
 import { type SubmitHandler, useFormContext } from "react-hook-form";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
+import { useBitcoinExchangeRate } from "../../hooks/useBitcoinExchangeRate";
 import { getBitcoinFiatValue } from "../../utils/getBitcoinFiatValue";
 import { formatCurrency, formatNumber } from "../../utils/numbers";
-import { useBitcoinExchangeRate } from "../../utils/useBitcoinExchangeRate";
 import type { FormValues } from "./Form";
 
 type Props = {

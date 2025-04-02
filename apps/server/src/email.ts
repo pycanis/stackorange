@@ -103,7 +103,7 @@ const sendEmail = async (claim: Claims) => {
 
 	if (process.env.NODE_ENV !== "production") {
 		console.log("Not running prod, logging email params");
-		console.log("Email params: ", emailParams);
+		console.log("Email params: ", { ...emailParams, html: "<truncated>" });
 
 		return;
 	}
