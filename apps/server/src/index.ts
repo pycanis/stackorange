@@ -8,7 +8,6 @@ import helmet from "helmet";
 import { appRouter } from "./routers";
 import { subscribeInvoices } from "./subscribeInvoices";
 import { createContext } from "./trpc";
-import { errorMiddleware } from "./utils/middlewares";
 
 (async () => {
 	const isProd = process.env.NODE_ENV === "production";
@@ -66,8 +65,6 @@ import { errorMiddleware } from "./utils/middlewares";
 		app.use("/", express.static("dist-web/client/"));
 		app.use(webHandler);
 	}
-
-	app.use(errorMiddleware);
 
 	app.listen(3000, () => {
 		console.log("Server running on http://localhost:3000");
