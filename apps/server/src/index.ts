@@ -5,9 +5,10 @@ import cors from "cors";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
-import { appRouter } from "./routers";
 import { subscribeInvoices } from "./subscribeInvoices";
 import { createContext } from "./trpc";
+import { appRouter } from "./trpcRouters";
+import { router as withdrawRouter } from "./withdrawRouter";
 
 (async () => {
 	const isProd = process.env.NODE_ENV === "production";
@@ -46,6 +47,8 @@ import { createContext } from "./trpc";
 	}
 
 	subscribeInvoices();
+
+	app.use("/api/withdraw", withdrawRouter);
 
 	app.use(
 		"/api",

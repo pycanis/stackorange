@@ -7,7 +7,7 @@ import {
 	splitLink,
 } from "@trpc/client";
 import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
-import type { AppRouter } from "../../server/src/routers";
+import type { AppRouter } from "../../server/src/trpcRouters";
 import { API_URL } from "./constants";
 
 export const queryClient = new QueryClient();

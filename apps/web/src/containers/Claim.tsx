@@ -48,7 +48,7 @@ export const ClaimComponent = () => {
 		}),
 	);
 
-	const withdrawLink = `https://stackorange.com/api/payments.getWithdrawInfo?input="${id}"`;
+	const withdrawLink = `https://stackorange.com/api/withdraw/${id}`;
 
 	const withdrawLinkLnurl = bech32
 		.encode("lnurl", bech32.toWords(Buffer.from(withdrawLink, "utf8")), 1023)
