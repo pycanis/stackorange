@@ -1,9 +1,11 @@
-import { ClaimChannel, HISTORY_CLAIM_IDS_KEY, LAST_ACTIVE_CLAIM_ID_KEY } from "@repo/shared";
+import { useMutation } from "@tanstack/react-query";
 import { motion } from "motion/react";
 import type { Dispatch, SetStateAction } from "react";
 import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import useLocalStorageState from "use-local-storage-state";
-import { createClaim } from "../../api/claims";
+import { HISTORY_CLAIM_IDS_KEY, LAST_ACTIVE_CLAIM_ID_KEY } from "../../constants";
+import { trpc } from "../../trpc";
+import type { ClaimChannel } from "../../types";
 import { Amount } from "./Amount";
 import { Receiver } from "./Receiver";
 
@@ -25,27 +27,32 @@ export const Form = ({ currentStep, setStep }: Props) => {
 	const [__, setPastClaimIds] = useLocalStorageState<string[]>(HISTORY_CLAIM_IDS_KEY);
 	const [_, setActiveClaimId] = useLocalStorageState<string>(LAST_ACTIVE_CLAIM_ID_KEY);
 
+	const { mutate: createClaim } = useMutation(
+		trpc.claims.createClaim.mutationOptions({
+			onSuccess: (claim) => {
+				if (!claim) {
+					return alert("Something went wrong");
+				}
+
+				setStep((step) => step + 1);
+				setActiveClaimId(claim.id);
+				setPastClaimIds((pastClaimIds) => [...(pastClaimIds || []), claim.id]);
+			},
+		}),
+	);
+
 	const methods = useForm<FormValues>({
-		defaultValues: { channel: ClaimChannel.EMAIL },
+		defaultValues: { channel: "EMAIL" },
 		mode: "onChange",
 	});
 
-	const onSubmit: SubmitHandler<FormValues> = async (values) => {
-		const claim = await createClaim({
+	const onSubmit: SubmitHandler<FormValues> = (values) =>
+		createClaim({
 			...values,
 			platformSatsAmount: Number.isNaN(values.platformSatsAmount)
 				? null
 				: values.platformSatsAmount,
 		});
-
-		if (!claim) {
-			return alert("Something went wrong");
-		}
-
-		setStep((step) => step + 1);
-		setActiveClaimId(claim.id);
-		setPastClaimIds((pastClaimIds) => [...(pastClaimIds || []), claim.id]);
-	};
 
 	return (
 		<FormProvider {...methods}>

@@ -1,11 +1,13 @@
 import "dotenv/config";
 
+import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import cors from "cors";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
-import { registerRoutes } from "./routers/index";
+import { appRouter } from "./routers";
 import { subscribeInvoices } from "./subscribeInvoices";
+import { createContext } from "./trpc";
 import { errorMiddleware } from "./utils/middlewares";
 
 (async () => {
@@ -46,7 +48,14 @@ import { errorMiddleware } from "./utils/middlewares";
 
 	subscribeInvoices();
 
-	registerRoutes(app);
+	app.use(
+		"/api",
+		createExpressMiddleware({
+			router: appRouter,
+			createContext,
+			allowBatching: false,
+		}),
+	);
 
 	if (isProd) {
 		const { handler: webHandler } = await import(

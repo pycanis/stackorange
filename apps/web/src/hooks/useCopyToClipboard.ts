@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { debounce } from "./debounce";
+import { debounce } from "../utils/debounce";
 
 export const useCopyToClipboard = (payload: string) => {
 	const [copied, setCopied] = useState(false);

@@ -1,22 +1,19 @@
 import { ClaimStatus, prisma } from "@repo/database";
 import { getRoutingFee } from "@repo/shared";
 import { Mutex, type MutexInterface, withTimeout } from "async-mutex";
-import { Router } from "express";
+import { on } from "node:events";
+import z from "zod";
+import { PAYMENT_SUCCESS_EVENT } from "../constants";
+import { ee } from "../eventEmitter";
 import { lnGrpcClient, promisifyGrpc, routerGrpcClient } from "../lndClient";
-import { notifyPaymentSubscribers } from "../notifyPaymentSubscribers";
-import { paymentSubscribers } from "../paymentSubscribers";
 import type { Payment__Output } from "../protos/generated/lnrpc/Payment";
-import { getRequiredStringParams } from "../utils/params";
-import { routeHandler } from "../utils/routeHandler";
+import { publicProcedure, router } from "../trpc";
 
 const mutexes = new Map<string, MutexInterface>();
 
-const router = Router();
-
-router.get(
-	"/withdraw",
-	routeHandler(async (req, res) => {
-		const { k1, pr } = getRequiredStringParams(req, ["k1", "pr"]);
+const paymentsRouter = router({
+	withdraw: publicProcedure.query(async ({ ctx }) => {
+		const { k1, pr } = z.object({ k1: z.string(), pr: z.string() }).parse(ctx.req.query);
 
 		if (!mutexes.has(k1)) {
 			mutexes.set(k1, withTimeout(new Mutex(), 15 * 1000)); // todo
@@ -30,14 +27,12 @@ router.get(
 		const claim = await prisma.claims.findUnique({ where: { id: k1 } });
 
 		if (!claim || claim.status !== ClaimStatus.PAID) {
-			res.json({
-				status: "ERROR",
-				reason: "Claim not found, already claimed or not paid for yet.",
-			});
-
 			release();
 
-			return;
+			return {
+				status: "ERROR",
+				reason: "Claim not found, already claimed or not paid for yet.",
+			};
 		}
 
 		const result = await promisifyGrpc(lnGrpcClient.DecodePayReq.bind(lnGrpcClient), {
@@ -45,28 +40,22 @@ router.get(
 		});
 
 		if (!result) {
-			res.json({
-				status: "ERROR",
-				reason: "Invalid pr.",
-			});
-
 			release();
 
-			return;
+			return {
+				status: "ERROR",
+				reason: "Invalid pr.",
+			};
 		}
 
 		if (Number(result.numSatoshis) !== claim.receiverSatsAmount) {
-			res.json({
-				status: "ERROR",
-				reason: `Claim for ${result.numSatoshis} sats doesn't match the expected claim of ${claim.receiverSatsAmount} sats.`,
-			});
-
 			release();
 
-			return;
+			return {
+				status: "ERROR",
+				reason: `Claim for ${result.numSatoshis} sats doesn't match the expected claim of ${claim.receiverSatsAmount} sats.`,
+			};
 		}
-
-		res.json({ status: "OK" });
 
 		const stream = routerGrpcClient.SendPaymentV2({
 			paymentRequest: pr,
@@ -85,7 +74,7 @@ router.get(
 					data: { status: ClaimStatus.CLAIMED },
 				});
 
-				notifyPaymentSubscribers(k1);
+				ee.emit(PAYMENT_SUCCESS_EVENT, claim.paymentRequest);
 
 				release();
 			}
@@ -96,61 +85,42 @@ router.get(
 
 			release();
 		});
+
+		return { status: "OK" };
 	}),
-);
-
-router.get(
-	"/withdraw/:claimId",
-	routeHandler(async (req, res) => {
-		const { claimId } = getRequiredStringParams(req, ["claimId"]);
-
+	getWithdrawInfo: publicProcedure.input(z.string()).query(async ({ input: claimId }) => {
 		const claim = await prisma.claims.findUnique({ where: { id: claimId } });
 
 		if (!claim || claim.status !== ClaimStatus.PAID) {
-			res.json({
+			return {
 				status: "ERROR",
 				reason: "Claim not found, already claimed or not paid for yet.",
-			});
-
-			return;
+			};
 		}
 
 		const receiverMilliSats = claim.receiverSatsAmount * 1000;
 
-		res.json({
+		return {
 			tag: "withdrawRequest",
-			callback: "https://stackorange.com/api/payments/withdraw",
+			callback: "https://stackorange.com/api/payments.withdraw",
 			k1: claim.id,
 			defaultDescription: "Orange pill from stackorange.com",
 			minWithdrawable: receiverMilliSats,
 			maxWithdrawable: receiverMilliSats,
-		});
+		};
 	}),
-);
-
-router.get(
-	"/:paymentId",
-	routeHandler(async (req, res) => {
-		const { paymentId } = getRequiredStringParams(req, ["paymentId"]);
-
-		res.setHeader("Content-Type", "text/event-stream");
-		res.setHeader("Cache-Control", "no-cache");
-		res.setHeader("Connection", "keep-alive");
-		res.flushHeaders();
-
-		const ts = Date.now();
-
-		res.id = ts;
-
-		paymentSubscribers.set(paymentId, [...(paymentSubscribers.get(paymentId) ?? []), res]);
-
-		req.on("close", () => {
-			paymentSubscribers.set(
-				paymentId,
-				(paymentSubscribers.get(paymentId) ?? []).filter((rs) => rs.id !== res.id),
-			);
-		});
+	paymentUpdate: publicProcedure.input(z.string()).subscription(async function* ({
+		input: paymentId,
+		signal,
+	}) {
+		for await (const [data] of on(ee, PAYMENT_SUCCESS_EVENT, {
+			signal,
+		})) {
+			if (data === paymentId) {
+				yield data;
+			}
+		}
 	}),
-);
+});
 
-export { router };
+export { paymentsRouter };

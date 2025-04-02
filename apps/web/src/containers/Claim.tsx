@@ -1,21 +1,17 @@
-import { ClaimStatus } from "@repo/shared";
-import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { useSubscription } from "@trpc/tanstack-react-query";
 import { bech32 } from "bech32";
 import { Layers } from "lucide-react";
 import queryString from "query-string";
-import { useEffect, useMemo } from "react";
-import { getClaimsByIds } from "../api/claims";
+import { useMemo } from "react";
 import { PaymentInfo } from "../components/PaymentInfo";
 import { PaymentWait } from "../components/PaymentWait";
+import { useBitcoinExchangeRate } from "../hooks/useBitcoinExchangeRate";
+import { queryClient, trpc } from "../trpc";
 import { getBitcoinFiatValue } from "../utils/getBitcoinFiatValue";
 import { formatCurrency, formatNumber } from "../utils/numbers";
-import { QUERY_KEYS } from "../utils/queryKeys";
-import { subscribeSSE } from "../utils/sse";
-import { useBitcoinExchangeRate } from "../utils/useBitcoinExchangeRate";
 import { SuccessIcon } from "./SuccessIcon";
 import { WaitIcon } from "./WaitIcon";
-
-const queryClient = new QueryClient();
 
 export const Claim = () => {
 	return (
@@ -29,41 +25,34 @@ export const ClaimComponent = () => {
 	const id = queryString.parse(window.location.search).id as string | undefined;
 	const { usdExchangeRate, fetchExchangeRate } = useBitcoinExchangeRate();
 
-	const { data: claims = [], refetch } = useQuery({
-		queryKey: [QUERY_KEYS.GET_CLAIMS, [id]],
-		queryFn: () => getClaimsByIds([id as string]),
-		enabled: !!id,
-		refetchOnWindowFocus: true,
-	});
+	const { data: claims = [], refetch } = useQuery(
+		trpc.claims.getClaimsByIds.queryOptions([id as string], {
+			enabled: !!id,
+			refetchOnWindowFocus: true,
+		}),
+	);
 
 	const claim = useMemo(() => claims[0], [claims]);
 
-	const withdrawLink = `https://stackorange.com/api/payments/withdraw/${id}`;
+	useSubscription(
+		trpc.payments.paymentUpdate.subscriptionOptions(claim?.paymentRequest, {
+			enabled: claim && claim.status !== "CLAIMED",
+			onStarted: () => {
+				fetchExchangeRate();
+			},
+			onData: (paymentRequest: string) => {
+				if (paymentRequest === claim.paymentRequest) {
+					refetch();
+				}
+			},
+		}),
+	);
+
+	const withdrawLink = `https://stackorange.com/api/payments.getWithdrawInfo?input=${id}`;
 
 	const withdrawLinkLnurl = bech32
 		.encode("lnurl", bech32.toWords(Buffer.from(withdrawLink, "utf8")), 1023)
 		.toUpperCase();
-
-	useEffect(() => {
-		if (!claim || claim.status !== ClaimStatus.PAID) {
-			return;
-		}
-
-		fetchExchangeRate();
-
-		const eventSource = subscribeSSE<{ paymentId: string }>(
-			`${import.meta.env.PUBLIC_API_URL || ""}/api/payments/${claim.id}`,
-			({ paymentId }) => {
-				if (paymentId === claim.id) {
-					refetch();
-				}
-			},
-		);
-
-		return () => {
-			eventSource.close();
-		};
-	}, [claim, fetchExchangeRate, refetch]);
 
 	if (!claim) {
 		return null;
@@ -71,7 +60,7 @@ export const ClaimComponent = () => {
 
 	return (
 		<>
-			{claim.status === ClaimStatus.PAID && (
+			{claim.status === "PAID" && (
 				<>
 					<div className="mb-4">
 						<div className="flex items-center">
@@ -102,7 +91,7 @@ export const ClaimComponent = () => {
 				</>
 			)}
 
-			{claim.status === ClaimStatus.CLAIMED && (
+			{claim.status === "CLAIMED" && (
 				<div>
 					<SuccessIcon />
 
@@ -114,7 +103,7 @@ export const ClaimComponent = () => {
 				</div>
 			)}
 
-			{claim.status === ClaimStatus.AWAITING_PAYMENT && (
+			{claim.status === "AWAITING_PAYMENT" && (
 				<div>
 					<WaitIcon />
 

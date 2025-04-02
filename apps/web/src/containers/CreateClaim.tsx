@@ -1,16 +1,13 @@
-import { ClaimStatus, LAST_ACTIVE_CLAIM_ID_KEY } from "@repo/shared";
-import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { motion } from "motion/react";
 import { useEffect, useMemo, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
-import { getClaimsByIds } from "../api/claims";
 import { Steps } from "../components/Steps";
-import { QUERY_KEYS } from "../utils/queryKeys";
+import { LAST_ACTIVE_CLAIM_ID_KEY } from "../constants";
+import { queryClient, trpc } from "../trpc";
 import { Form } from "./CreateClaimForm/Form";
 import { Payment } from "./Payment";
 import { PaymentSuccess } from "./PaymentSuccess";
-
-const queryClient = new QueryClient();
 
 export const CreateClaim = () => {
 	return (
@@ -23,12 +20,12 @@ export const CreateClaim = () => {
 export const CreateClaimComponent = () => {
 	const [activeClaimId, setActiveClaimId] = useLocalStorageState<string>(LAST_ACTIVE_CLAIM_ID_KEY);
 
-	const { data: claims = [] } = useQuery({
-		queryKey: [QUERY_KEYS.GET_CLAIMS, [activeClaimId]],
-		queryFn: () => getClaimsByIds([activeClaimId as string]),
-		enabled: !!activeClaimId,
-		refetchOnWindowFocus: true,
-	});
+	const { data: claims = [] } = useQuery(
+		trpc.claims.getClaimsByIds.queryOptions([activeClaimId as string], {
+			enabled: !!activeClaimId,
+			refetchOnWindowFocus: true,
+		}),
+	);
 
 	const [step, setStep] = useState(1);
 
@@ -39,7 +36,7 @@ export const CreateClaimComponent = () => {
 			return;
 		}
 
-		if (claim.status !== ClaimStatus.AWAITING_PAYMENT) {
+		if (claim.status !== "AWAITING_PAYMENT") {
 			setStep(4);
 
 			return;

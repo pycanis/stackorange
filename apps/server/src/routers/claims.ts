@@ -1,21 +1,13 @@
-import { prisma } from "@repo/database";
-import { createClaimSchema, getRoutingFee } from "@repo/shared";
-import { Router } from "express";
+import { ClaimChannel, prisma } from "@repo/database";
+import { getRoutingFee } from "@repo/shared";
+import { z } from "zod";
 import { lnGrpcClient, promisifyGrpc } from "../lndClient";
-import { getRequiredStringArrayParams } from "../utils/params";
-import { routeHandler } from "../utils/routeHandler";
+import { publicProcedure, router } from "../trpc";
 
-const router = Router();
-
-router.get(
-	"/",
-	routeHandler(async (req, res) => {
-		const { claimIds } = getRequiredStringArrayParams(req, ["claimIds"]);
-
+const claimsRouter = router({
+	getClaimsByIds: publicProcedure.input(z.array(z.string())).query(async ({ input: claimIds }) => {
 		if (claimIds.length === 0) {
-			res.json([]);
-
-			return;
+			return [];
 		}
 
 		if (claimIds.length === 1) {
@@ -24,14 +16,10 @@ router.get(
 			});
 
 			if (!claim) {
-				res.json([]);
-
-				return;
+				return [];
 			}
 
-			res.json([claim]);
-
-			return;
+			return [claim];
 		}
 
 		const claims = await prisma.claims.findMany({
@@ -39,41 +27,45 @@ router.get(
 			orderBy: { createdAt: "desc" },
 		});
 
-		res.json(claims);
-
-		return;
+		return claims;
 	}),
-);
+	createClaim: publicProcedure
+		.input(
+			z.object({
+				channel: z.nativeEnum(ClaimChannel),
+				sender: z.string(),
+				receiver: z.string(),
+				message: z.string(),
+				receiverSatsAmount: z.number(),
+				platformSatsAmount: z.number().nullable(),
+			}),
+		)
+		.mutation(async ({ input }) => {
+			const { channel, platformSatsAmount, message, sender, receiver, receiverSatsAmount } = input;
 
-router.post(
-	"/",
-	routeHandler(async (req, res) => {
-		const { channel, platformSatsAmount, message, sender, receiver, receiverSatsAmount } =
-			createClaimSchema.parse(req.body);
+			const result = await promisifyGrpc(lnGrpcClient.AddInvoice.bind(lnGrpcClient), {
+				memo: "Stack orange invoice",
+				value: receiverSatsAmount + (platformSatsAmount ?? 0) + getRoutingFee(receiverSatsAmount),
+			});
 
-		const result = await promisifyGrpc(lnGrpcClient.AddInvoice.bind(lnGrpcClient), {
-			memo: "Stack orange invoice",
-			value: receiverSatsAmount + (platformSatsAmount ?? 0) + getRoutingFee(receiverSatsAmount),
-		});
+			if (!result) {
+				throw new Error("Error generating invoice.");
+			}
 
-		if (!result) {
-			throw new Error("Error generating invoice.");
-		}
+			const claim = await prisma.claims.create({
+				data: {
+					paymentRequest: result.paymentRequest,
+					channel,
+					platformSatsAmount,
+					sender,
+					receiver,
+					receiverSatsAmount,
+					message,
+				},
+			});
 
-		const claim = await prisma.claims.create({
-			data: {
-				paymentRequest: result.paymentRequest,
-				channel,
-				platformSatsAmount,
-				sender,
-				receiver,
-				receiverSatsAmount,
-				message,
-			},
-		});
+			return claim;
+		}),
+});
 
-		res.json(claim);
-	}),
-);
-
-export { router };
+export { claimsRouter };

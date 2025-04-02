@@ -1,6 +1,7 @@
 import { ClaimStatus, prisma } from "@repo/database";
+import { PAYMENT_SUCCESS_EVENT } from "./constants";
 import { sendEmail } from "./email";
-import { notifyPaymentSubscribers } from "./notifyPaymentSubscribers";
+import { ee } from "./eventEmitter";
 
 export const handleIncomingPayment = async (paymentRequest: string) => {
 	const claim = await prisma.claims.findUnique({
@@ -14,7 +15,7 @@ export const handleIncomingPayment = async (paymentRequest: string) => {
 		data: { status: ClaimStatus.PAID },
 	});
 
-	notifyPaymentSubscribers(paymentRequest);
+	ee.emit(PAYMENT_SUCCESS_EVENT, paymentRequest);
 
 	// todo: handle multiple platforms
 	await sendEmail(claim);

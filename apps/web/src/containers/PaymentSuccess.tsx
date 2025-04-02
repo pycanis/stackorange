@@ -1,13 +1,13 @@
-import type { Claims } from "@repo/shared";
 import { History, Pill } from "lucide-react";
 import { Button } from "../components/ui/Button";
 import { Link } from "../components/ui/Link";
+import type { Claim } from "../types";
 import { getClaimLink } from "../utils/getClaimLink";
 import { formatNumber } from "../utils/numbers";
 import { SuccessIcon } from "./SuccessIcon";
 
 type Props = {
-	claim: Claims;
+	claim: Claim;
 	onCancel: () => void;
 };
 

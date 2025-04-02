@@ -1,37 +1,33 @@
-import { type Claims, ROUTING_FEE_PERCENT, getRoutingFee } from "@repo/shared";
-import { useEffect } from "react";
+import { ROUTING_FEE_PERCENT, getRoutingFee } from "@repo/shared";
+import { useSubscription } from "@trpc/tanstack-react-query";
 import { PaymentInfo } from "../components/PaymentInfo";
 import { PaymentWait } from "../components/PaymentWait";
 import { Button } from "../components/ui/Button";
+import { trpc } from "../trpc";
+import type { Claim } from "../types";
 import { formatNumber } from "../utils/numbers";
-import { subscribeSSE } from "../utils/sse";
 
 type Props = {
-	claim: Claims;
+	claim: Claim;
 	onSuccess: () => void;
 	onCancel: () => void;
 };
 
 export const Payment = ({ claim, onSuccess, onCancel }: Props) => {
+	useSubscription(
+		trpc.payments.paymentUpdate.subscriptionOptions(claim.paymentRequest, {
+			onData: (paymentRequest: string) => {
+				if (paymentRequest === claim.paymentRequest) {
+					onSuccess();
+				}
+			},
+		}),
+	);
+
 	const routingFee = getRoutingFee(claim.receiverSatsAmount);
 	const platformSatsAmount = claim.platformSatsAmount || 0;
 
 	const total = claim.receiverSatsAmount + platformSatsAmount + routingFee;
-
-	useEffect(() => {
-		const eventSource = subscribeSSE<{ paymentId: string }>(
-			`${import.meta.env.PUBLIC_API_URL || ""}/api/payments/${claim.paymentRequest}`,
-			({ paymentId }) => {
-				if (paymentId === claim.paymentRequest) {
-					onSuccess();
-				}
-			},
-		);
-
-		return () => {
-			eventSource.close();
-		};
-	}, [claim.paymentRequest, onSuccess]);
 
 	return (
 		<>

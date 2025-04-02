@@ -1,8 +1,10 @@
-import type { Application } from "express";
-import { router as claimsRouter } from "./claims";
-import { router as paymentsRouter } from "./payments";
+import { router } from "../trpc";
+import { claimsRouter } from "./claims";
+import { paymentsRouter } from "./payments";
 
-export const registerRoutes = (app: Application) => {
-	app.use("/api/claims", claimsRouter);
-	app.use("/api/payments", paymentsRouter);
-};
+export const appRouter = router({
+	claims: claimsRouter,
+	payments: paymentsRouter,
+});
+
+export type AppRouter = typeof appRouter;

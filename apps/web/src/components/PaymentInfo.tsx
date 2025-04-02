@@ -1,5 +1,5 @@
 import { Check, Copy } from "lucide-react";
-import { useCopyToClipboard } from "../utils/useCopyToClipboard";
+import { useCopyToClipboard } from "../hooks/useCopyToClipboard";
 import { Qrcode } from "./Qrcode";
 import { Button } from "./ui/Button";
 
