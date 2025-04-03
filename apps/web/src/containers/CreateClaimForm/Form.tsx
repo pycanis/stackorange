@@ -4,7 +4,7 @@ import type { Dispatch, SetStateAction } from "react";
 import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import useLocalStorageState from "use-local-storage-state";
 import { HISTORY_CLAIM_IDS_KEY, LAST_ACTIVE_CLAIM_ID_KEY } from "../../constants";
-import { trpc } from "../../trpc";
+import { queryClient, trpc } from "../../trpc";
 import type { ClaimChannel } from "../../types";
 import { Amount } from "./Amount";
 import { Receiver } from "./Receiver";
@@ -33,6 +33,8 @@ export const Form = ({ currentStep, setStep }: Props) => {
 				if (!claim) {
 					return alert("Something went wrong");
 				}
+
+				queryClient.setQueryData(trpc.claims.getClaimsByIds.queryKey([claim.id]), [claim]);
 
 				setStep((step) => step + 1);
 				setActiveClaimId(claim.id);
