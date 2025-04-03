@@ -30,8 +30,6 @@
 		"tsx": "^4.19.3",
 		"typescript": "^5.8.2"
 	},
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"packageManager": "pnpm@10.6.4"
 }

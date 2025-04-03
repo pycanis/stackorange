@@ -5,11 +5,10 @@ type Props = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButt
 };
 
 const buttonVariants = {
-	// todo: disabled
 	primary: "text-white bg-orange hover:bg-orange/90",
-	secondary: "text-white bg-background hover:bg-white-muted/30 border border-white-muted/50",
+	secondary: "text-white bg-background hover:bg-background/10 border border-white-muted/50",
 	danger: "text-red-500 border border-red-500/50 hover:bg-red-500/10",
-	group: "",
+	group: "hover:not-disabled:text-white",
 	text: "hover:bg-white-muted/30",
 };
 

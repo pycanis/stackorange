@@ -1,5 +1,16 @@
 ---
+import { History as HistoryComponent } from "../containers/History";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout> Will be implemented soon! </Layout>
+<Layout>
+    <h1 class="text-center font-bold text-4xl mb-2">
+        Your <span class="text-orange">orange</span> pill history
+    </h1>
+
+    <h3 class="text-center text-white-muted text-xl mb-8">
+        Track all the orange pills you've sent to friends and family
+    </h3>
+
+    <HistoryComponent client:load />
+</Layout>

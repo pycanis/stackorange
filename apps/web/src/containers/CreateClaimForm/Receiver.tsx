@@ -52,7 +52,7 @@ export const Receiver = ({ setStep }: Props) => {
 						key={channel}
 						type="button"
 						onClick={() => setValue("channel", channel)}
-						className={"flex flex-1 items-center justify-center text-sm".concat(
+						className={"flex-1 items-center text-sm".concat(
 							" ",
 							selectedChannel === channel ? "bg-background font-bold" : "text-white/70",
 						)}

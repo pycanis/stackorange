@@ -21,7 +21,7 @@ export const Claim = () => {
 	);
 };
 
-export const ClaimComponent = () => {
+const ClaimComponent = () => {
 	const id = queryString.parse(window.location.search).id as string | undefined;
 	const { usdExchangeRate, fetchExchangeRate } = useBitcoinExchangeRate();
 
