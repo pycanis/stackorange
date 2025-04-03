@@ -9,8 +9,7 @@ type Props = {
 export const ClaimCard = ({ children, delay }: Props) => {
 	return (
 		<motion.div
-			style={{ visibility: "hidden" }}
-			initial={{ opacity: 0, y: 100, visibility: "visible" }}
+			initial={{ opacity: 0, y: 100 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ delay, duration: 0.5 }}
 		>

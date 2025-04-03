@@ -17,7 +17,7 @@ export const CreateClaim = () => {
 	);
 };
 
-export const CreateClaimComponent = () => {
+const CreateClaimComponent = () => {
 	const [activeClaimId, setActiveClaimId] = useLocalStorageState<string>(LAST_ACTIVE_CLAIM_ID_KEY);
 
 	const { data: claims = [] } = useQuery(
