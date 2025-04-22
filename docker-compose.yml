@@ -1,22 +1,22 @@
 name: stackorange
 
 services:
-  traefik:
-    image: traefik:v3.3
-    command: --providers.docker
-    restart: unless-stopped
-    environment:
-      CF_API_EMAIL: ${CF_API_EMAIL}
-      CF_DNS_API_TOKEN: ${CF_DNS_API_TOKEN}
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./traefik.yml:/etc/traefik/traefik.yml:ro
-      - ./.certs:/var/traefik/certs:rw
-    networks:
-      - app
+  # traefik:
+  #   image: traefik:v3.3
+  #   command: --providers.docker
+  #   restart: unless-stopped
+  #   environment:
+  #     CF_API_EMAIL: ${CF_API_EMAIL}
+  #     CF_DNS_API_TOKEN: ${CF_DNS_API_TOKEN}
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - ./traefik.yml:/etc/traefik/traefik.yml:ro
+  #     - ./.certs:/var/traefik/certs:rw
+  #   networks:
+  #     - app
 
   app:
     build:
@@ -25,20 +25,21 @@ services:
     restart: unless-stopped
     volumes:
       - ./.db:/app/db:rw
-      - ./.lnd/data/chain/bitcoin/mainnet/admin.macaroon:/app/lnd/admin.macaroon:ro
+      - ./.lnd/admin.macaroon:/app/lnd/admin.macaroon:ro
       - ./.lnd/tls.cert:/app/lnd/tls.cert:ro
     ports:
-      - "127.0.0.1:3000:3000"
-    networks:
-      - app
-      - lightning
-    labels:
-      - traefik.enable=true
-      - traefik.docker.network=app
-      - traefik.http.routers.app.rule=Host(`stackorange.com`)
-      - traefik.http.routers.app.entrypoints=websecure
-      - traefik.http.routers.app.tls=true
-      - traefik.http.routers.app.tls.certresolver=cloudflare
+      - "5000:3000"
+    #  - "127.0.0.1:3000:3000"
+    # networks:
+    #   - app
+    #   - lightning
+    # labels:
+    #   - traefik.enable=true
+    #   - traefik.docker.network=app
+    #   - traefik.http.routers.app.rule=Host(`stackorange.com`)
+    #   - traefik.http.routers.app.entrypoints=websecure
+    #   - traefik.http.routers.app.tls=true
+    #   - traefik.http.routers.app.tls.certresolver=cloudflare
     environment:
       DATABASE_URL: ${DATABASE_URL}
       LND_REST_ENDPOINT: ${LND_REST_ENDPOINT}
@@ -48,31 +49,31 @@ services:
       SMTP_HOST: ${SMTP_HOST}
       SMTP_USER: ${SMTP_USER}
       SMTP_PASSWORD: ${SMTP_PASSWORD}
-    depends_on:
-      - lnd
+    # depends_on:
+    #   - lnd
 
-  bitcoind:
-    build:
-      context: .
-      dockerfile: bitcoin-core.Dockerfile
-    restart: unless-stopped
-    volumes:
-      - ./.bitcoin:/home/bitcoin/.bitcoin
-    networks:
-      - bitcoin
+  # bitcoind:
+  #   build:
+  #     context: .
+  #     dockerfile: bitcoin-core.Dockerfile
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./.bitcoin:/home/bitcoin/.bitcoin
+  #   networks:
+  #     - bitcoin
 
-  lnd:
-    image: lightninglabs/lnd:v0.18.5-beta
-    restart: unless-stopped
-    volumes:
-      - ./.lnd:/root/.lnd
-    networks:
-      - bitcoin
-      - lightning
-    depends_on:
-      - bitcoind
+  # lnd:
+  #   image: lightninglabs/lnd:v0.18.5-beta
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./.lnd:/root/.lnd
+  #   networks:
+  #     - bitcoin
+  #     - lightning
+  #   depends_on:
+  #     - bitcoind
 
-networks:
-  app:
-  bitcoin:
-  lightning:
+# networks:
+#   app:
+#   bitcoin:
+#   lightning:
